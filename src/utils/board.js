@@ -43,10 +43,10 @@ export function setInitialBoardState() {
     ];
 
     const startingPositionPieceArrayTest = [
+        null, null, null, 'r', null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, null, null, 'P', null, null, null,
+        null, null, 'K', null, null, null, null, null,
+        null, null, null, null, null, 'B', null, null,
         null, null, null, 'Q', null, null, null, null,
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
@@ -56,19 +56,19 @@ export function setInitialBoardState() {
     function placePiece(pieceIdentifier, octalSquare) {
         const pieceRef = {
             // dark piece
-            'b': <Bishop />,
-            'k': <King />,
+            'b': <Bishop octalSquare={octalSquare} color="dark" />,
+            'k': <King octalSquare={octalSquare} color="dark" />,
             'n': <Knight />,
             'p': <Pawn octalSquare={octalSquare} color="dark" hasMoved={false} />,
-            'q': <Queen />,
+            'q': <Queen octalSquare={octalSquare} color="dark" />,
             'r': <Rook />,
 
             // light pieces
-            'B': <Bishop />,
+            'B': <Bishop octalSquare={octalSquare} color="dark" />,
             'K': <King />,
-            'N': <Knight />,
+            'N': <Knight octalSquare={octalSquare} color="dark" />,
             'P': <Pawn octalSquare={octalSquare} color="light" hasMoved={false} />,
-            'Q': <Queen />,
+            'Q': <Queen octalSquare={octalSquare} color="dark" />,
             'R': <Rook />
         }
 
