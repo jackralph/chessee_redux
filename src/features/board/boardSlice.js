@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { setInitialBoardState } from './board'
+import { setInitialBoardState } from '../../utils/board'
 
 export const boardSlice = createSlice({
   name: 'counter',

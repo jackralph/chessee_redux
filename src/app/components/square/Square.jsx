@@ -8,8 +8,8 @@ export function Square(props) {
     const { square } = props;
 
     return (
-        <div style={{color: "red"}}>
-            { boardState[square].piece.pieceElement } {square}
+        <div id={square} style={{color: "red"}}>
+            { square } { boardState[square].piece.pieceElement }
         </div>
     )
 }

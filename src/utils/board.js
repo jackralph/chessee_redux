@@ -1,9 +1,10 @@
-import { Bishop } from '../../app/components/piece/bishop/Bishop.jsx'
-import { King } from '../../app/components/piece/king/King.jsx'
-import { Knight } from '../../app/components/piece/knight/Knight.jsx'
-import { Pawn } from '../../app/components/piece/pawn/Pawn.jsx'
-import { Queen } from '../../app/components/piece/queen/Queen.jsx'
-import { Rook} from '../../app/components/piece/rook/Rook.jsx'
+import { Bishop } from '../app/components/piece/bishop/Bishop.jsx'
+import { King } from '../app/components/piece/king/King.jsx'
+import { Knight } from '../app/components/piece/knight/Knight.jsx'
+import { Pawn } from '../app/components/piece/pawn/Pawn.jsx'
+import { Queen } from '../app/components/piece/queen/Queen.jsx'
+import { Rook} from '../app/components/piece/rook/Rook.jsx'
+import { calculateMoves } from './move.js'
 
 export function setInitialBoardState() {
     let boardState = {};
@@ -41,6 +42,17 @@ export function setInitialBoardState() {
         'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
     ];
 
+    const startingPositionPieceArrayTest = [
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, 'P', null, null, null,
+        null, null, null, 'Q', null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+    ];
+
     function placePiece(pieceIdentifier, octalSquare) {
         const pieceRef = {
             // dark piece
@@ -72,11 +84,20 @@ export function setInitialBoardState() {
             algebraicNotation: boardAlgebraicArray[i],
             octalNotation: octalSquare,
             piece: {
-                pieceElement: placePiece(startingPositionPieceArray[i], octalSquare),
+                pieceElement: placePiece(startingPositionPieceArrayTest[i], octalSquare),
                 legalMoves: []
             },
         };
     });
+
+    console.log(boardState);
+
+    for (const square in boardState) {
+        const hasPiece = boardState[square].piece.pieceElement !== null;
+        if (hasPiece) {
+            calculateMoves(boardOctalArray, boardState, square);
+        }
+    }
 
     return boardState;
 }
