@@ -5,7 +5,7 @@ function squareHasPiece(boardState, square) {
 function pieceIsSameColor(boardState, square, pieceColor) {
     const targetPieceColor = boardState[square].piece.pieceElement.props.color;
 
-    return targetPieceColor == pieceColor;
+    return targetPieceColor === pieceColor;
 }
 
 function moveCondition(boardOctalArray, limiter, square, iteration) {
@@ -204,11 +204,13 @@ function knightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
     ].map(function(move) {
         if (moveCondition(boardOctalArray, limiter, move)) {
             if (!squareHasPiece(boardState, move)) {
-                knightMovesArray.push(move);
+                return knightMovesArray.push(move);
             } else if (!pieceIsSameColor(boardState, move, pieceColor)) {
-                knightMovesArray.push(move);
+                return knightMovesArray.push(move);
             }
+            return null;
         }
+        return null;
     });
     
     return knightMovesArray;
@@ -273,5 +275,7 @@ export function calculateMoves(boardOctalArray, boardState, square) {
             movesArray = [...verticalMovesArray, ...horizontalMovesArray];
             console.log(`moves for Rook... ${movesArray}`);
             break;
+        default:
+            throw new Error("Unknown piece");
     }
 }

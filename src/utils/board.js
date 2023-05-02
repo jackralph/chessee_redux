@@ -42,16 +42,16 @@ export function setInitialBoardState() {
         'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
     ];
 
-    const startingPositionPieceArrayTest = [
-        null, null, null, 'R', null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, 'p', null, null, null, null, null,
-        null, 'K', null, 'b', null, null, null, null,
-        null, null, 'P', null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, null, 'r', null, null, null, null,
-    ];
+    // const startingPositionPieceArrayTest = [
+    //     null, null, null, 'R', null, null, null, null,
+    //     null, null, null, null, null, null, null, null,
+    //     null, null, null, null, null, null, null, null,
+    //     null, null, 'p', null, null, null, null, null,
+    //     null, 'K', null, 'b', null, null, null, null,
+    //     null, null, 'P', null, null, null, null, null,
+    //     null, null, null, null, null, null, null, null,
+    //     null, null, null, 'r', null, null, null, null,
+    // ];
 
     function placePiece(pieceIdentifier, octalSquare) {
         const pieceRef = {
