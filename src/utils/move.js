@@ -178,6 +178,38 @@ function verticalMovesPawn(boardOctalArray, boardState, limiter, square) {
     return verticalMovesArray;
 }
 
+function knightMoves(boardOctalArray, boardState, limiter, square) {
+    let knightMovesArray = [];
+
+    let squareNumber = Number(square);
+
+    let northTwoWestOne = squareNumber - 21;
+    let northTwoEastOne = squareNumber - 19;
+    let eastTwoNorthOne = squareNumber - 8;
+    let eastTwoSouthOne = squareNumber + 12;
+    let southTwoEastOne = squareNumber + 21;
+    let southTwoWestOne = squareNumber + 19;
+    let westTwoSouthOne = squareNumber + 8;
+    let westTwoNorthOne = squareNumber - 12;
+
+    [
+        northTwoWestOne,
+        northTwoEastOne,
+        eastTwoNorthOne,
+        eastTwoSouthOne,
+        southTwoEastOne,
+        southTwoWestOne,
+        westTwoSouthOne,
+        westTwoNorthOne
+    ].map(move => {
+        if (moveCondition(boardOctalArray, limiter, move)) {
+            knightMovesArray.push(move);
+        }
+    });
+    
+    return knightMovesArray;
+}
+
 export function calculateMoves(boardOctalArray, boardState, square) {
     const piece = boardState[square].piece;
     const pieceElement = piece.pieceElement;
@@ -203,6 +235,11 @@ export function calculateMoves(boardOctalArray, boardState, square) {
             diagonalMovesArray = diagonalMoves(boardOctalArray, boardState, limiter, square);
             movesArray = [...verticalMovesArray, ...horizontalMovesArray, ...diagonalMovesArray];
             console.log(`moves for King... ${movesArray}`);
+            break;
+        case "Knight":
+            console.group("calculating moves for Knight");
+            let knightMovesArray = knightMoves(boardOctalArray, boardState, limiter, square);
+            console.log(knightMovesArray);
             break;
         case "Pawn":
             limiter = piece.hasMoved ? 1 : 2;

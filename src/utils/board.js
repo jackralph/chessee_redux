@@ -43,14 +43,14 @@ export function setInitialBoardState() {
     ];
 
     const startingPositionPieceArrayTest = [
-        null, null, null, 'r', null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, null, 'K', null, null, null, null, null,
-        null, null, null, null, null, 'B', null, null,
         null, null, null, null, null, null, null, null,
-        null, null, null, null, 'p', null, null, null,
-        null, null, null, null, null, 'P', null, null,
         null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, 'N', null, null, null, 'N',
     ];
 
     function placePiece(pieceIdentifier, octalSquare) {
@@ -58,18 +58,18 @@ export function setInitialBoardState() {
             // dark piece
             'b': <Bishop octalSquare={octalSquare} color="dark" />,
             'k': <King octalSquare={octalSquare} color="dark" />,
-            'n': <Knight />,
+            'n': <Knight octalSquare={octalSquare} color="dark" />,
             'p': <Pawn octalSquare={octalSquare} color="dark" />,
             'q': <Queen octalSquare={octalSquare} color="dark" />,
-            'r': <Rook />,
+            'r': <Rook octalSquare={octalSquare} color="dark" />,
 
             // light pieces
-            'B': <Bishop octalSquare={octalSquare} color="dark" />,
-            'K': <King />,
-            'N': <Knight octalSquare={octalSquare} color="dark" />,
+            'B': <Bishop octalSquare={octalSquare} color="light" />,
+            'K': <King octalSquare={octalSquare} color="light" />,
+            'N': <Knight octalSquare={octalSquare} color="light" />,
             'P': <Pawn octalSquare={octalSquare} color="light" />,
-            'Q': <Queen octalSquare={octalSquare} color="dark" />,
-            'R': <Rook />
+            'Q': <Queen octalSquare={octalSquare} color="light" />,
+            'R': <Rook octalSquare={octalSquare} color="light" />
         }
 
         if (!pieceIdentifier) {
