@@ -37,20 +37,20 @@ export function setInitialBoardState() {
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
+        null, 'p', null, null, null, null, null, null,
         'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
         'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
     ];
 
     const startingPositionPieceArrayTest = [
+        null, null, null, 'R', null, null, null, null,
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
+        null, null, 'p', null, null, null, null, null,
         null, 'K', null, 'b', null, null, null, null,
         null, null, 'P', null, null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
+        null, null, null, 'r', null, null, null, null,
     ];
 
     function placePiece(pieceIdentifier, octalSquare) {
@@ -84,7 +84,7 @@ export function setInitialBoardState() {
             algebraicNotation: boardAlgebraicArray[i],
             octalNotation: octalSquare,
             piece: {
-                pieceElement: placePiece(startingPositionPieceArrayTest[i], octalSquare),
+                pieceElement: placePiece(startingPositionPieceArray[i], octalSquare),
                 legalMoves: [],
                 hasMoved: false,
             },
