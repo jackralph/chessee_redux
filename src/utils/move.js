@@ -229,51 +229,56 @@ export function calculateMoves(boardOctalArray, boardState, square) {
 
     switch(pieceName) {
         case "Bishop":
-            console.log(`calculating moves for Bishop on ${square}`);
+            console.group(`calculating moves for Bishop on ${square}`);
             diagonalMovesArray = diagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...diagonalMovesArray];
             console.log(`moves for Bishop... ${movesArray}`);
+            console.groupEnd();
             break;
         case "King":
             limiter = 1;
-            console.log(`calculating moves for King on ${square}`);
+            console.group(`calculating moves for King on ${square}`);
             verticalMovesArray = verticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             horizontalMovesArray = horizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             diagonalMovesArray = diagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...verticalMovesArray, ...horizontalMovesArray, ...diagonalMovesArray];
             console.log(`moves for King... ${movesArray}`);
+            console.groupEnd();
             break;
         case "Knight":
             console.group(`calculating moves for Knight on ${square}`);
             const knightMovesArray = knightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...knightMovesArray];
             console.log(`moves for Knight... ${movesArray}`);
+            console.groupEnd();
             break;
         case "Pawn":
             limiter = piece.hasMoved ? 1 : 2;
             const pawnDirection = pieceColor === "light" ? 1 : -1;
-            console.log(`calculating moves for Pawn on ${square}`);
+            console.group(`calculating moves for Pawn on ${square}`);
             verticalMovesArray = verticalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, square);
-            console.log(`changing limiter from ${limiter} to 1 for diagonal moves`);
             limiter = 1;
             diagonalMovesArray = diagonalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, pieceColor, square);
             movesArray = [...verticalMovesArray, ...diagonalMovesArray];
             console.log(`moves for Pawn... ${movesArray}`);
+            console.groupEnd();
             break;
         case "Queen":
-            console.log(`calculating moves for Queen on ${square}`);
+            console.group(`calculating moves for Queen on ${square}`);
             verticalMovesArray = verticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             horizontalMovesArray = horizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             diagonalMovesArray = diagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...verticalMovesArray, ...horizontalMovesArray, ...diagonalMovesArray];
             console.log(`moves for Queen... ${movesArray}`);
+            console.groupEnd();
             break;
         case "Rook":
-            console.log(`calculating moves for Rook on ${square}`);
+            console.group(`calculating moves for Rook on ${square}`);
             verticalMovesArray = verticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             horizontalMovesArray = horizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...verticalMovesArray, ...horizontalMovesArray];
             console.log(`moves for Rook... ${movesArray}`);
+            console.groupEnd();
             break;
         default:
             throw new Error("Unknown piece");

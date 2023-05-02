@@ -37,7 +37,7 @@ export function setInitialBoardState() {
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, 'p', null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
         'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
         'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
     ];
@@ -90,8 +90,6 @@ export function setInitialBoardState() {
             },
         };
     });
-
-    console.log(boardState);
 
     for (const square in boardState) {
         const hasPiece = boardState[square].piece.pieceElement !== null;
