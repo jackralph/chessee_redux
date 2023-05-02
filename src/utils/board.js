@@ -47,10 +47,10 @@ export function setInitialBoardState() {
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
+        null, 'K', null, 'b', null, null, null, null,
+        null, null, 'P', null, null, null, null, null,
         null, null, null, null, null, null, null, null,
         null, null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null, null,
-        null, null, null, 'N', null, null, null, 'N',
     ];
 
     function placePiece(pieceIdentifier, octalSquare) {
