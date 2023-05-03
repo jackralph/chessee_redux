@@ -9,7 +9,7 @@
 }
 
 .board div {
-    border: 1px solid black;
+    border: 1px solid grey;
     background-color: white;
 }
 
@@ -21,5 +21,5 @@
 .board div:nth-child(n + 41):nth-child(-n + 48):nth-child(odd),
 .board div:nth-child(n + 49):nth-child(-n + 56):nth-child(even),
 .board div:nth-child(n + 57):nth-child(-n + 64):nth-child(odd) {
-    background-color: black;
+    background-color: grey;
 }

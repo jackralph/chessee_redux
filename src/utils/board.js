@@ -4,6 +4,7 @@ import { Knight } from '../app/components/piece/knight/Knight.jsx'
 import { Pawn } from '../app/components/piece/pawn/Pawn.jsx'
 import { Queen } from '../app/components/piece/queen/Queen.jsx'
 import { Rook} from '../app/components/piece/rook/Rook.jsx'
+
 import { calculateMoves } from './move.js'
 
 export function setInitialBoardState() {
@@ -42,16 +43,16 @@ export function setInitialBoardState() {
         'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
     ];
 
-    // const startingPositionPieceArrayTest = [
-    //     null, null, null, 'R', null, null, null, null,
-    //     null, null, null, null, null, null, null, null,
-    //     null, null, null, null, null, null, null, null,
-    //     null, null, 'p', null, null, null, null, null,
-    //     null, 'K', null, 'b', null, null, null, null,
-    //     null, null, 'P', null, null, null, null, null,
-    //     null, null, null, null, null, null, null, null,
-    //     null, null, null, 'r', null, null, null, null,
-    // ];
+    const startingPositionPieceArrayTest = [
+        'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
+        'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null,
+        'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
+        'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
+    ];
 
     function placePiece(pieceIdentifier, octalSquare) {
         const pieceRef = {
@@ -84,9 +85,9 @@ export function setInitialBoardState() {
             algebraicNotation: boardAlgebraicArray[i],
             octalNotation: octalSquare,
             piece: {
-                pieceElement: placePiece(startingPositionPieceArray[i], octalSquare),
-                legalMoves: [],
                 hasMoved: false,
+                legalMoves: [],
+                pieceElement: placePiece(startingPositionPieceArrayTest[i], octalSquare),
             },
         };
     });

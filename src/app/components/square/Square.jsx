@@ -8,7 +8,7 @@ export function Square(props) {
     const { square } = props;
 
     return (
-        <div id={square} style={{color: "red"}}>
+        <div id={square} style={{color: "black", fontWeight: "bold"}}>
             { square } { boardState[square].piece.pieceElement }
         </div>
     )
