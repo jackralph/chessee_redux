@@ -283,4 +283,6 @@ export function calculateMoves(boardOctalArray, boardState, square) {
         default:
             throw new Error("Unknown piece");
     }
+
+    return movesArray;
 }
