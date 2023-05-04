@@ -83,20 +83,29 @@ export function setBoardState() {
     }
 
     boardOctalArray.map(function(octalSquare, i) {
-        return boardState[octalSquare] = {
-            algebraicNotation: boardAlgebraicArray[i],
-            octalNotation: octalSquare,
-            piece: {
-                hasMoved: false,
-                legalMoves: [],
-                pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
-                pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
-            },
-        };
+        const hasPiece = startingPositionPieceArrayTest[i] !== null;
+        if (hasPiece) {
+            return boardState[octalSquare] = {
+                algebraicNotation: boardAlgebraicArray[i],
+                octalNotation: octalSquare,
+                piece: {
+                    hasMoved: false,
+                    legalMoves: [],
+                    pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
+                    pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
+                },
+            };
+        } else {
+            return boardState[octalSquare] = {
+                algebraicNotation: boardAlgebraicArray[i],
+                octalNotation: octalSquare
+            };
+        }
     });
 
     for (const square in boardState) {
-        const hasPiece = boardState[square].piece.pieceName !== null;
+        const hasPiece = !!boardState[square].piece;
+
         if (hasPiece) {
             const pieceColor = boardState[square].piece.pieceColor;
             const pieceName = boardState[square].piece.pieceName;

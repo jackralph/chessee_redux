@@ -1,5 +1,5 @@
 function squareHasPiece(boardState, square) {
-    return boardState[square].piece.pieceName !== null
+    return !!boardState[square].piece
 }
 
 function pieceIsSameColor(boardState, square, pieceColor) {

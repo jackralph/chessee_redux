@@ -9,12 +9,20 @@ export function Board() {
     return (
         <div className="board">
             { Object.keys(boardState).map(function(square) {
-                return <Square
-                key={square}
-                square={square}
-                pieceName={boardState[square].piece.pieceName}
-                pieceColor={boardState[square].piece.pieceColor}
-                />
+                const hasPiece = !!boardState[square].piece
+                if (hasPiece) {
+                    return <Square
+                    key={square}
+                    square={square}
+                    pieceName={boardState[square].piece && boardState[square].piece.pieceName}
+                    pieceColor={boardState[square].piece && boardState[square].piece.pieceColor}
+                    />
+                } else {
+                    return <Square
+                    key={square}
+                    square={square}
+                    />
+                }
             })}
         </div>
     );

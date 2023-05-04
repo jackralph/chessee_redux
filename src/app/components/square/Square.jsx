@@ -1,7 +1,7 @@
 import './square.css'
 
-import { useSelector } from 'react-redux'
-import { useState } from "react";
+// import { useSelector } from 'react-redux';
+// import { useState } from "react";
 
 export function Square(props) {
     // const [octalSquareClicked, setOctalSquareClicked] = useState(null);
@@ -12,7 +12,7 @@ export function Square(props) {
     const { pieceColor, pieceName, square } = props;
 
     
-    if (pieceName) {
+    if (pieceName && pieceColor) {
         const pieceStyle = {
             backgroundImage: `url(${process.env.PUBLIC_URL}/assets/piece/${pieceName}_${pieceColor}.png)`,
             backgroundRepeat: "no-repeat",
