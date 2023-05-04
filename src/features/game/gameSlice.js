@@ -9,14 +9,10 @@ export const gameSlice = createSlice({
             board: setBoardState(),
         } 
     },
-    reducers: {
-        movePiece: (state) => {
-            console.log("moving piece...");
-        }
-    },
+    reducers: {},
 })
 
 // Action creators are generated for each case reducer function
-export const { } = gameSlice.actions
+export const {} = gameSlice.actions
 
 export default gameSlice.reducer

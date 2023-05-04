@@ -12,6 +12,8 @@ export function Board() {
                 return <Square
                 key={square}
                 square={square}
+                pieceName={boardState[square].piece.pieceName}
+                pieceColor={boardState[square].piece.pieceColor}
                 />
             })}
         </div>

@@ -1,9 +1,9 @@
 function squareHasPiece(boardState, square) {
-    return boardState[square].piece.pieceElement !== null
+    return boardState[square].piece.pieceName !== null
 }
 
 function pieceIsSameColor(boardState, square, pieceColor) {
-    const targetPieceColor = boardState[square].piece.pieceElement.props.color;
+    const targetPieceColor = boardState[square].piece.pieceColor;
 
     return targetPieceColor === pieceColor;
 }
@@ -216,11 +216,8 @@ function knightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
     return knightMovesArray;
 }
 
-export function calculateMoves(boardOctalArray, boardState, square) {
+export function calculateMoves(boardOctalArray, boardState, pieceColor, pieceName, square) {
     const piece = boardState[square].piece;
-    const pieceElement = piece.pieceElement;
-    const pieceColor = pieceElement.props.color;
-    const pieceName = pieceElement.props.name;
     let verticalMovesArray = [];
     let horizontalMovesArray = [];
     let diagonalMovesArray = [];

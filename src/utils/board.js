@@ -1,5 +1,3 @@
-import { Piece } from "../app/components/piece/Piece.jsx"
-
 import { calculateMoves } from './move.js'
 
 const boardAlgebraicArray = [
@@ -49,14 +47,7 @@ const startingPositionPieceArrayTest = [
 export function setBoardState() {
     let boardState = {};
 
-    function placePiece(pieceIdentifier, octalSquare) {
-        function pieceColor(input) {  
-            if (input === String(input).toLowerCase()) {
-                return "dark";
-            } else {
-                return "light";
-            }
-        }
+    function placePiece(pieceIdentifier) {
 
         const pieceRef = {
             // dark piece
@@ -74,12 +65,20 @@ export function setBoardState() {
             'P': 'pawn',
             'Q': 'queen',
             'R': 'rook',
-        }
+        };
 
         if (!pieceIdentifier) {
-            return null
+            return null;
         } else {
-            return <Piece octalSquare={octalSquare} color={pieceColor(pieceIdentifier)} name={pieceRef[pieceIdentifier]} />
+            return pieceRef[pieceIdentifier];
+        }
+    }
+
+    function setPieceColor(pieceIdentifier) {  
+        if (pieceIdentifier === String(pieceIdentifier).toLowerCase()) {
+            return "dark";
+        } else {
+            return "light";
         }
     }
 
@@ -90,15 +89,25 @@ export function setBoardState() {
             piece: {
                 hasMoved: false,
                 legalMoves: [],
-                pieceElement: placePiece(startingPositionPieceArrayTest[i], octalSquare),
+                pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
+                pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
             },
         };
     });
 
     for (const square in boardState) {
-        const hasPiece = boardState[square].piece.pieceElement !== null;
+        const hasPiece = boardState[square].piece.pieceName !== null;
         if (hasPiece) {
-            boardState[square].piece.legalMoves = calculateMoves(boardOctalArray, boardState, square);
+            const pieceColor = boardState[square].piece.pieceColor;
+            const pieceName = boardState[square].piece.pieceName;
+
+            boardState[square].piece.legalMoves = calculateMoves(
+                boardOctalArray,
+                boardState,
+                pieceColor,
+                pieceName,
+                square
+            );
         }
     }
 
