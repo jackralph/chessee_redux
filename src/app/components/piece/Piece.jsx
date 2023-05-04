@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 export function Piece(props) {
     const { octalSquare, color, name } = props;
 
-    const boardState = useSelector((state) => state.board.value);
+    const boardState = useSelector((state) => state.game.value.board);
     const dispatch = useDispatch();
 
     const selectPiece = () => {
         const pieceSelected = boardState[octalSquare].piece;
         console.log(`selected piece on ${octalSquare}`);
         console.log(`legal moves: ${pieceSelected.legalMoves}`);
-
     }
 
     return ( 

@@ -4,7 +4,7 @@ import { Square } from '../square/Square';
 import { useSelector } from 'react-redux'
 
 export function Board() {
-    const boardState = useSelector((state) => state.board.value)
+    const boardState = useSelector((state) => state.game.value.board)
 
     return (
         <div className="board">

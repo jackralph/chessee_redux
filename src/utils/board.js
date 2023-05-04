@@ -1,10 +1,4 @@
 import { Piece } from "../app/components/piece/Piece.jsx"
-import { Bishop } from '../app/components/piece/bishop/Bishop.jsx'
-import { King } from '../app/components/piece/king/King.jsx'
-import { Knight } from '../app/components/piece/knight/Knight.jsx'
-import { Pawn } from '../app/components/piece/pawn/Pawn.jsx'
-import { Queen } from '../app/components/piece/queen/Queen.jsx'
-import { Rook} from '../app/components/piece/rook/Rook.jsx'
 
 import { calculateMoves } from './move.js'
 

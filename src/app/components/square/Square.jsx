@@ -3,7 +3,7 @@ import './square.css'
 import { useSelector } from 'react-redux'
 
 export function Square(props) {
-    const boardState = useSelector((state) => state.board.value)
+    const boardState = useSelector((state) => state.game.value.board)
 
     const { square } = props;
 
