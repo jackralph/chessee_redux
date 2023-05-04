@@ -1,3 +1,4 @@
+import { Piece } from "../app/components/piece/Piece.jsx"
 import { Bishop } from '../app/components/piece/bishop/Bishop.jsx'
 import { King } from '../app/components/piece/king/King.jsx'
 import { Knight } from '../app/components/piece/knight/Knight.jsx'
@@ -55,28 +56,36 @@ export function setInitialBoardState() {
     ];
 
     function placePiece(pieceIdentifier, octalSquare) {
+        function pieceColor(input) {  
+            if (input === String(input).toLowerCase()) {
+                return "dark";
+            } else {
+                return "light";
+            }
+        }
+
         const pieceRef = {
             // dark piece
-            'b': <Bishop octalSquare={octalSquare} color="dark" />,
-            'k': <King octalSquare={octalSquare} color="dark" />,
-            'n': <Knight octalSquare={octalSquare} color="dark" />,
-            'p': <Pawn octalSquare={octalSquare} color="dark" />,
-            'q': <Queen octalSquare={octalSquare} color="dark" />,
-            'r': <Rook octalSquare={octalSquare} color="dark" />,
+            'b': 'bishop',
+            'k': 'king',
+            'n': 'knight',
+            'p': 'pawn',
+            'q': 'queen',
+            'r': 'rook',
 
             // light pieces
-            'B': <Bishop octalSquare={octalSquare} color="light" />,
-            'K': <King octalSquare={octalSquare} color="light" />,
-            'N': <Knight octalSquare={octalSquare} color="light" />,
-            'P': <Pawn octalSquare={octalSquare} color="light" />,
-            'Q': <Queen octalSquare={octalSquare} color="light" />,
-            'R': <Rook octalSquare={octalSquare} color="light" />
+            'B': 'bishop',
+            'K': 'king',
+            'N': 'knight',
+            'P': 'pawn',
+            'Q': 'queen',
+            'R': 'rook',
         }
 
         if (!pieceIdentifier) {
             return null
         } else {
-            return pieceRef[pieceIdentifier]
+            return <Piece octalSquare={octalSquare} color={pieceColor(pieceIdentifier)} name={pieceRef[pieceIdentifier]} />
         }
     }
 

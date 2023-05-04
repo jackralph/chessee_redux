@@ -220,7 +220,7 @@ export function calculateMoves(boardOctalArray, boardState, square) {
     const piece = boardState[square].piece;
     const pieceElement = piece.pieceElement;
     const pieceColor = pieceElement.props.color;
-    const pieceName = pieceElement.type.name;
+    const pieceName = pieceElement.props.name;
     let verticalMovesArray = [];
     let horizontalMovesArray = [];
     let diagonalMovesArray = [];
@@ -228,14 +228,14 @@ export function calculateMoves(boardOctalArray, boardState, square) {
     let limiter = 0;
 
     switch(pieceName) {
-        case "Bishop":
+        case "bishop":
             console.group(`calculating moves for Bishop on ${square}`);
             diagonalMovesArray = diagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...diagonalMovesArray];
             console.log(`moves for Bishop... ${movesArray}`);
             console.groupEnd();
             break;
-        case "King":
+        case "king":
             limiter = 1;
             console.group(`calculating moves for King on ${square}`);
             verticalMovesArray = verticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
@@ -245,14 +245,14 @@ export function calculateMoves(boardOctalArray, boardState, square) {
             console.log(`moves for King... ${movesArray}`);
             console.groupEnd();
             break;
-        case "Knight":
+        case "knight":
             console.group(`calculating moves for Knight on ${square}`);
             const knightMovesArray = knightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             movesArray = [...knightMovesArray];
             console.log(`moves for Knight... ${movesArray}`);
             console.groupEnd();
             break;
-        case "Pawn":
+        case "pawn":
             limiter = piece.hasMoved ? 1 : 2;
             const pawnDirection = pieceColor === "light" ? 1 : -1;
             console.group(`calculating moves for Pawn on ${square}`);
@@ -263,7 +263,7 @@ export function calculateMoves(boardOctalArray, boardState, square) {
             console.log(`moves for Pawn... ${movesArray}`);
             console.groupEnd();
             break;
-        case "Queen":
+        case "queen":
             console.group(`calculating moves for Queen on ${square}`);
             verticalMovesArray = verticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             horizontalMovesArray = horizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
@@ -272,7 +272,7 @@ export function calculateMoves(boardOctalArray, boardState, square) {
             console.log(`moves for Queen... ${movesArray}`);
             console.groupEnd();
             break;
-        case "Rook":
+        case "rook":
             console.group(`calculating moves for Rook on ${square}`);
             verticalMovesArray = verticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             horizontalMovesArray = horizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
