@@ -22,17 +22,6 @@ const boardOctalArray = [
     70, 71, 72, 73, 74, 75, 76, 77
 ];
 
-const startingPositionPieceArray = [
-    'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
-    'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
-    'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
-];
-
 const startingPositionPieceArrayTest = [
     'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
     'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
@@ -44,43 +33,42 @@ const startingPositionPieceArrayTest = [
     'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
 ];
 
+const pieceRef = {
+    // dark piece
+    'b': 'bishop',
+    'k': 'king',
+    'n': 'knight',
+    'p': 'pawn',
+    'q': 'queen',
+    'r': 'rook',
+
+    // light pieces
+    'B': 'bishop',
+    'K': 'king',
+    'N': 'knight',
+    'P': 'pawn',
+    'Q': 'queen',
+    'R': 'rook',
+};
+
+function placePiece(pieceIdentifier) {
+    if (!pieceIdentifier) {
+        return null;
+    } else {
+        return pieceRef[pieceIdentifier];
+    }
+}
+
+function setPieceColor(pieceIdentifier) {  
+    if (pieceIdentifier === String(pieceIdentifier).toLowerCase()) {
+        return "dark";
+    } else {
+        return "light";
+    }
+}
+
 export function setBoardState() {
     let boardState = {};
-
-    function placePiece(pieceIdentifier) {
-
-        const pieceRef = {
-            // dark piece
-            'b': 'bishop',
-            'k': 'king',
-            'n': 'knight',
-            'p': 'pawn',
-            'q': 'queen',
-            'r': 'rook',
-
-            // light pieces
-            'B': 'bishop',
-            'K': 'king',
-            'N': 'knight',
-            'P': 'pawn',
-            'Q': 'queen',
-            'R': 'rook',
-        };
-
-        if (!pieceIdentifier) {
-            return null;
-        } else {
-            return pieceRef[pieceIdentifier];
-        }
-    }
-
-    function setPieceColor(pieceIdentifier) {  
-        if (pieceIdentifier === String(pieceIdentifier).toLowerCase()) {
-            return "dark";
-        } else {
-            return "light";
-        }
-    }
 
     boardOctalArray.map(function(octalSquare, i) {
         const hasPiece = startingPositionPieceArrayTest[i] !== null;
@@ -121,4 +109,49 @@ export function setBoardState() {
     }
 
     return boardState;
+}
+
+export function updateBoardState(boardState, originSquare, targetSquare) {
+    let boardStateCopy = { ...boardState };
+
+    const originSquareState = boardStateCopy[originSquare];
+    const targetSquareState = boardStateCopy[targetSquare];
+
+    boardStateCopy[targetSquare] = {
+        ...targetSquareState,
+        piece: {
+            ...originSquareState.piece,
+            hasMoved: true
+        }
+    }
+
+    boardStateCopy[originSquare] = {
+        algebraicNotation: originSquareState.algebraicNotation,
+        octalNotation: originSquareState.octalNotation
+    }
+
+    for (const square in boardStateCopy) {
+        const hasPiece = !!boardStateCopy[square].piece;
+
+        if (hasPiece) {
+            const pieceColor = boardStateCopy[square].piece.pieceColor;
+            const pieceName = boardStateCopy[square].piece.pieceName;
+
+            boardStateCopy[square] = {
+                ...boardStateCopy[square],
+                piece: {
+                    ...boardStateCopy[square].piece,
+                    legalMoves: calculateMoves(
+                        boardOctalArray,
+                        boardStateCopy,
+                        pieceColor,
+                        pieceName,
+                        square
+                    ) 
+                }
+            };
+        }
+    }
+
+    return boardStateCopy;
 }

@@ -1,24 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { setBoardState } from '../utils/board'
+import { updateBoardState, setBoardState } from '../utils/board'
 
 export const homeSlice = createSlice({
     name: 'game',
     initialState: { 
-        value: {
-            board: setBoardState(),
-        } 
+        value: setBoardState() 
     },
     reducers: {
-        selectPiece(state, action) {
-            const { square } = action.payload;
-
-            console.log(square);
+        movePiece(state, action) {
+            const { boardState, originSquare, targetSquare } = action.payload;
+            const updatedBoardState = updateBoardState(boardState, originSquare, targetSquare);
+            return {
+                ...state,
+                value: updatedBoardState
+            };
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { selectPiece } = homeSlice.actions
+export const { movePiece } = homeSlice.actions
 
 export default homeSlice.reducer

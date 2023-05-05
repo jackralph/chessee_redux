@@ -1,70 +1,54 @@
 import './board.css'
 
 import { Square } from '../square/Square';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from "react";
-import { pieceIsSameColor } from "../../utils/move";
+import { pieceIsSameColor, validateMove } from "../../utils/move";
+import { movePiece } from '../../features/homeSlice';
 
 export function Board() {
-    const boardState = useSelector((state) => state.game.value.board);
+    const boardState = useSelector((state) => state.game.value);
+    const dispatch = useDispatch();
 
     const colorPieceSelected = useRef(null);
     const originSquare = useRef(null);
     const targetSquare = useRef(null);
 
     function handleClick(square, hasPiece, pieceColor) {
-        console.group("square clicked")
-        console.log(`function arguments: {
-            square: ${square},
-            hasPiece: ${hasPiece},
-            pieceColor: ${pieceColor}
-        }`)
-
-        console.log(`opening useRef values: {
-            colorPieceSelected: ${colorPieceSelected.current},
-            originSquare: ${originSquare.current}
-            targetSquare: ${targetSquare.current}
-        }`)
-
         if (!colorPieceSelected.current) {
-            console.log("No piece currently selected");
             if (hasPiece) {
-                console.log("hasPiece is true");
                 colorPieceSelected.current = pieceColor;
                 originSquare.current = square;
             } else {
-                console.log("hasPiece is false");
                 colorPieceSelected.current = null;
                 originSquare.current = null;
             }
         } else {
-            console.log("piece currenly selected")
             if (hasPiece) {
-                console.log("hasPiece is true")
                 if (pieceIsSameColor(boardState, square, colorPieceSelected.current)) {
-                    console.log("piece is same color");
                     colorPieceSelected.current = null;
                     originSquare.current = null;
                 } else {
-                    console.log("piece isn't same color");
                     colorPieceSelected.current = pieceColor;
                     targetSquare.current = square;
                 }
             } else {
-                console.log("hasPiece is false")
                 colorPieceSelected.current = null;
                 targetSquare.current = square;
             }
         }
 
-        console.log(`closing useRef values: {
-            colorPieceSelected: ${colorPieceSelected.current},
-            originSquare: ${originSquare.current}
-            targetSquare: ${targetSquare.current}
-        }`)
-
         if (originSquare.current && targetSquare.current) {
-            console.log(`checking validity of move ${originSquare.current} to ${targetSquare.current}`);
+            const validMove = validateMove(boardState, originSquare.current, targetSquare.current);
+
+            if (validMove) {
+                dispatch(movePiece({
+                    boardState: boardState,
+                    originSquare: Number(originSquare.current),
+                    targetSquare: Number(targetSquare.current)
+                }));
+            }
+
             colorPieceSelected.current = null;
             originSquare.current = null;
             targetSquare.current = null;
