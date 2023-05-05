@@ -1,18 +1,10 @@
 import './square.css'
 
-// import { useSelector } from 'react-redux';
-// import { useState } from "react";
-
 export function Square(props) {
-    // const [octalSquareClicked, setOctalSquareClicked] = useState(null);
-    // const [targetSquareClicked, setTargetSquareClicked] = useState(null);
-
-    // const boardState = useSelector((state) => state.game.value.board);
-
-    const { pieceColor, pieceName, square } = props;
+    const { handleClick, hasPiece, pieceColor, pieceName, square } = props;
 
     
-    if (pieceName && pieceColor) {
+    if (hasPiece) {
         const pieceStyle = {
             backgroundImage: `url(${process.env.PUBLIC_URL}/assets/piece/${pieceName}_${pieceColor}.png)`,
             backgroundRepeat: "no-repeat",
@@ -20,11 +12,11 @@ export function Square(props) {
         }
 
         return (
-            <div id={square} style={pieceStyle}>{ square }</div>
+            <div id={square} style={pieceStyle} onClick={() => handleClick(square, hasPiece, pieceColor)}>{ square }</div>
         )
     } else {
         return (
-            <div id={square}>{ square }</div>
+            <div id={square} onClick={() => handleClick(square, hasPiece, pieceColor)}>{ square }</div>
         )
     }
 }

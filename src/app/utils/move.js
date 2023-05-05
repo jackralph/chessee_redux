@@ -1,8 +1,8 @@
 function squareHasPiece(boardState, square) {
-    return !!boardState[square].piece
+    return !!boardState[square].piece;
 }
 
-function pieceIsSameColor(boardState, square, pieceColor) {
+export function pieceIsSameColor(boardState, square, pieceColor) {
     const targetPieceColor = boardState[square].piece.pieceColor;
 
     return targetPieceColor === pieceColor;
