@@ -82,13 +82,13 @@ export function setBoardState() {
                     pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
                     pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
                 },
-                piecesAttacking: []
+                piecesAttackingThisSquare: []
             };
         } else {
             return boardState[octalSquare] = {
                 algebraicNotation: boardAlgebraicArray[i],
                 octalNotation: octalSquare,
-                piecesAttacking: []
+                piecesAttackingThisSquare: []
             };
         }
     });
@@ -103,7 +103,7 @@ export function setBoardState() {
             const allMoves = calculateAllMoves(boardOctalArray, boardState, pieceColor, pieceName, square);
             
             allMoves.map(function(legalMove) {
-                boardState[legalMove].piecesAttacking.push(square);
+                return boardState[legalMove].piecesAttackingThisSquare.push(square);
             });
 
             boardState[square].piece.legalMoves = legalMoves;
@@ -132,6 +132,12 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
         octalNotation: originSquareState.octalNotation
     }
 
+    let movesAttackingSquare = {};
+
+    boardOctalArray.map(function(octalSquare) {
+        return movesAttackingSquare[octalSquare] = []
+    });
+
     for (const square in boardStateCopy) {
         const hasPiece = !!boardStateCopy[square].piece;
 
@@ -139,11 +145,6 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceName = boardStateCopy[square].piece.pieceName;
             const legalMoves = calculateLegalMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
-            const allMoves = calculateAllMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
-
-            allMoves.map(function(move) {
-                console.log(`move from ${square} to ${move}`);
-            })
 
             boardStateCopy[square] = {
                 ...boardStateCopy[square],
@@ -152,7 +153,28 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
                     legalMoves: legalMoves
                 },
             };
-        }
+        };
+    };
+
+    for (const square in boardStateCopy) {
+        const hasPiece = !!boardStateCopy[square].piece;
+
+        if (hasPiece) {
+            const pieceColor = boardStateCopy[square].piece.pieceColor;
+            const pieceName = boardStateCopy[square].piece.pieceName;
+            const allMoves = calculateAllMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
+
+            allMoves.map(function(move) {
+                return movesAttackingSquare[move].push(square);
+            });
+        };
+    };
+
+    for (const square in boardStateCopy) {
+        boardStateCopy[square] = {
+            ...boardStateCopy[square],
+            piecesAttackingThisSquare: movesAttackingSquare[square]
+        };
     }
 
     return boardStateCopy;
