@@ -69,19 +69,23 @@ export function Board() {
                 const hasPiece = !!boardState[square].piece;
                 if (hasPiece) {
                     return <Square
-                    key={square}
+                    boardState={boardState}
                     handleClick={handleClick}
                     hasPiece={hasPiece}
                     highlightedSquare={highlightedSquare}
+                    key={square}
                     square={square}
+                    piecesAttackingThisSquare={boardState[square].piecesAttackingThisSquare}
                     pieceName={boardState[square].piece && boardState[square].piece.pieceName}
                     pieceColor={boardState[square].piece && boardState[square].piece.pieceColor}
                     />;
                 } else {
                     return <Square
-                    key={square}
+                    boardState={boardState}
                     handleClick={handleClick}
                     hasPiece={hasPiece}
+                    key={square}
+                    piecesAttackingThisSquare={boardState[square].piecesAttackingThisSquare}
                     square={square}
                     />;
                 };

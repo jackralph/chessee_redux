@@ -67,6 +67,20 @@ function setPieceColor(pieceIdentifier) {
     }
 }
 
+export function calculateSquareDominance(boardState, piecesAttacking) {
+    let dominance = 0;
+    piecesAttacking.map(function(pieceAttacking) {
+        const pieceColor = boardState[pieceAttacking].piece.pieceColor
+        if (pieceColor === "light") {
+            return dominance += 1;
+        } else {
+            return dominance -= 1;
+        }
+    });
+
+    return dominance;
+}
+
 export function setBoardState() {
     let boardState = {};
 
