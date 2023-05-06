@@ -132,12 +132,6 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
         octalNotation: originSquareState.octalNotation
     }
 
-    let movesAttackingSquare = {};
-
-    boardOctalArray.map(function(octalSquare) {
-        return movesAttackingSquare[octalSquare] = []
-    });
-
     for (const square in boardStateCopy) {
         const hasPiece = !!boardStateCopy[square].piece;
 
@@ -156,6 +150,12 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
         };
     };
 
+    let piecesAttackingThisSquare = {};
+
+    boardOctalArray.map(function(octalSquare) {
+        return piecesAttackingThisSquare[octalSquare] = []
+    });
+
     for (const square in boardStateCopy) {
         const hasPiece = !!boardStateCopy[square].piece;
 
@@ -165,7 +165,7 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
             const allMoves = calculateAllMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
 
             allMoves.map(function(move) {
-                return movesAttackingSquare[move].push(square);
+                return piecesAttackingThisSquare[move].push(square);
             });
         };
     };
@@ -173,7 +173,7 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
     for (const square in boardStateCopy) {
         boardStateCopy[square] = {
             ...boardStateCopy[square],
-            piecesAttackingThisSquare: movesAttackingSquare[square]
+            piecesAttackingThisSquare: piecesAttackingThisSquare[square]
         };
     }
 
