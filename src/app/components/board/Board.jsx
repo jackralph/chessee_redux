@@ -2,11 +2,12 @@ import './board.css'
 
 import { Square } from '../square/Square';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { pieceIsSameColor, validateMove } from "../../utils/move";
 import { movePiece } from '../../features/homeSlice';
 
 export function Board() {
+    const [highlightedSquare, setHighlightedSquare] = useState(null);
     const boardState = useSelector((state) => state.game.value);
     const dispatch = useDispatch();
 
@@ -19,22 +20,27 @@ export function Board() {
             if (hasPiece) {
                 colorPieceSelected.current = pieceColor;
                 originSquare.current = square;
+                setHighlightedSquare(square);
             } else {
                 colorPieceSelected.current = null;
                 originSquare.current = null;
+                setHighlightedSquare(null);
             }
         } else {
             if (hasPiece) {
                 if (pieceIsSameColor(boardState, square, colorPieceSelected.current)) {
                     colorPieceSelected.current = null;
                     originSquare.current = null;
+                    setHighlightedSquare(null);
                 } else {
                     colorPieceSelected.current = pieceColor;
                     targetSquare.current = square;
+                    setHighlightedSquare(null);
                 }
             } else {
                 colorPieceSelected.current = null;
                 targetSquare.current = square;
+                setHighlightedSquare(null);
             }
         }
 
@@ -52,6 +58,7 @@ export function Board() {
             colorPieceSelected.current = null;
             originSquare.current = null;
             targetSquare.current = null;
+            setHighlightedSquare(null);
         }
         console.groupEnd();
     };
@@ -65,6 +72,7 @@ export function Board() {
                     key={square}
                     handleClick={handleClick}
                     hasPiece={hasPiece}
+                    highlightedSquare={highlightedSquare}
                     square={square}
                     pieceName={boardState[square].piece && boardState[square].piece.pieceName}
                     pieceColor={boardState[square].piece && boardState[square].piece.pieceColor}
