@@ -22,7 +22,7 @@ const boardOctalArray = [
     70, 71, 72, 73, 74, 75, 76, 77
 ];
 
-const startingPositionPieceArrayTest = [
+const startingPositionPieceArray = [
     'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
     'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
     null, null, null, null, null, null, null, null,
@@ -32,6 +32,17 @@ const startingPositionPieceArrayTest = [
     'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
     'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
 ];
+
+const bishopPositionPieceArrayTest = [
+    null, null, null, null, null, null, null, 'B',
+    null, null, null, null, null, null, 'B', null,
+    null, null, null, null, null, 'B', null, null,
+    null, null, null, null, 'B', null, null, null,
+    null, null, null, 'B', null, null, null, null,
+    null, null, 'B', null, null, null, null, null,
+    null, 'B', null, null, null, null, null, null,
+    'B', null, null, null, null, null, null, null
+]
 
 const pieceRef = {
     // dark piece
@@ -85,7 +96,7 @@ export function setBoardState() {
     let boardState = {};
 
     boardOctalArray.map(function(octalSquare, i) {
-        const hasPiece = startingPositionPieceArrayTest[i] !== null;
+        const hasPiece = bishopPositionPieceArrayTest[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: boardAlgebraicArray[i],
@@ -93,8 +104,8 @@ export function setBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
-                    pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
+                    pieceColor: setPieceColor(bishopPositionPieceArrayTest[i]),
+                    pieceName: placePiece(bishopPositionPieceArrayTest[i], octalSquare)
                 },
                 piecesAttackingThisSquare: []
             };
