@@ -5,8 +5,6 @@ import { calculateSquareDominance } from '../../utils/board'
 export function Square(props) {
     const { boardState, handleClick, hasPiece, highlightedSquare, piecesAttackingThisSquare, pieceColor, pieceName, square } = props;
 
-    console.log(`pieces attacking square ${square}: ${piecesAttackingThisSquare}`)
-
     const squareDominance = calculateSquareDominance(boardState, piecesAttackingThisSquare);
     let squareStyle = {};
     

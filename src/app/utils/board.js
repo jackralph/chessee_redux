@@ -1,5 +1,12 @@
 import { calculateLegalMoves, calculateAllMoves } from './move.js'
 
+// ██████╗ ██████╗ ███╗   ██╗███████╗████████╗
+// ██╔════╝██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝
+// ██║     ██║   ██║██╔██╗ ██║███████╗   ██║   
+// ██║     ██║   ██║██║╚██╗██║╚════██║   ██║   
+// ╚██████╗╚██████╔╝██║ ╚████║███████║   ██║   
+// ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   
+
 const boardAlgebraicArray = [
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
     "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
@@ -22,24 +29,24 @@ const boardOctalArray = [
     70, 71, 72, 73, 74, 75, 76, 77
 ];
 
-const startingPositionPieceArray = [
-    'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
-    'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
-    'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
-];
+// const startingPositionPieceArray = [
+//     'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
+//     'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+//     null, null, null, null, null, null, null, null,
+//     null, null, null, null, null, null, null, null,
+//     null, null, null, null, null, null, null, null,
+//     null, null, null, null, null, null, null, null,
+//     'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
+//     'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
+// ];
 
 const bishopPositionPieceArrayTest = [
-    null, null, null, null, null, null, null, 'B',
-    null, null, null, null, null, null, 'B', null,
-    null, null, null, null, null, 'B', null, null,
-    null, null, null, null, 'B', null, null, null,
-    null, null, null, 'B', null, null, null, null,
-    null, null, 'B', null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
     null, 'B', null, null, null, null, null, null,
     'B', null, null, null, null, null, null, null
 ]
@@ -62,6 +69,27 @@ const pieceRef = {
     'R': 'rook',
 };
 
+// ███████╗██╗  ██╗ █████╗ ██████╗ ███████╗██████╗ 
+// ██╔════╝██║  ██║██╔══██╗██╔══██╗██╔════╝██╔══██╗
+// ███████╗███████║███████║██████╔╝█████╗  ██║  ██║
+// ╚════██║██╔══██║██╔══██║██╔══██╗██╔══╝  ██║  ██║
+// ███████║██║  ██║██║  ██║██║  ██║███████╗██████╔╝
+// ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═════╝ 
+
+export function calculateSquareDominance(boardState, piecesAttacking) {
+    let dominance = 0;
+    piecesAttacking.map(function(pieceAttacking) {
+        const pieceColor = boardState[pieceAttacking].piece.pieceColor
+        if (pieceColor === "light") {
+            return dominance += 1;
+        } else {
+            return dominance -= 1;
+        }
+    });
+
+    return dominance;
+}
+
 function placePiece(pieceIdentifier) {
     if (!pieceIdentifier) {
         return null;
@@ -78,19 +106,12 @@ function setPieceColor(pieceIdentifier) {
     }
 }
 
-export function calculateSquareDominance(boardState, piecesAttacking) {
-    let dominance = 0;
-    piecesAttacking.map(function(pieceAttacking) {
-        const pieceColor = boardState[pieceAttacking].piece.pieceColor
-        if (pieceColor === "light") {
-            return dominance += 1;
-        } else {
-            return dominance -= 1;
-        }
-    });
-
-    return dominance;
-}
+// ███████╗████████╗ █████╗ ████████╗███████╗
+// ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝
+// ███████╗   ██║   ███████║   ██║   █████╗  
+// ╚════██║   ██║   ██╔══██║   ██║   ██╔══╝  
+// ███████║   ██║   ██║  ██║   ██║   ███████╗
+// ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
 export function setBoardState() {
     let boardState = {};
