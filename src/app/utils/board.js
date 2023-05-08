@@ -43,11 +43,11 @@ const boardOctalArray = [
 const bishopPositionPieceArrayTest = [
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
+    null, 'B', null, null, null, 'b', null, null,
+    null, null, null, null, 'P', null, null, null,
+    null, null, null, 'B', null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, 'B', null, null, null, null, null, null,
+    null, 'B', null, null, null, 'b', null, null,
     'B', null, null, null, null, null, null, null
 ]
 
