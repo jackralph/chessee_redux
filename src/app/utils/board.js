@@ -29,26 +29,26 @@ const boardOctalArray = [
     70, 71, 72, 73, 74, 75, 76, 77
 ];
 
-// const startingPositionPieceArray = [
-//     'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
-//     'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-//     null, null, null, null, null, null, null, null,
-//     null, null, null, null, null, null, null, null,
-//     null, null, null, null, null, null, null, null,
-//     null, null, null, null, null, null, null, null,
-//     'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
-//     'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
-// ];
+const startingPositionPieceArray = [
+    'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
+    'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, 'P', null, null, null, null,
+    'P', 'P', 'P', null, 'P', 'P', 'P', 'P',
+    'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
+];
 
 const bishopPositionPieceArrayTest = [
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, 'B', null, null, null, 'b', null, null,
-    null, null, null, null, 'P', null, null, null,
-    null, null, null, 'B', null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, 'B', null, null, null, 'b', null, null,
-    'B', null, null, null, null, null, null, null
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, 'b', null, 'B', null, null, null,
+    null, null, null, 'P', null, null, null, null,
+    null, null, null, null, null, null, null, null
 ]
 
 const pieceRef = {
