@@ -378,9 +378,10 @@ function legalVerticalMovesPawn(boardOctalArray, boardState, limiter, pawnDirect
 // ██║  ██╗██║ ╚████║██║╚██████╔╝██║  ██║   ██║   
 // ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
 
-function legalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
-    let knightMovesArray = [];
+// legal
 
+function calculateLegalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
+    let legalKnightMovesArray = [];
     const squareNumber = Number(square);
 
     const northTwoWestOne = squareNumber - 21;
@@ -404,16 +405,22 @@ function legalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, squa
     ].map(function(move) {
         if (validSquare(boardOctalArray, limiter, move)) {
             if (!squareHasPiece(boardState, move)) {
-                return knightMovesArray.push(move);
+                return legalKnightMovesArray.push(move);
             } else if (!pieceIsSameColor(boardState, move, pieceColor)) {
-                return knightMovesArray.push(move);
+                return legalKnightMovesArray.push(move);
             }
             return null;
         }
         return null;
     });
-    
-    return knightMovesArray;
+
+    return legalKnightMovesArray;
+}
+
+function legalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
+    const legalKnightMovesArray = calculateLegalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+
+    return legalKnightMovesArray;
 }
 
 function allKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
