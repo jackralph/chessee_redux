@@ -1,4 +1,4 @@
-import { calculateLegalMoves, calculateAllMoves } from './move.js'
+import { calculateLegalMoves, calculateAllMoves } from '../move/move.js'
 
 // ██████╗ ██████╗ ███╗   ██╗███████╗████████╗
 // ██╔════╝██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝
