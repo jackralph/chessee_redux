@@ -21,19 +21,21 @@ export function validateMove(boardState, originSquare, targetSquare) {
 
 // private
 
-function isContinuosAttackingPiece(boardState, i) {
-    const pieceName = boardState[i].piece.pieceName;
-    const isContinuosAttackingPiece = (
-        pieceName === "bishop"
-        || pieceName === "king"
-        || pieceName === "pawn"
-        || pieceName === "queen"
-    );
-    return isContinuosAttackingPiece;
+function isContinualPiece(boardState, currentSquare) {
+    const pieceName = boardState[currentSquare].piece.pieceName;
+    return pieceName === "bishop" || pieceName === "queen";
 }
 
-function pieceIsPawn(boardState, i) {
-    return boardState[i].piece.pieceName === "pawn";
+function isForwardMove(currentSquare, nextSquare, pieceColor) {
+    if (pieceColor === "light") {
+        return currentSquare > nextSquare;
+    } else {
+        return currentSquare < nextSquare;
+    }
+}
+
+function pieceIsPawn(boardState, currentSquare) {
+    return boardState[currentSquare].piece.pieceName === "pawn";
 }
 
 function squareHasPiece(boardState, square) {
@@ -62,12 +64,12 @@ function calculateLegalDiagonalMoves(squareStep, boardOctalArray, boardState, li
     let legalDiagonalMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let nextSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, nextSquare, iteration); nextSquare += squareStep, iteration += 1) {
-        if (!squareHasPiece(boardState, nextSquare)) {
-            legalDiagonalMovesArray.push(nextSquare);
+    for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
+        if (!squareHasPiece(boardState, currentSquare)) {
+            legalDiagonalMovesArray.push(currentSquare);
             continue;
-        } else if (!pieceIsSameColor(boardState, nextSquare, pieceColor)) {
-            legalDiagonalMovesArray.push(nextSquare);
+        } else if (!pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+            legalDiagonalMovesArray.push(currentSquare);
             break;
         } else {
             break;
@@ -104,12 +106,26 @@ function calculateAllDiagonalMoves(squareStep, boardOctalArray, boardState, limi
     let allDiagonalMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let nextSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, nextSquare, iteration); nextSquare += squareStep, iteration += 1) {
-        if (squareHasPiece(boardState, nextSquare)) {
-            allDiagonalMovesArray.push(nextSquare);
-            break;
+    for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
+        if (squareHasPiece(boardState, currentSquare)) {
+            if (isContinualPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+                allDiagonalMovesArray.push(currentSquare);
+            } else if (pieceIsPawn(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+                allDiagonalMovesArray.push(currentSquare);
+
+                const nextSquare = currentSquare + squareStep;
+                if (isForwardMove(currentSquare, nextSquare, pieceColor)) {
+                    allDiagonalMovesArray.push(currentSquare + squareStep);
+                    break;
+                } else {
+                    break;
+                }
+            } else {
+                allDiagonalMovesArray.push(currentSquare);
+                break;
+            }
         } else {
-            allDiagonalMovesArray.push(nextSquare);
+            allDiagonalMovesArray.push(currentSquare);
             continue;
         }
     }
@@ -185,12 +201,12 @@ function calculateAllHorizontalMoves(squareStep, boardOctalArray, boardState, li
     let allHorizontalMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
-        if (squareHasPiece(boardState, i)) {
-            allHorizontalMovesArray.push(i);
+    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        if (squareHasPiece(boardState, currentSquare)) {
+            allHorizontalMovesArray.push(currentSquare);
             break;
         } else {
-            allHorizontalMovesArray.push(i);
+            allHorizontalMovesArray.push(currentSquare);
             continue;
         }
     }
@@ -224,12 +240,12 @@ function calculateLegalVerticalMoves(squareStep, boardOctalArray, boardState, li
     let legalVerticalMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
-        if (!squareHasPiece(boardState, i)) {
-            legalVerticalMovesArray.push(i);
+    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        if (!squareHasPiece(boardState, currentSquare)) {
+            legalVerticalMovesArray.push(currentSquare);
             continue;
-        } else if (!pieceIsSameColor(boardState, i, pieceColor)) {
-            legalVerticalMovesArray.push(i);
+        } else if (!pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+            legalVerticalMovesArray.push(currentSquare);
             break;
         } else {
             break;
@@ -258,12 +274,12 @@ function calculateAllVerticalMoves(squareStep, boardOctalArray, boardState, limi
     let allVerticalMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
-        if (squareHasPiece(boardState, i)) {
-            allVerticalMovesArray.push(i);
+    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        if (squareHasPiece(boardState, currentSquare)) {
+            allVerticalMovesArray.push(currentSquare);
             break;
         } else {
-            allVerticalMovesArray.push(i);
+            allVerticalMovesArray.push(currentSquare);
             continue;
         }
     }
@@ -297,11 +313,11 @@ function calculateLegalDiagonalPawnMoves(squareStep, boardOctalArray, boardState
     let legalPawnMovesArray = []
     const squareNumber = Number(square)
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
-        if (!squareHasPiece(boardState, i)) {
+    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        if (!squareHasPiece(boardState, currentSquare)) {
             break;
-        } else if (!pieceIsSameColor(boardState, i, pieceColor)) {
-            legalPawnMovesArray.push(i);
+        } else if (!pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+            legalPawnMovesArray.push(currentSquare);
             continue;
         }
     }
@@ -328,9 +344,9 @@ function calculateLegalVerticalPawnMoves(squareStep, boardOctalArray, boardState
     let legalVerticalPawnMovesArray = []
     const squareNumber = Number(square)
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
-        if (!squareHasPiece(boardState, i)) {
-            legalVerticalPawnMovesArray.push(i);
+    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        if (!squareHasPiece(boardState, currentSquare)) {
+            legalVerticalPawnMovesArray.push(currentSquare);
             continue;
         } else {
             break;
@@ -353,8 +369,8 @@ function calculateAllDiagonalPawnMoves(squareStep, boardOctalArray, boardState, 
     let allDiagonalMovesPawnArray = []
     const squareNumber = Number(square)
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
-        allDiagonalMovesPawnArray.push(i);
+    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        allDiagonalMovesPawnArray.push(currentSquare);
     }
 
     return allDiagonalMovesPawnArray;

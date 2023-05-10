@@ -40,15 +40,15 @@ const startingPositionPieceArray = [
     'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
 ];
 
-const bishopPositionPieceArrayTest = [
+const startingPositionPieceArrayTest = [
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
+    null, null, null, 'P', null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, 'P', null,
-    null, null, null, null, null, null, null, null
+    null, 'B', null, null, null, null, null, null,
+    'Q', null, null, null, null, null, null, null
 ]
 
 const pieceRef = {
@@ -117,7 +117,7 @@ export function setBoardState() {
     let boardState = {};
 
     boardOctalArray.map(function(octalSquare, i) {
-        const hasPiece = startingPositionPieceArray[i] !== null;
+        const hasPiece = startingPositionPieceArrayTest[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: boardAlgebraicArray[i],
@@ -125,8 +125,8 @@ export function setBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(startingPositionPieceArray[i]),
-                    pieceName: placePiece(startingPositionPieceArray[i], octalSquare)
+                    pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
+                    pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
                 },
                 piecesAttackingThisSquare: []
             };
@@ -147,6 +147,11 @@ export function setBoardState() {
             const pieceName = boardState[square].piece.pieceName;
             const legalMoves = calculateLegalMoves(boardOctalArray, boardState, pieceColor, pieceName, square);
             const allMoves = calculateAllMoves(boardOctalArray, boardState, pieceColor, pieceName, square);
+
+            console.group(`${pieceName} on square ${square}`);
+            console.log(`legalMoves: ${legalMoves}`);
+            console.log(`allMoves: ${allMoves}`);
+            console.groupEnd();
             
             allMoves.map(function(legalMove) {
                 return boardState[legalMove].piecesAttackingThisSquare.push(square);
