@@ -3,6 +3,11 @@ export function isContinualDiagonalPiece(boardState, currentSquare) {
     return pieceName === "bishop" || pieceName === "queen";
 }
 
+export function isContinualStraightPiece(boardState, currentSquare) {
+    const pieceName = boardState[currentSquare].piece.pieceName;
+    return pieceName === "queen" || pieceName === "rook";
+}
+
 export function isForwardMove(currentSquare, nextSquare, pieceColor) {
     if (pieceColor === "light") {
         return currentSquare > nextSquare;

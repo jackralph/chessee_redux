@@ -1,4 +1,6 @@
 import {
+    isContinualStraightPiece,
+    pieceIsKing,
     pieceIsSameColor,
     squareHasPiece,
     validSquare
@@ -53,9 +55,21 @@ function calculateAllStraightMoves(squareStep, boardOctalArray, boardState, limi
     const squareNumber = Number(square);
 
     for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+        const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
-            allStraightMovesArray.push(currentSquare);
-            break;
+            if (isContinualStraightPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+                allStraightMovesArray.push(currentSquare)
+            } else if (pieceIsKing(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+                allStraightMovesArray.push(currentSquare);
+                if (validSquare(boardOctalArray, limiter, nextSquare, iteration)) {
+                    allStraightMovesArray.push(nextSquare);
+                } else {
+                    break;
+                }
+            } else {
+                allStraightMovesArray.push(currentSquare);
+                break;
+            }
         } else {
             allStraightMovesArray.push(currentSquare);
             continue;
