@@ -1,6 +1,7 @@
 import {
     isContinualDiagonalPiece,
     isForwardMove,
+    pieceIsKing,
     pieceIsPawn,
     pieceIsSameColor,
     squareHasPiece,
@@ -54,17 +55,24 @@ export function legalDiagonalMoves(boardOctalArray, boardState, limiter, pieceCo
 function calculateAllDiagonalMoves(squareStep, boardOctalArray, boardState, limiter, pieceColor, square) {
     let allDiagonalMovesArray = [];
     const squareNumber = Number(square);
-
+    
     for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
+        const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualDiagonalPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allDiagonalMovesArray.push(currentSquare);
             } else if (pieceIsPawn(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allDiagonalMovesArray.push(currentSquare);
-
-                const nextSquare = currentSquare + squareStep;
-                if (isForwardMove(currentSquare, nextSquare, pieceColor)) {
-                    allDiagonalMovesArray.push(currentSquare + squareStep);
+                if (isForwardMove(currentSquare, nextSquare, pieceColor) && validSquare(boardOctalArray, limiter, nextSquare, iteration)) {
+                    allDiagonalMovesArray.push(nextSquare);
+                    break;
+                } else {
+                    break;
+                }
+            } else if (pieceIsKing(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
+                allDiagonalMovesArray.push(currentSquare)
+                if (validSquare(boardOctalArray, limiter, nextSquare, iteration)) {
+                    allDiagonalMovesArray.push(nextSquare);
                     break;
                 } else {
                     break;

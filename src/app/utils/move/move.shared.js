@@ -11,6 +11,10 @@ export function isForwardMove(currentSquare, nextSquare, pieceColor) {
     }
 }
 
+export function pieceIsKing(boardState, currentSquare) {
+    return boardState[currentSquare].piece.pieceName === "king";
+}
+
 export function pieceIsPawn(boardState, currentSquare) {
     return boardState[currentSquare].piece.pieceName === "pawn";
 }

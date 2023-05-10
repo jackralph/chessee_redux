@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { updateBoardState, setBoardState } from '../utils/board'
+import { updateBoardState, setBoardState } from '../utils/board/board.js'
 
 export const homeSlice = createSlice({
     name: 'game',

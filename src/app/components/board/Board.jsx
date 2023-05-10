@@ -3,7 +3,7 @@ import './board.css'
 import { Square } from '../square/Square';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from "react";
-import { pieceIsSameColor, validateMove } from "../../utils/move";
+import { pieceIsSameColor, validateMove } from "../../utils/move/move.shared";
 import { movePiece } from '../../features/homeSlice';
 
 export function Board() {

@@ -4,7 +4,6 @@ import {
     boardOctalArray,
     startingPositionPieceArray,
     startingPositionPieceArrayTest,
-    pieceRef
 } from "./board.const.js";
 import {
     placePiece,

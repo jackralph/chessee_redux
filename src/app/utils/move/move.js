@@ -1,13 +1,11 @@
 import { legalDiagonalMoves, allDiagonalMoves } from './move.diagonal.js'
-import { legalHorizontalMoves, allHorizontalMoves } from './move.horizontal.js'
 import { legalKnightMoves, allKnightMoves } from './move.knight.js'
-import { legalVerticalMoves, allVerticalMoves } from './move.vertical.js'
-import { legalDiagonalMovesPawn, legalVerticalMovesPawn, allDiagonalMovesPawn } from './move.pawn.js'
+import { legalStraightMoves, allStraightMoves } from "./move.straight.js"
+import { legalDiagonalMovesPawn, legalStraightMovesPawn, allDiagonalMovesPawn } from './move.pawn.js'
 
 export function calculateLegalMoves(boardOctalArray, boardState, pieceColor, pieceName, square) {
     const piece = boardState[square].piece;
-    let legalVerticalMovesArray = [];
-    let legalHorizontalMovesArray = [];
+    let legalStraightMovesArray = [];
     let legalDiagonalMovesArray = [];
     let legalMovesArray = [];
     let limiter = 0;
@@ -23,10 +21,9 @@ export function calculateLegalMoves(boardOctalArray, boardState, pieceColor, pie
         case "king":
             limiter = 1;
             // console.group(`calculating moves for King on ${square}`);
-            legalVerticalMovesArray = legalVerticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            legalHorizontalMovesArray = legalHorizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+            legalStraightMovesArray = legalStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             legalDiagonalMovesArray = legalDiagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            legalMovesArray = [...legalVerticalMovesArray, ...legalHorizontalMovesArray, ...legalDiagonalMovesArray];
+            legalMovesArray = [...legalStraightMovesArray, ...legalDiagonalMovesArray];
             // console.log(`moves for King... ${legalMovesArray}`);
             // console.groupEnd();
             break;
@@ -41,27 +38,25 @@ export function calculateLegalMoves(boardOctalArray, boardState, pieceColor, pie
             limiter = piece.hasMoved ? 1 : 2;
             const pawnDirection = pieceColor === "light" ? 1 : -1;
             // console.group(`calculating moves for Pawn on ${square}`);
-            legalVerticalMovesArray = legalVerticalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, square);
+            legalStraightMovesArray = legalStraightMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, square);
             limiter = 1;
             legalDiagonalMovesArray = legalDiagonalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, pieceColor, square);
-            legalMovesArray = [...legalVerticalMovesArray, ...legalDiagonalMovesArray];
+            legalMovesArray = [...legalStraightMovesArray, ...legalDiagonalMovesArray];
             // console.log(`moves for Pawn... ${legalMovesArray}`);
             // console.groupEnd();
             break;
         case "queen":
             // console.group(`calculating moves for Queen on ${square}`);
-            legalVerticalMovesArray = legalVerticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            legalHorizontalMovesArray = legalHorizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+            legalStraightMovesArray = legalStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             legalDiagonalMovesArray = legalDiagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            legalMovesArray = [...legalVerticalMovesArray, ...legalHorizontalMovesArray, ...legalDiagonalMovesArray];
+            legalMovesArray = [...legalStraightMovesArray, ...legalDiagonalMovesArray];
             // console.log(`moves for Queen... ${legalMovesArray}`);
             // console.groupEnd();
             break;
         case "rook":
             // console.group(`calculating moves for Rook on ${square}`);
-            legalVerticalMovesArray = legalVerticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            legalHorizontalMovesArray = legalHorizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            legalMovesArray = [...legalVerticalMovesArray, ...legalHorizontalMovesArray];
+            legalStraightMovesArray = legalStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+            legalMovesArray = [...legalStraightMovesArray];
             // console.log(`moves for Rook... ${legalMovesArray}`);
             // console.groupEnd();
             break;
@@ -74,8 +69,7 @@ export function calculateLegalMoves(boardOctalArray, boardState, pieceColor, pie
 
 export function calculateAllMoves(boardOctalArray, boardState, pieceColor, pieceName, square) {
     const piece = boardState[square].piece;
-    let allVerticalMovesArray = [];
-    let allHorizontalMovesArray = [];
+    let allStraightMovesArray = [];
     let allDiagonalMovesArray = [];
     let movesArray = [];
     let limiter = 0;
@@ -91,10 +85,9 @@ export function calculateAllMoves(boardOctalArray, boardState, pieceColor, piece
         case "king":
             limiter = 1;
             // console.group(`calculating moves for King on ${square}`);
-            allVerticalMovesArray = allVerticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            allHorizontalMovesArray = allHorizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+            allStraightMovesArray = allStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             allDiagonalMovesArray = allDiagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            movesArray = [...allVerticalMovesArray, ...allHorizontalMovesArray, ...allDiagonalMovesArray];
+            movesArray = [...allStraightMovesArray, ...allDiagonalMovesArray];
             // console.log(`moves for King... ${movesArray}`);
             // console.groupEnd();
             break;
@@ -111,24 +104,22 @@ export function calculateAllMoves(boardOctalArray, boardState, pieceColor, piece
             // console.group(`calculating moves for Pawn on ${square}`);
             limiter = 1;
             allDiagonalMovesArray = allDiagonalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, pieceColor, square);
-            movesArray = [...allVerticalMovesArray, ...allDiagonalMovesArray];
+            movesArray = [...allDiagonalMovesArray];
             // console.log(`moves for Pawn... ${movesArray}`);
             // console.groupEnd();
             break;
         case "queen":
             // console.group(`calculating moves for Queen on ${square}`);
-            allVerticalMovesArray = allVerticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            allHorizontalMovesArray = allHorizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+            allStraightMovesArray = allStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
             allDiagonalMovesArray = allDiagonalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            movesArray = [...allVerticalMovesArray, ...allHorizontalMovesArray, ...allDiagonalMovesArray];
+            movesArray = [...allStraightMovesArray, ...allDiagonalMovesArray];
             // console.log(`moves for Queen... ${movesArray}`);
             // console.groupEnd();
             break;
         case "rook":
             // console.group(`calculating moves for Rook on ${square}`);
-            allVerticalMovesArray = allVerticalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            allHorizontalMovesArray = allHorizontalMoves(boardOctalArray, boardState, limiter, pieceColor, square);
-            movesArray = [...allVerticalMovesArray, ...allHorizontalMovesArray];
+            allStraightMovesArray = allStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+            movesArray = [...allStraightMovesArray];
             // console.log(`moves for Rook... ${movesArray}`);
             // console.groupEnd();
             break;

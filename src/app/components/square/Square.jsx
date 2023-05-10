@@ -1,6 +1,6 @@
 import './square.css'
 
-import { calculateSquareDominance } from '../../utils/board'
+import { calculateSquareDominance } from '../../utils/board/board.shared.js'
 
 export function Square(props) {
     const { boardState, handleClick, hasPiece, highlightedSquare, piecesAttackingThisSquare, pieceColor, pieceName, square } = props;

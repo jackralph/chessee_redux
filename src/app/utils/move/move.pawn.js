@@ -35,29 +35,29 @@ export function legalDiagonalMovesPawn(boardOctalArray, boardState, limiter, paw
     ]
 }
 
-// legal vertical
+// legal straight
 
-function calculateLegalVerticalPawnMoves(squareStep, boardOctalArray, boardState, limiter, square) {
-    let legalVerticalPawnMovesArray = []
+function calculateLegalStraightPawnMoves(squareStep, boardOctalArray, boardState, limiter, square) {
+    let legalStraightPawnMovesArray = []
     const squareNumber = Number(square)
 
     for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
         if (!squareHasPiece(boardState, currentSquare)) {
-            legalVerticalPawnMovesArray.push(currentSquare);
+            legalStraightPawnMovesArray.push(currentSquare);
             continue;
         } else {
             break;
         }
     }
 
-    return legalVerticalPawnMovesArray;
+    return legalStraightPawnMovesArray;
 }
 
-export function legalVerticalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, square) {
+export function legalStraightMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, square) {
     // "north" moves
-    const legalVerticalPawnMovesArray = calculateLegalVerticalPawnMoves(10 * pawnDirection, boardOctalArray, boardState, limiter, square);
+    const legalStraightPawnMovesArray = calculateLegalStraightPawnMoves(10 * pawnDirection, boardOctalArray, boardState, limiter, square);
 
-    return legalVerticalPawnMovesArray;
+    return legalStraightPawnMovesArray;
 }
 
 // all

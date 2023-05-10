@@ -33,13 +33,13 @@ export const startingPositionPieceArray = [
 
 export const startingPositionPieceArrayTest = [
     null, null, null, null, null, null, null, null,
+    null, null, null, null, 'p', null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, 'Q', null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, null, null, 'P', null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, 'B', null, null, null, null, null, null,
-    'Q', null, null, null, null, null, null, null
 ]
 
 export const pieceRef = {
