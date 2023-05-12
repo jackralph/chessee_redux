@@ -12,7 +12,7 @@ function calculateLegalStraightMoves(squareStep, boardOctalArray, boardState, li
     let legalStraightMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let i = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i -= squareStep, iteration += 1) {
+    for (let i = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, i, iteration); i += squareStep, iteration += 1) {
         if (!squareHasPiece(boardState, i)) {
             legalStraightMovesArray.push(i);
             continue;
@@ -54,7 +54,7 @@ function calculateAllStraightMoves(squareStep, boardOctalArray, boardState, limi
     let allStraightMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+    for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
         const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualStraightPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {

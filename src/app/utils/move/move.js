@@ -36,7 +36,7 @@ export function calculateLegalMoves(boardOctalArray, boardState, pieceColor, pie
             break;
         case "pawn":
             limiter = piece.hasMoved ? 1 : 2;
-            const pawnDirection = pieceColor === "light" ? 1 : -1;
+            const pawnDirection = pieceColor === "light" ? -1 : 1;
             // console.group(`calculating moves for Pawn on ${square}`);
             legalStraightMovesArray = legalStraightMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, square);
             limiter = 1;
@@ -100,7 +100,7 @@ export function calculateAllMoves(boardOctalArray, boardState, pieceColor, piece
             break;
         case "pawn":
             limiter = piece.hasMoved ? 1 : 2;
-            const pawnDirection = pieceColor === "light" ? 1 : -1;
+            const pawnDirection = pieceColor === "light" ? -1 : 1;
             // console.group(`calculating moves for Pawn on ${square}`);
             limiter = 1;
             allDiagonalMovesArray = allDiagonalMovesPawn(boardOctalArray, boardState, limiter, pawnDirection, pieceColor, square);

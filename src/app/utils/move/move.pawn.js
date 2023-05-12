@@ -10,7 +10,7 @@ function calculateLegalDiagonalPawnMoves(squareStep, boardOctalArray, boardState
     let legalPawnMovesArray = []
     const squareNumber = Number(square)
 
-    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+    for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
         if (!squareHasPiece(boardState, currentSquare)) {
             break;
         } else if (!pieceIsSameColor(boardState, currentSquare, pieceColor)) {
@@ -41,7 +41,7 @@ function calculateLegalStraightPawnMoves(squareStep, boardOctalArray, boardState
     let legalStraightPawnMovesArray = []
     const squareNumber = Number(square)
 
-    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+    for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
         if (!squareHasPiece(boardState, currentSquare)) {
             legalStraightPawnMovesArray.push(currentSquare);
             continue;
@@ -66,7 +66,7 @@ function calculateAllDiagonalPawnMoves(squareStep, boardOctalArray, boardState, 
     let allDiagonalMovesPawnArray = []
     const squareNumber = Number(square)
 
-    for (let currentSquare = squareNumber - squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare -= squareStep, iteration += 1) {
+    for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
         allDiagonalMovesPawnArray.push(currentSquare);
     }
 

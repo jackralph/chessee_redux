@@ -14,7 +14,7 @@ export function setBoardState() {
     let boardState = {};
 
     boardOctalArray.map(function(octalSquare, i) {
-        const hasPiece = startingPositionPieceArrayTest[i] !== null;
+        const hasPiece = startingPositionPieceArray[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: boardAlgebraicArray[i],
@@ -22,8 +22,8 @@ export function setBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(startingPositionPieceArrayTest[i]),
-                    pieceName: placePiece(startingPositionPieceArrayTest[i], octalSquare)
+                    pieceColor: setPieceColor(startingPositionPieceArray[i]),
+                    pieceName: placePiece(startingPositionPieceArray[i], octalSquare)
                 },
                 piecesAttackingThisSquare: []
             };
