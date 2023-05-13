@@ -61,12 +61,7 @@ function calculateAllStraightMoves(squareStep, boardOctalArray, boardState, limi
                 allStraightMovesArray.push(currentSquare);
             } else if (pieceIsKing(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allStraightMovesArray.push(currentSquare);
-                if (validSquare(boardOctalArray, limiter, nextSquare, iteration)) {
-                    allStraightMovesArray.push(nextSquare);
-                    break;
-                } else {
-                    break;
-                }
+                break;
             } else {
                 allStraightMovesArray.push(currentSquare);
                 break;

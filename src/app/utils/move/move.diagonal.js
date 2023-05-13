@@ -71,12 +71,7 @@ function calculateAllDiagonalMoves(squareStep, boardOctalArray, boardState, limi
                 }
             } else if (pieceIsKing(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allDiagonalMovesArray.push(currentSquare)
-                if (validSquare(boardOctalArray, limiter, nextSquare, iteration)) {
-                    allDiagonalMovesArray.push(nextSquare);
-                    break;
-                } else {
-                    break;
-                }
+                break;
             } else {
                 allDiagonalMovesArray.push(currentSquare);
                 break;
