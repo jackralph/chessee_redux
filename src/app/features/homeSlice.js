@@ -3,9 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import { updateBoardState, setBoardState } from '../utils/board/board.js'
 
 export const homeSlice = createSlice({
-    name: 'game',
+    name: 'home',
     initialState: { 
-        value: setBoardState() 
+        value: { 
+            board: setBoardState(),
+        }
     },
     reducers: {
         movePiece(state, action) {
@@ -13,7 +15,9 @@ export const homeSlice = createSlice({
             const updatedBoardState = updateBoardState(boardState, originSquare, targetSquare);
             return {
                 ...state,
-                value: updatedBoardState
+                value: {
+                    board: updatedBoardState
+                }
             };
         }
     },

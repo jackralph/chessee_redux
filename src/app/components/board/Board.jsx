@@ -8,7 +8,7 @@ import { movePiece } from '../../features/homeSlice';
 
 export function Board() {
     const [highlightedSquare, setHighlightedSquare] = useState(null);
-    const boardState = useSelector((state) => state.game.value);
+    const boardState = useSelector((state) => state.home.value.board);
     const dispatch = useDispatch();
 
     const colorPieceSelected = useRef(null);
