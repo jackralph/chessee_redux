@@ -10,6 +10,10 @@ import {
     setPieceColor
 } from './board.shared.js'
 
+export function changeTurn(turn) {
+    return turn === "light" ? "dark" : "light";
+}
+
 export function setBoardState() {
     let boardState = {};
 

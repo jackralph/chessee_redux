@@ -1,22 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { updateBoardState, setBoardState } from '../utils/board/board.js'
+import { 
+    changeTurn,
+    setBoardState,
+    updateBoardState,
+} from '../utils/board/board.js'
 
 export const homeSlice = createSlice({
     name: 'home',
     initialState: { 
         value: { 
             board: setBoardState(),
+            turn: "light"
         }
     },
     reducers: {
         movePiece(state, action) {
             const { boardState, originSquare, targetSquare } = action.payload;
             const updatedBoardState = updateBoardState(boardState, originSquare, targetSquare);
+            
+            const turn = state.value.turn;
+            const nextTurn = changeTurn(turn);
+
             return {
                 ...state,
                 value: {
-                    board: updatedBoardState
+                    board: updatedBoardState,
+                    turn: nextTurn
                 }
             };
         }

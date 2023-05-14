@@ -9,6 +9,7 @@ import { movePiece } from '../../features/homeSlice';
 export function Board() {
     const [highlightedSquare, setHighlightedSquare] = useState(null);
     const boardState = useSelector((state) => state.home.value.board);
+    const turn = useSelector((state) => state.home.value.turn);
     const dispatch = useDispatch();
 
     const colorPieceSelected = useRef(null);
@@ -17,7 +18,7 @@ export function Board() {
 
     function handleClick(square, hasPiece, pieceColor) {
         if (!colorPieceSelected.current) {
-            if (hasPiece) {
+            if (hasPiece && pieceColor === turn) {
                 colorPieceSelected.current = pieceColor;
                 originSquare.current = square;
                 setHighlightedSquare(square);
