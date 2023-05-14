@@ -8,6 +8,7 @@ import { movePiece } from '../../features/homeSlice';
 
 export function Board() {
     const [highlightedSquare, setHighlightedSquare] = useState(null);
+    const [highlightedSquareLegalMoves, setHighlightedSquareLegalMoves] = useState([]);
     const boardState = useSelector((state) => state.home.value.board);
     const turn = useSelector((state) => state.home.value.turn);
     const dispatch = useDispatch();
@@ -22,10 +23,12 @@ export function Board() {
                 colorPieceSelected.current = pieceColor;
                 originSquare.current = square;
                 setHighlightedSquare(square);
+                setHighlightedSquareLegalMoves(boardState[square].piece.legalMoves);
             } else {
                 colorPieceSelected.current = null;
                 originSquare.current = null;
                 setHighlightedSquare(null);
+                setHighlightedSquareLegalMoves([]);
             }
         } else {
             if (hasPiece) {
@@ -33,15 +36,18 @@ export function Board() {
                     colorPieceSelected.current = null;
                     originSquare.current = null;
                     setHighlightedSquare(null);
+                    setHighlightedSquareLegalMoves([]);
                 } else {
                     colorPieceSelected.current = pieceColor;
                     targetSquare.current = square;
                     setHighlightedSquare(null);
+                    setHighlightedSquareLegalMoves([]);
                 }
             } else {
                 colorPieceSelected.current = null;
                 targetSquare.current = square;
                 setHighlightedSquare(null);
+                setHighlightedSquareLegalMoves([]);
             }
         }
 
@@ -60,6 +66,7 @@ export function Board() {
             originSquare.current = null;
             targetSquare.current = null;
             setHighlightedSquare(null);
+            setHighlightedSquareLegalMoves([]);
         }
         console.groupEnd();
     };
@@ -74,6 +81,7 @@ export function Board() {
                     handleClick={handleClick}
                     hasPiece={hasPiece}
                     highlightedSquare={highlightedSquare}
+                    highlightedSquareLegalMoves={highlightedSquareLegalMoves}
                     key={square}
                     square={square}
                     piecesAttackingThisSquare={boardState[square].piecesAttackingThisSquare}
@@ -85,6 +93,8 @@ export function Board() {
                     boardState={boardState}
                     handleClick={handleClick}
                     hasPiece={hasPiece}
+                    highlightedSquare={highlightedSquare}
+                    highlightedSquareLegalMoves={highlightedSquareLegalMoves}
                     key={square}
                     piecesAttackingThisSquare={boardState[square].piecesAttackingThisSquare}
                     square={square}
