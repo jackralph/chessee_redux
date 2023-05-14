@@ -29,7 +29,7 @@ function calculateLegalStraightMoves(squareStep, boardOctalArray, boardState, li
 
 export function legalStraightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
     // "north" moves
-    const legalStraighNorthMovesArray = calculateLegalStraightMoves(-10, boardOctalArray, boardState, limiter, pieceColor, square);
+    const legalStraightNorthMovesArray = calculateLegalStraightMoves(-10, boardOctalArray, boardState, limiter, pieceColor, square);
 
     // "east" moves
     const legalStraightEastMovesArray = calculateLegalStraightMoves(1, boardOctalArray, boardState, limiter, pieceColor, square);
@@ -41,7 +41,7 @@ export function legalStraightMoves(boardOctalArray, boardState, limiter, pieceCo
     const legalStraightWestMovesArray = calculateLegalStraightMoves(-1, boardOctalArray, boardState, limiter, pieceColor, square);
 
     return [
-        ...legalStraighNorthMovesArray,
+        ...legalStraightNorthMovesArray,
         ...legalStraightEastMovesArray,
         ...legalStraightSouthMovesArray,
         ...legalStraightWestMovesArray
@@ -55,7 +55,6 @@ function calculateAllStraightMoves(squareStep, boardOctalArray, boardState, limi
     const squareNumber = Number(square);
 
     for (let currentSquare = squareNumber + squareStep, iteration = 1; validSquare(boardOctalArray, limiter, currentSquare, iteration); currentSquare += squareStep, iteration += 1) {
-        const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualStraightPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allStraightMovesArray.push(currentSquare);
