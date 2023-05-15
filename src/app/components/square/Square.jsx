@@ -18,7 +18,7 @@ export function Square(props) {
     const squareDominance = calculateSquareDominance(boardState, piecesAttackingThisSquare);
     const squareIsAttackedBySelectedPiece = highlightedSquareLegalMoves.includes(Number(square))
     let squareStyle = {
-        border: (squareIsAttackedBySelectedPiece && "solid green") || (highlightedSquare === square && "solid green")
+        border: (squareIsAttackedBySelectedPiece && "solid orangered") || (highlightedSquare === square && "solid orangered")
     };
 
     if (squareDominance > 0) {
