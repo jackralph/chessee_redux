@@ -35,7 +35,7 @@ export function legalStraightMoves(boardOctalArray, boardState, limiter, pieceCo
     const legalStraightEastMovesArray = calculateLegalStraightMoves(1, boardOctalArray, boardState, limiter, pieceColor, square);
 
     // "south" moves
-    const legalStraightSouthMovesArray = calculateAllStraightMoves(10, boardOctalArray, boardState, limiter, pieceColor, square);
+    const legalStraightSouthMovesArray = calculateLegalStraightMoves(10, boardOctalArray, boardState, limiter, pieceColor, square);
 
     // "west" moves
     const legalStraightWestMovesArray = calculateLegalStraightMoves(-1, boardOctalArray, boardState, limiter, pieceColor, square);
