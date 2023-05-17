@@ -1,6 +1,6 @@
-import { calculateLegalMoves, calculateAllMoves } from '../move/move.js'
+import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
 import { boardAlgebraicArray, boardOctalArray, startingPositionPieceArray, startingPositionPieceArrayTest } from "./board.const.js";
-import { placePiece, setPieceColor } from './board.shared.js'
+import { placePiece, setPieceColor } from './board.shared.js';
 
 // set
 
@@ -15,7 +15,7 @@ import { placePiece, setPieceColor } from './board.shared.js'
  * 5. Returns the `boardState`
  */
 function initialiseBoardState() {
-    let boardState = {}
+    let boardState = {};
 
     boardOctalArray.map(function(octalSquare, i) {
         const hasPiece = startingPositionPieceArray[i] !== null;
@@ -37,17 +37,17 @@ function initialiseBoardState() {
                 octalNotation: octalSquare,
                 piecesAttackingThisSquare: []
             };
-        }
+        };
     });
 
-    return boardState
+    return boardState;
 }
 
 /**
  * 
  * @param {object} boardState 
  * @returns {object} boardStateCopy
- * @description Takes the boardState and:
+ * @description Takes the `boardState` and:
  * 1. Loops through each `square` and finds ones that have a `piece`
  * 2. Calculates `legalMoves` for each `piece`
  * 3. Calculates `allMoves` for each `piece`
@@ -77,8 +77,8 @@ function calculateMovesForInitialBoardState(boardState) {
             allMoves.map(function(legalMove) {
                 return boardStateCopy[legalMove].piecesAttackingThisSquare.push(square);
             });
-        }
-    }
+        };
+    };
 
     return boardStateCopy;
 }
@@ -124,12 +124,12 @@ function moveSquareStateFromOriginToTarget(boardState, originSquare, targetSquar
             ...originSquareState.piece,
             hasMoved: true
         }
-    }
+    };
 
     boardStateCopy[originSquare] = {
         algebraicNotation: originSquareState.algebraicNotation,
         octalNotation: originSquareState.octalNotation
-    }
+    };
 
     return boardStateCopy;
 }
@@ -202,7 +202,7 @@ function updateSquaresBeingAttackedByPieces(boardState) {
             ...boardStateCopy[square],
             piecesAttackingThisSquare: piecesAttackingThisSquare[square]
         };
-    }
+    };
 
     return boardStateCopy;
 }
@@ -227,7 +227,7 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
 
     boardStateCopy = updateLegalMoves(boardStateCopy);
 
-    boardStateCopy = updateSquaresBeingAttackedByPieces(boardStateCopy)
+    boardStateCopy = updateSquaresBeingAttackedByPieces(boardStateCopy);
 
     return boardStateCopy;
 }
