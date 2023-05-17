@@ -84,14 +84,14 @@ function calculateMovesForInitialBoardState(boardState) {
 }
 
 /**
- * @function setBoardState
+ * @function createBoardState
  * @returns {object} boardState
  * @description
  * 1. Initialises the `boardState`
  * 2. Calculates the moves for the `square`(s) in the `boardState` and applies them to the `boardState`
  * 3. Returns the updated `boardState`
  */
-export function setBoardState() {
+export function createBoardState() {
     let boardState = initialiseBoardState();
     boardState = calculateMovesForInitialBoardState(boardState);
 
