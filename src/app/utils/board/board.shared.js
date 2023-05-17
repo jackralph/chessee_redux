@@ -16,6 +16,10 @@ export function calculateSquareDominance(boardState, piecesAttacking) {
     return dominance;
 }
 
+export function changeTurn(turn) {
+    return turn === "light" ? "dark" : "light";
+}
+
 export function placePiece(pieceIdentifier) {
     if (!pieceIdentifier) {
         return null;

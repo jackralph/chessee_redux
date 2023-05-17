@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { 
-    changeTurn,
-    setBoardState,
-    updateBoardState,
-} from '../utils/board/board.js'
+import { setBoardState, updateBoardState } from '../utils/board/board.js'
+import { changeTurn } from '../utils/board/board.shared.js'
 
 export const homeSlice = createSlice({
     name: 'home',

@@ -10,9 +10,7 @@ import {
     setPieceColor
 } from './board.shared.js'
 
-export function changeTurn(turn) {
-    return turn === "light" ? "dark" : "light";
-}
+// set
 
 function initialiseBoardState() {
     let boardState = {}
@@ -77,6 +75,8 @@ export function setBoardState() {
 
     return boardState;
 }
+
+// update
 
 export function updateBoardState(boardState, originSquare, targetSquare) {
     let boardStateCopy = { ...boardState };
