@@ -14,8 +14,8 @@ export function changeTurn(turn) {
     return turn === "light" ? "dark" : "light";
 }
 
-export function setBoardState() {
-    let boardState = {};
+function initialiseBoardState() {
+    let boardState = {}
 
     boardOctalArray.map(function(octalSquare, i) {
         const hasPiece = startingPositionPieceArray[i] !== null;
@@ -40,14 +40,20 @@ export function setBoardState() {
         }
     });
 
-    for (const square in boardState) {
-        const hasPiece = !!boardState[square].piece;
+    return boardState
+}
+
+function calculateMovesForInitialBoardState(boardState) {
+    let boardStateCopy = {...boardState};
+
+    for (const square in boardStateCopy) {
+        const hasPiece = !!boardStateCopy[square].piece;
 
         if (hasPiece) {
-            const pieceColor = boardState[square].piece.pieceColor;
-            const pieceName = boardState[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(boardOctalArray, boardState, pieceColor, pieceName, square);
-            const allMoves = calculateAllMoves(boardOctalArray, boardState, pieceColor, pieceName, square);
+            const pieceColor = boardStateCopy[square].piece.pieceColor;
+            const pieceName = boardStateCopy[square].piece.pieceName;
+            const legalMoves = calculateLegalMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
+            const allMoves = calculateAllMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
 
             console.group(`${pieceName} on square ${square}`);
             console.log(`legalMoves: ${legalMoves}`);
@@ -55,12 +61,19 @@ export function setBoardState() {
             console.groupEnd();
             
             allMoves.map(function(legalMove) {
-                return boardState[legalMove].piecesAttackingThisSquare.push(square);
+                return boardStateCopy[legalMove].piecesAttackingThisSquare.push(square);
             });
 
-            boardState[square].piece.legalMoves = legalMoves;
+            boardStateCopy[square].piece.legalMoves = legalMoves;
         }
     }
+
+    return boardStateCopy;
+}
+
+export function setBoardState() {
+    let boardState = initialiseBoardState();
+    boardState = calculateMovesForInitialBoardState(boardState);
 
     return boardState;
 }
