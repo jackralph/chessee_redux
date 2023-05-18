@@ -27,7 +27,7 @@ function initialiseBoardState() {
                     hasMoved: false,
                     legalMoves: [],
                     pieceColor: setPieceColor(startingPositionPieceArray[i]),
-                    pieceName: placePiece(startingPositionPieceArray[i], octalSquare)
+                    pieceName: placePiece(startingPositionPieceArray[i])
                 },
                 piecesAttackingThisSquare: []
             };
