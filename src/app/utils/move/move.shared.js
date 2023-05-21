@@ -47,3 +47,7 @@ export function validSquare(BOARD_OCTAL_ARRAY, limiter, square, iteration) {
         return BOARD_OCTAL_ARRAY.includes(Number(square));
     }
 }
+
+export function validSquareV2(BOARD_OCTAL_ARRAY, square) {
+    return BOARD_OCTAL_ARRAY.includes(Number(square));
+}
