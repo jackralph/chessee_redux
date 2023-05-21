@@ -68,11 +68,6 @@ function calculateMovesForInitialBoardState(boardState) {
             const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, square);
             const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
 
-            console.group(`${pieceName} on square ${square}`);
-            console.log(`legalMoves: ${legalMoves}`);
-            console.log(`allMoves: ${allMoves}`);
-            console.groupEnd();
-
             boardStateCopy[square].piece.legalMoves = legalMoves;
 
             allMoves.map(function(legalMove) {
