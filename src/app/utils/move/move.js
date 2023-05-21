@@ -1,8 +1,8 @@
 import { legalDiagonalMoves, allDiagonalMoves } from './move.diagonal.js'
 import { legalMovesKing, allMovesKing } from "./move.king.js"
 import { legalKnightMoves, allKnightMoves } from './move.knight.js'
-import { legalStraightMoves, allStraightMoves } from "./move.straight.js"
 import { legalDiagonalMovesPawn, legalStraightMovesPawn, allDiagonalMovesPawn } from './move.pawn.js'
+import { legalStraightMoves, allStraightMoves } from "./move.straight.js"
 
 export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pieceHasMoved, pieceName, square) {
     switch(pieceName) {
