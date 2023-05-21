@@ -33,7 +33,11 @@ function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
             if (!squareHasPiece(boardState, move) || !pieceIsSameColor(boardState, move, pieceColor)) {
                 legalMovesArray.push(move);
             }
+
+            return null;
         }
+
+        return null;
     })
 
     return legalMovesArray;
@@ -73,6 +77,8 @@ function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             allMovesArray.push(move);
         }
+
+        return null;
     })
 
     return allMovesArray;

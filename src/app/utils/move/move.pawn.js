@@ -18,6 +18,8 @@ function calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceCol
         if (validSquare(BOARD_OCTAL_ARRAY, move) && squareHasPiece(boardState, move) && !pieceIsSameColor(boardState, move, pieceColor)) {
             legalPawnMovesArray.push(move);
         }
+
+        return null;
     });
 
     return legalPawnMovesArray;
@@ -80,6 +82,8 @@ function calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             allPawnMovesArray.push(move);
         }
+
+        return null;
     });
 
     return allPawnMovesArray;
