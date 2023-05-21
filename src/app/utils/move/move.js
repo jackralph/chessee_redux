@@ -1,4 +1,5 @@
 import { legalDiagonalMoves, allDiagonalMoves } from './move.diagonal.js'
+import { legalStraightMovesKing, allStraightMovesKing, legalDiagonalMovesKing, allDiagonalMovesKing } from "./move.king.js"
 import { legalKnightMoves, allKnightMoves } from './move.knight.js'
 import { legalStraightMoves, allStraightMoves } from "./move.straight.js"
 import { legalDiagonalMovesPawn, legalStraightMovesPawn, allDiagonalMovesPawn } from './move.pawn.js'
@@ -21,8 +22,8 @@ export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, p
         case "king":
             limiter = 1;
             // console.group(`calculating moves for King on ${square}`);
-            legalStraightMovesArray = legalStraightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
-            legalDiagonalMovesArray = legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
+            legalStraightMovesArray = legalStraightMovesKing(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
+            legalDiagonalMovesArray = legalDiagonalMovesKing(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
             legalMovesArray = [...legalStraightMovesArray, ...legalDiagonalMovesArray];
             // console.log(`moves for King... ${legalMovesArray}`);
             // console.groupEnd();
@@ -85,8 +86,8 @@ export function calculateAllMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pie
         case "king":
             limiter = 1;
             // console.group(`calculating moves for King on ${square}`);
-            allStraightMovesArray = allStraightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
-            allDiagonalMovesArray = allDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
+            allStraightMovesArray = allStraightMovesKing(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
+            allDiagonalMovesArray = allDiagonalMovesKing(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
             movesArray = [...allStraightMovesArray, ...allDiagonalMovesArray];
             // console.log(`moves for King... ${movesArray}`);
             // console.groupEnd();
