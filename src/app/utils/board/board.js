@@ -1,5 +1,5 @@
 import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
-import { boardAlgebraicArray, boardOctalArray, startingPositionPieceArray, startingPositionPieceArrayTest } from "./board.const.js";
+import { BOARD_ALGEBRAIC_ARRAY, BOARD_OCTAL_ARRAY, STARTING_POSITION_PIECE_ARRAY, STARTING_POSITION_PIECE_ARRAYTest } from "./board.const.js";
 import { placePiece, setPieceColor } from './board.shared.js';
 
 // set
@@ -8,7 +8,7 @@ import { placePiece, setPieceColor } from './board.shared.js';
  * @function initialiseBoardState
  * @returns {object} boardState
  * @description
- * 1. Maps through the `boardOctalArray`
+ * 1. Maps through the `BOARD_OCTAL_ARRAY`
  * 2. Detects whether the `octalSquare` has a piece
  * 3. Sets the `algebraicNotation`, `octalNotation` & `piecesAttackingThisSquare` for `square`(s) with no `piece`
  * 4. Sets the values from **3.** + `piece` for `square`(s) with a `piece`
@@ -17,23 +17,23 @@ import { placePiece, setPieceColor } from './board.shared.js';
 function initialiseBoardState() {
     let boardState = {};
 
-    boardOctalArray.map(function(octalSquare, i) {
-        const hasPiece = startingPositionPieceArray[i] !== null;
+    BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
+        const hasPiece = STARTING_POSITION_PIECE_ARRAY[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
-                algebraicNotation: boardAlgebraicArray[i],
+                algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
                 octalNotation: octalSquare,
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(startingPositionPieceArray[i]),
-                    pieceName: placePiece(startingPositionPieceArray[i])
+                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY[i]),
+                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY[i])
                 },
                 piecesAttackingThisSquare: []
             };
         } else {
             return boardState[octalSquare] = {
-                algebraicNotation: boardAlgebraicArray[i],
+                algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
                 octalNotation: octalSquare,
                 piecesAttackingThisSquare: []
             };
@@ -64,8 +64,8 @@ function calculateMovesForInitialBoardState(boardState) {
         if (hasPiece) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
-            const allMoves = calculateAllMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
+            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
+            const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
 
             console.group(`${pieceName} on square ${square}`);
             console.log(`legalMoves: ${legalMoves}`);
@@ -151,7 +151,7 @@ function updateLegalMoves(boardState) {
         if (hasPiece) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
+            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
 
             boardStateCopy[square] = {
                 ...boardStateCopy[square],
@@ -171,7 +171,7 @@ function updateLegalMoves(boardState) {
  * @param {object} boardState
  * @returns {object} boardStateCopy
  * @description Takes the copied `boardState` and:
- * 1. Maps through the `boardOctalArray`, initialises an empty array for each square and adds it to the `piecesAttackingThisSquare` object
+ * 1. Maps through the `BOARD_OCTAL_ARRAY`, initialises an empty array for each square and adds it to the `piecesAttackingThisSquare` object
  * 2. Applies the `piecesAttackingThisSquare` to each `square`(s) state
  * 3. Returns the updated `boardStateCopy`
  */
@@ -179,7 +179,7 @@ function updateSquaresBeingAttackedByPieces(boardState) {
     let boardStateCopy = {...boardState};
     let piecesAttackingThisSquare = {};
 
-    boardOctalArray.map(function(octalSquare) {
+    BOARD_OCTAL_ARRAY.map(function(octalSquare) {
         return piecesAttackingThisSquare[octalSquare] = []
     });
 
@@ -189,7 +189,7 @@ function updateSquaresBeingAttackedByPieces(boardState) {
         if (hasPiece) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const allMoves = calculateAllMoves(boardOctalArray, boardStateCopy, pieceColor, pieceName, square);
+            const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
 
             allMoves.map(function(move) {
                 return piecesAttackingThisSquare[move].push(square);

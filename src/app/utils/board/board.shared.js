@@ -1,4 +1,4 @@
-import { pieceRef } from "./board.const.js";
+import { PIECE_REF } from "./board.const.js";
 
 /**
  * @function calculateSquareDominance
@@ -45,7 +45,7 @@ export function placePiece(pieceIdentifier) {
     if (!pieceIdentifier) {
         return null;
     } else {
-        return pieceRef[pieceIdentifier];
+        return PIECE_REF[pieceIdentifier];
     }
 }
 

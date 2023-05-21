@@ -6,7 +6,7 @@ import {
 
 // legal
 
-function calculateLegalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
+function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square) {
     let legalKnightMovesArray = [];
     const squareNumber = Number(square);
 
@@ -29,7 +29,7 @@ function calculateLegalKnightMoves(boardOctalArray, boardState, limiter, pieceCo
         westTwoSouthOne,
         westTwoNorthOne
     ].map(function(move) {
-        if (validSquare(boardOctalArray, limiter, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, limiter, move)) {
             if (!squareHasPiece(boardState, move)) {
                 return legalKnightMovesArray.push(move);
             } else if (!pieceIsSameColor(boardState, move, pieceColor)) {
@@ -43,13 +43,13 @@ function calculateLegalKnightMoves(boardOctalArray, boardState, limiter, pieceCo
     return legalKnightMovesArray;
 }
 
-export function legalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
-    const legalKnightMovesArray = calculateLegalKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square);
+export function legalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square) {
+    const legalKnightMovesArray = calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
 
     return legalKnightMovesArray;
 }
 
-export function allKnightMoves(boardOctalArray, boardState, limiter, pieceColor, square) {
+export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square) {
     let knightMovesArray = [];
 
     const squareNumber = Number(square);
@@ -73,7 +73,7 @@ export function allKnightMoves(boardOctalArray, boardState, limiter, pieceColor,
         westTwoSouthOne,
         westTwoNorthOne
     ].map(function(move) {
-        if (validSquare(boardOctalArray, limiter, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, limiter, move)) {
             return knightMovesArray.push(move);
         }
         return null;

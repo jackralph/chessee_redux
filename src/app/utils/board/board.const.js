@@ -1,4 +1,9 @@
-export const boardAlgebraicArray = [
+/**
+ * @const BOARD_ALGEBRAIC_ARRAY
+ * @type {string[]}
+ * @description Array with 64 strings, each denoting the algebraic notation of a square
+ */
+export const BOARD_ALGEBRAIC_ARRAY = [
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
     "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
     "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
@@ -9,7 +14,12 @@ export const boardAlgebraicArray = [
     "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1"
 ];
 
-export const boardOctalArray = [
+/**
+ * @const BOARD_OCTAL_ARRAY
+ * @type {number[]}
+ * @description Array with 64 numbers, each denoting the octal notation of a square
+ */
+export const BOARD_OCTAL_ARRAY = [
     0o0, 0o1, 0o2, 0o3, 0o4, 0o5, 0o6, 0o7,
     10, 11, 12, 13, 14, 15, 16, 17,
     20, 21, 22, 23, 24, 25, 26, 27,
@@ -20,7 +30,16 @@ export const boardOctalArray = [
     70, 71, 72, 73, 74, 75, 76, 77
 ];
 
-export const startingPositionPieceArray = [
+/**
+ * @const STARTING_POSITION_PIECE_ARRAY
+ * @type {(string|null)[]}
+ * @description Array containing:
+ * - 64 elements
+ * - 16 strings for string equivalent of dark `piece`s names
+ * - 16 strings for string equivalent of light `piece`s names
+ * - 32 null values for empty `square`s
+ */
+export const STARTING_POSITION_PIECE_ARRAY = [
     'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
     'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
     null, null, null, null, null, null, null, null,
@@ -31,7 +50,12 @@ export const startingPositionPieceArray = [
     'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
 ];
 
-export const startingPositionPieceArrayTest = [
+/**
+ * @const STARTING_POSITION_PIECE_ARRAY
+ * @type {(string|null)[]}
+ * @description **TEST ONLY** Array containing test setup of pieces
+ */
+export const STARTING_POSITION_PIECE_ARRAY_TEST = [
     null, null, null, 'q', 'k', null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
@@ -42,7 +66,18 @@ export const startingPositionPieceArrayTest = [
     null, null, null, 'Q', 'K', null, null, null,
 ]
 
-export const pieceRef = {
+/**
+ * @const PIECE_REF
+ * @type {object}
+ * @description `piece` reference to get the `name` equivalent of a `piece` identified
+ * - `'b'` or `'B'` = `'bishop'`
+ * - `'k'` or `'K'` = `'king'`
+ * - `'n'` or `'N'` = `'knight'`
+ * - `'p'` or `'P'` = `'pawn'`
+ * - `'q'` or `'Q'` = `'queen'`
+ * - `'r'` or `'R'` = `'rook'`
+ */
+export const PIECE_REF = {
     // dark piece
     'b': 'bishop',
     'k': 'king',
