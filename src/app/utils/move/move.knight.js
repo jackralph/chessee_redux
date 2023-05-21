@@ -1,12 +1,12 @@
 import {
     pieceIsSameColor,
     squareHasPiece,
-    validSquare
+    validSquareV2
 } from './move.shared.js'
 
 // legal
 
-function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square) {
+function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalKnightMovesArray = [];
     const squareNumber = Number(square);
 
@@ -29,7 +29,7 @@ function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, piece
         westTwoSouthOne,
         westTwoNorthOne
     ].map(function(move) {
-        if (validSquare(BOARD_OCTAL_ARRAY, limiter, move)) {
+        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
             if (!squareHasPiece(boardState, move)) {
                 return legalKnightMovesArray.push(move);
             } else if (!pieceIsSameColor(boardState, move, pieceColor)) {
@@ -43,13 +43,13 @@ function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, piece
     return legalKnightMovesArray;
 }
 
-export function legalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square) {
-    const legalKnightMovesArray = calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square);
+export function legalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    const legalKnightMovesArray = calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     return legalKnightMovesArray;
 }
 
-export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColor, square) {
+export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let knightMovesArray = [];
 
     const squareNumber = Number(square);
@@ -73,7 +73,7 @@ export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, limiter, pieceColo
         westTwoSouthOne,
         westTwoNorthOne
     ].map(function(move) {
-        if (validSquare(BOARD_OCTAL_ARRAY, limiter, move)) {
+        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
             return knightMovesArray.push(move);
         }
         return null;

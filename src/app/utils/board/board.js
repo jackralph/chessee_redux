@@ -18,7 +18,7 @@ function initialiseBoardState() {
     let boardState = {};
 
     BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
-        const hasPiece = STARTING_POSITION_PIECE_ARRAY_TEST[i] !== null;
+        const hasPiece = STARTING_POSITION_PIECE_ARRAY[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
@@ -26,8 +26,8 @@ function initialiseBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY_TEST[i]),
-                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY_TEST[i])
+                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY[i]),
+                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY[i])
                 },
                 piecesAttackingThisSquare: []
             };
@@ -63,8 +63,9 @@ function calculateMovesForInitialBoardState(boardState) {
 
         if (hasPiece) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
+            const pieceHasMoved = boardStateCopy[square].piece.hasMoved;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
+            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, square);
             const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
 
             console.group(`${pieceName} on square ${square}`);
@@ -150,8 +151,9 @@ function updateLegalMoves(boardState) {
 
         if (hasPiece) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
+            const pieceHasMoved = boardStateCopy[square].piece.hasMoved;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
+            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, square);
 
             boardStateCopy[square] = {
                 ...boardStateCopy[square],

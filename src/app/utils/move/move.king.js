@@ -47,7 +47,7 @@ export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
 
 // all
 
-function calculateAllMovesKing(BOARD_OCTAL_ARRAY, square) {
+function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesArray = [];
     const squareNumber = Number(square);
 
