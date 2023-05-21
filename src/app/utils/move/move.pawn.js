@@ -1,8 +1,7 @@
 import {
     pieceIsSameColor,
     squareHasPiece,
-    validSquare,
-    validSquareV2
+    validSquare
 } from './move.shared.js'
 
 // legal diagonal
@@ -16,7 +15,7 @@ function calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceCol
     const northWest = squareNumber + (11 * pawnDirection);
 
     [northEast, northWest].map(function(move) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, move) && squareHasPiece(boardState, move) && !pieceIsSameColor(boardState, move, pieceColor)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, move) && squareHasPiece(boardState, move) && !pieceIsSameColor(boardState, move, pieceColor)) {
             legalPawnMovesArray.push(move);
         }
     });
@@ -40,13 +39,13 @@ function calculateLegalStraightPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceHas
     const northTwo = squareNumber + (20 * pawnDirection);
 
     if (pieceHasMoved) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, northOne) && !squareHasPiece(boardState, northOne)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, northOne) && !squareHasPiece(boardState, northOne)) {
             return [northOne];
         }
     } else {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, northOne) && !squareHasPiece(boardState, northOne)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, northOne) && !squareHasPiece(boardState, northOne)) {
 
-            if (validSquareV2(BOARD_OCTAL_ARRAY, northTwo) && !squareHasPiece(boardState, northTwo)) {
+            if (validSquare(BOARD_OCTAL_ARRAY, northTwo) && !squareHasPiece(boardState, northTwo)) {
                 return [northOne, northTwo]
             }
 
@@ -78,7 +77,7 @@ function calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor
         northEast,
         northWest
     ].map(function(move) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             allPawnMovesArray.push(move);
         }
     });

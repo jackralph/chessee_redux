@@ -40,14 +40,6 @@ export function validateMove(boardState, originSquare, targetSquare) {
     return pieceLegalMoves.includes(Number(targetSquare));
 }
 
-export function validSquare(BOARD_OCTAL_ARRAY, limiter, square, iteration) {
-    if (limiter) {
-        return BOARD_OCTAL_ARRAY.includes(Number(square)) && iteration <= limiter;
-    } else {
-        return BOARD_OCTAL_ARRAY.includes(Number(square));
-    }
-}
-
-export function validSquareV2(BOARD_OCTAL_ARRAY, square) {
+export function validSquare(BOARD_OCTAL_ARRAY, square) {
     return BOARD_OCTAL_ARRAY.includes(Number(square));
 }

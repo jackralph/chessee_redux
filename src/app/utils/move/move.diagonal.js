@@ -5,7 +5,7 @@ import {
     pieceIsPawn,
     pieceIsSameColor,
     squareHasPiece,
-    validSquareV2
+    validSquare
 } from './move.shared.js'
 
 // legal
@@ -14,7 +14,7 @@ function calculateLegalDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, 
     let legalDiagonalMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let currentSquare = squareNumber + squareStep; validSquareV2(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
+    for (let currentSquare = squareNumber + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (!squareHasPiece(boardState, currentSquare)) {
             legalDiagonalMovesArray.push(currentSquare);
             continue;
@@ -56,14 +56,14 @@ function calculateAllDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
     let allDiagonalMovesArray = [];
     const squareNumber = Number(square);
     
-    for (let currentSquare = squareNumber + squareStep; validSquareV2(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
+    for (let currentSquare = squareNumber + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualDiagonalPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allDiagonalMovesArray.push(currentSquare);
             } else if (pieceIsPawn(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allDiagonalMovesArray.push(currentSquare);
-                if (isForwardMove(currentSquare, nextSquare, pieceColor) && validSquareV2(BOARD_OCTAL_ARRAY, nextSquare)) {
+                if (isForwardMove(currentSquare, nextSquare, pieceColor) && validSquare(BOARD_OCTAL_ARRAY, nextSquare)) {
                     allDiagonalMovesArray.push(nextSquare);
                     break;
                 } else {

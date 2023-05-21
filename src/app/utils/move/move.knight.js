@@ -1,7 +1,7 @@
 import {
     pieceIsSameColor,
     squareHasPiece,
-    validSquareV2
+    validSquare
 } from './move.shared.js'
 
 // legal
@@ -29,7 +29,7 @@ function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
         westTwoSouthOne,
         westTwoNorthOne
     ].map(function(move) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             if (!squareHasPiece(boardState, move)) {
                 return legalKnightMovesArray.push(move);
             } else if (!pieceIsSameColor(boardState, move, pieceColor)) {
@@ -73,7 +73,7 @@ export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
         westTwoSouthOne,
         westTwoNorthOne
     ].map(function(move) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             return knightMovesArray.push(move);
         }
         return null;

@@ -1,7 +1,7 @@
 import {
     pieceIsSameColor,
     squareHasPiece,
-    validSquareV2
+    validSquare
 } from './move.shared.js'
 
 // legal
@@ -29,7 +29,7 @@ function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
         west,
         northWest
     ].map(function(move) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             if (!squareHasPiece(boardState, move) || !pieceIsSameColor(boardState, move, pieceColor)) {
                 legalMovesArray.push(move);
             }
@@ -70,7 +70,7 @@ function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
         west,
         northWest
     ].map(function(move) {
-        if (validSquareV2(BOARD_OCTAL_ARRAY, move)) {
+        if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             allMovesArray.push(move);
         }
     })

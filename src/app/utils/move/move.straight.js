@@ -3,7 +3,7 @@ import {
     pieceIsKing,
     pieceIsSameColor,
     squareHasPiece,
-    validSquareV2
+    validSquare
 } from './move.shared.js'
 
 // legal
@@ -12,7 +12,7 @@ function calculateLegalStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, 
     let legalStraightMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let currentSquare = squareNumber + squareStep; validSquareV2(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
+    for (let currentSquare = squareNumber + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (!squareHasPiece(boardState, currentSquare)) {
             legalStraightMovesArray.push(currentSquare);
             continue;
@@ -54,7 +54,7 @@ function calculateAllStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
     let allStraightMovesArray = [];
     const squareNumber = Number(square);
 
-    for (let currentSquare = squareNumber + squareStep; validSquareV2(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
+    for (let currentSquare = squareNumber + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualStraightPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
                 allStraightMovesArray.push(currentSquare);
