@@ -41,5 +41,5 @@ export function validateMove(boardState, originSquare, targetSquare) {
 }
 
 export function validSquare(BOARD_OCTAL_ARRAY, square) {
-    return BOARD_OCTAL_ARRAY.includes(Number(square));
+    return BOARD_OCTAL_ARRAY.includes(square);
 }

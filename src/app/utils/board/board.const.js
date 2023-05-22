@@ -16,7 +16,7 @@ export const BOARD_ALGEBRAIC_ARRAY = [
 
 /**
  * @const BOARD_OCTAL_ARRAY
- * @type {number[]}
+ * @type {array}
  * @description Array with 64 numbers, each denoting the octal notation of a square
  */
 export const BOARD_OCTAL_ARRAY = [
@@ -32,7 +32,7 @@ export const BOARD_OCTAL_ARRAY = [
 
 /**
  * @const STARTING_POSITION_PIECE_ARRAY
- * @type {(string|null)[]}
+ * @type {array}
  * @description Array containing:
  * - 64 elements
  * - 16 strings for string equivalent of dark `piece`s names
@@ -52,7 +52,7 @@ export const STARTING_POSITION_PIECE_ARRAY = [
 
 /**
  * @const STARTING_POSITION_PIECE_ARRAY
- * @type {(string|null)[]}
+ * @type {array}
  * @description **TEST ONLY** Array containing test setup of pieces
  */
 export const STARTING_POSITION_PIECE_ARRAY_TEST = [

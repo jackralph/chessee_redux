@@ -4,6 +4,17 @@ import { legalKnightMoves, allKnightMoves } from './move.knight.js'
 import { legalDiagonalMovesPawn, legalStraightMovesPawn, allDiagonalMovesPawn } from './move.pawn.js'
 import { legalStraightMoves, allStraightMoves } from "./move.straight.js"
 
+/**
+ * @function calculateLegalMoves
+ * @param {array} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {boolean} pieceHasMoved 
+ * @param {string} pieceName 
+ * @param {number} square
+ * @returns TODO
+ * @description TODO
+ */
 export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pieceHasMoved, pieceName, square) {
     switch(pieceName) {
         case "bishop":
@@ -27,6 +38,16 @@ export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, p
     }
 }
 
+/**
+ * @function calculateAllMoves
+ * @param {array} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {string} pieceName 
+ * @param {number} square 
+ * @returns TODO
+ * @description TODO
+ */
 export function calculateAllMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pieceName, square) {
     switch(pieceName) {
         case "bishop":

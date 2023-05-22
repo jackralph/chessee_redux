@@ -8,16 +8,15 @@ import {
 
 function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalKnightMovesArray = [];
-    const squareNumber = Number(square);
 
-    const northTwoWestOne = squareNumber - 21;
-    const northTwoEastOne = squareNumber - 19;
-    const eastTwoNorthOne = squareNumber - 8;
-    const eastTwoSouthOne = squareNumber + 12;
-    const southTwoEastOne = squareNumber + 21;
-    const southTwoWestOne = squareNumber + 19;
-    const westTwoSouthOne = squareNumber + 8;
-    const westTwoNorthOne = squareNumber - 12;
+    const northTwoWestOne = square - 21;
+    const northTwoEastOne = square - 19;
+    const eastTwoNorthOne = square - 8;
+    const eastTwoSouthOne = square + 12;
+    const southTwoEastOne = square + 21;
+    const southTwoWestOne = square + 19;
+    const westTwoSouthOne = square + 8;
+    const westTwoNorthOne = square - 12;
 
     [
         northTwoWestOne,
@@ -52,16 +51,14 @@ export function legalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
 export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let knightMovesArray = [];
 
-    const squareNumber = Number(square);
-
-    const northTwoWestOne = squareNumber - 21;
-    const northTwoEastOne = squareNumber - 19;
-    const eastTwoNorthOne = squareNumber - 8;
-    const eastTwoSouthOne = squareNumber + 12;
-    const southTwoEastOne = squareNumber + 21;
-    const southTwoWestOne = squareNumber + 19;
-    const westTwoSouthOne = squareNumber + 8;
-    const westTwoNorthOne = squareNumber - 12;
+    const northTwoWestOne = square - 21;
+    const northTwoEastOne = square - 19;
+    const eastTwoNorthOne = square - 8;
+    const eastTwoSouthOne = square + 12;
+    const southTwoEastOne = square + 21;
+    const southTwoWestOne = square + 19;
+    const westTwoSouthOne = square + 8;
+    const westTwoNorthOne = square - 12;
 
     [
         northTwoWestOne,

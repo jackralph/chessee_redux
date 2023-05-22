@@ -65,13 +65,14 @@ function calculateMovesForInitialBoardState(boardState) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceHasMoved = boardStateCopy[square].piece.hasMoved;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, square);
-            const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
+            const squareNumber = Number(square);
+            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, squareNumber);
+            const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, squareNumber);
 
-            boardStateCopy[square].piece.legalMoves = legalMoves;
+            boardStateCopy[squareNumber].piece.legalMoves = legalMoves;
 
             allMoves.map(function(legalMove) {
-                return boardStateCopy[legalMove].piecesAttackingThisSquare.push(square);
+                return boardStateCopy[legalMove].piecesAttackingThisSquare.push(squareNumber);
             });
         };
     };
@@ -148,12 +149,13 @@ function updateLegalMoves(boardState) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceHasMoved = boardStateCopy[square].piece.hasMoved;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, square);
+            const squareNumber = Number(square);
+            const legalMoves = calculateLegalMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceHasMoved, pieceName, squareNumber);
 
-            boardStateCopy[square] = {
-                ...boardStateCopy[square],
+            boardStateCopy[squareNumber] = {
+                ...boardStateCopy[squareNumber],
                 piece: {
-                    ...boardStateCopy[square].piece,
+                    ...boardStateCopy[squareNumber].piece,
                     legalMoves: legalMoves
                 },
             };
@@ -186,10 +188,11 @@ function updateSquaresBeingAttackedByPieces(boardState) {
         if (hasPiece) {
             const pieceColor = boardStateCopy[square].piece.pieceColor;
             const pieceName = boardStateCopy[square].piece.pieceName;
-            const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, square);
+            const squareNumber = Number(square);
+            const allMoves = calculateAllMoves(BOARD_OCTAL_ARRAY, boardStateCopy, pieceColor, pieceName, squareNumber);
 
             allMoves.map(function(move) {
-                return piecesAttackingThisSquare[move].push(square);
+                return piecesAttackingThisSquare[move].push(squareNumber);
             });
         };
     };

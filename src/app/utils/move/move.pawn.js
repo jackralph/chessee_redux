@@ -8,11 +8,10 @@ import {
 
 function calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalPawnMovesArray = []
-    const squareNumber = Number(square);
     const pawnDirection = pieceColor === "light" ? -1 : 1;
 
-    const northEast = squareNumber + (9 * pawnDirection);
-    const northWest = squareNumber + (11 * pawnDirection);
+    const northEast = square + (9 * pawnDirection);
+    const northWest = square + (11 * pawnDirection);
 
     [northEast, northWest].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move) && squareHasPiece(boardState, move) && !pieceIsSameColor(boardState, move, pieceColor)) {
@@ -34,11 +33,10 @@ export function legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor
 // legal straight
 
 function calculateLegalStraightPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
-    const squareNumber = Number(square)
     const pawnDirection = pieceColor === "light" ? -1 : 1;
 
-    const northOne = squareNumber + (10 * pawnDirection);
-    const northTwo = squareNumber + (20 * pawnDirection);
+    const northOne = square + (10 * pawnDirection);
+    const northTwo = square + (20 * pawnDirection);
 
     if (pieceHasMoved) {
         if (validSquare(BOARD_OCTAL_ARRAY, northOne) && !squareHasPiece(boardState, northOne)) {
@@ -70,10 +68,9 @@ export function legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMo
 function calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allPawnMovesArray = [];
     const pawnDirection = pieceColor === "light" ? -1 : 1;
-    const squareNumber = Number(square);
 
-    const northEast = squareNumber + (9 * pawnDirection);
-    const northWest = squareNumber + (11 * pawnDirection);
+    const northEast = square + (9 * pawnDirection);
+    const northWest = square + (11 * pawnDirection);
 
     [
         northEast,

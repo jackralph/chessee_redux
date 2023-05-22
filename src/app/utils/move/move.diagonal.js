@@ -12,9 +12,8 @@ import {
 
 function calculateLegalDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalDiagonalMovesArray = [];
-    const squareNumber = Number(square);
 
-    for (let currentSquare = squareNumber + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
+    for (let currentSquare = square + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (!squareHasPiece(boardState, currentSquare)) {
             legalDiagonalMovesArray.push(currentSquare);
             continue;
@@ -54,9 +53,8 @@ export function legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
 
 function calculateAllDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allDiagonalMovesArray = [];
-    const squareNumber = Number(square);
     
-    for (let currentSquare = squareNumber + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
+    for (let currentSquare = square + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualDiagonalPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {

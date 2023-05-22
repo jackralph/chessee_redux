@@ -8,16 +8,15 @@ import {
 
 function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesArray = [];
-    const squareNumber = Number(square);
 
-    const north = squareNumber - 10;
-    const northEast = squareNumber - 9;
-    const east = squareNumber + 1;
-    const southEast = squareNumber + 11;
-    const south = squareNumber + 10;
-    const southWest = squareNumber + 9;
-    const west = squareNumber - 1;
-    const northWest = squareNumber - 11;
+    const north = square - 10;
+    const northEast = square - 9;
+    const east = square + 1;
+    const southEast = square + 11;
+    const south = square + 10;
+    const southWest = square + 9;
+    const west = square - 1;
+    const northWest = square - 11;
 
     [
         north,
@@ -53,16 +52,15 @@ export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
 
 function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesArray = [];
-    const squareNumber = Number(square);
 
-    const north = squareNumber - 10;
-    const northEast = squareNumber - 9;
-    const east = squareNumber + 1;
-    const southEast = squareNumber + 11;
-    const south = squareNumber + 10;
-    const southWest = squareNumber + 9;
-    const west = squareNumber - 1;
-    const northWest = squareNumber - 11;
+    const north = square - 10;
+    const northEast = square - 9;
+    const east = square + 1;
+    const southEast = square + 11;
+    const south = square + 10;
+    const southWest = square + 9;
+    const west = square - 1;
+    const northWest = square - 11;
 
     [
         north,
