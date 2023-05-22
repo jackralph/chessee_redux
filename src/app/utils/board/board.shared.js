@@ -49,6 +49,12 @@ export function placePiece(pieceIdentifier) {
     }
 }
 
+/**
+ * @function setPieceColor
+ * @param {string} pieceIdentifier (`"b"`/`"k"`/`"n"`/`"p"`/`"q"`/`"r"`/`"B"`/`"K"`/`"N"`/`"P"`/`"Q"`/`"R"`)
+ * @returns {string} "light" or "dark"
+ * @description Takes a `pieceIdentifier` and returns `"dark"` if the `pieceIdentifier` is lowercase, otherwise `"light"`
+ */
 export function setPieceColor(pieceIdentifier) {  
     if (pieceIdentifier === String(pieceIdentifier).toLowerCase()) {
         return "dark";
