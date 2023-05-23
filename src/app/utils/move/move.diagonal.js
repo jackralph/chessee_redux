@@ -10,6 +10,16 @@ import {
 
 // legal
 
+/**
+ * @function calculateLegalDiagonalMoves
+ * @param {number} squareStep 
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates legal diagonal moves for a specific `piece` on a `square` (used by `"bishop"` and `"queen"`)
+ */
 function calculateLegalDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalDiagonalMovesArray = [];
 
@@ -28,6 +38,15 @@ function calculateLegalDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, 
     return legalDiagonalMovesArray;
 }
 
+/**
+ * @function legalDiagonalMoves
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalDiagonalMoves` to calculate moves in that direction
+ */
 export function legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north-east" moves
     const legalNorthEastDiagonalMovesArray = calculateLegalDiagonalMoves(-9, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
@@ -51,6 +70,16 @@ export function legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
 
 // all
 
+/**
+ * @function calculateAllDiagonalMoves
+ * @param {number} squareStep 
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates all diagonal moves for a specific `piece` on a `square` (used by `"bishop"` and `"queen"`)
+ */
 function calculateAllDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allDiagonalMovesArray = [];
     
@@ -83,6 +112,15 @@ function calculateAllDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
     return allDiagonalMovesArray;
 }
 
+/**
+ * @function allDiagonalMoves
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllDiagonalMoves` to calculate moves in that direction
+ */
 export function allDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north-east" moves
     const allNorthEastDiagonalMovesArray = calculateAllDiagonalMoves(-9, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)

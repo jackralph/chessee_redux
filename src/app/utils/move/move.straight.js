@@ -8,6 +8,16 @@ import {
 
 // legal
 
+/**
+ * @function calculateLegalStraightMoves
+ * @param {number} squareStep 
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates legal straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
+ */
 function calculateLegalStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalStraightMovesArray = [];
 
@@ -26,6 +36,15 @@ function calculateLegalStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, 
     return legalStraightMovesArray;
 }
 
+/**
+ * @function legalStraightMoves
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalStraightMoves` to calculate moves in that direction
+ */
 export function legalStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
     const legalStraightNorthMovesArray = calculateLegalStraightMoves(-10, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
@@ -49,6 +68,16 @@ export function legalStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
 
 // all
 
+/**
+ * @function calculateAllStraightMoves
+ * @param {number} squareStep 
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates all straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
+ */
 function calculateAllStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allStraightMovesArray = [];
 
@@ -72,6 +101,15 @@ function calculateAllStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
     return allStraightMovesArray;
 }
 
+/**
+ * @function allStraightMoves
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllStraightMoves` to calculate moves in that direction
+ */
 export function allStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
     const allStraightNorthMovesArray = calculateAllStraightMoves(-10, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
