@@ -7,6 +7,15 @@ import {
 
 // legal diagonal
 
+/**
+ * @function calculateLegalMovesDiagonalPawn
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates legal diagonal pawn moves
+ */
 function calculateLegalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesDiagonalPawnArray = []
     const pawnDirection = pieceColor === "light" ? 1 : -1;
@@ -25,6 +34,15 @@ function calculateLegalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceCol
     return legalMovesDiagonalPawnArray;
 }
 
+/**
+ * @function legalDiagonalMovesPawn
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateLegalMovesDiagonalPawn` and returns legal diagonal moves for pawn
+ */
 export function legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const legalMovesDiagonalPawnArray = calculateLegalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
@@ -33,6 +51,16 @@ export function legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor
 
 // legal straight
 
+/**
+ * @function calculateLegalMovesStraightPawn
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState
+ * @param {boolean} pieceHasMoved
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates legal straight pawn moves
+ */
 function calculateLegalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
     const pawnDirection = pieceColor === "light" ? 1 : -1;
 
@@ -57,6 +85,16 @@ function calculateLegalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHas
     return [];
 }
 
+/**
+ * @function legalStraightMovesPawn
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState
+ * @param {boolean} pieceHasMoved
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateLegalMovesStraightPawn` and returns legal straight moves for pawn
+ */
 export function legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
     // "north" moves
     const legalMovesStraightPawnArray = calculateLegalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square);
@@ -66,6 +104,15 @@ export function legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMo
 
 // all
 
+/**
+ * @function calculateAllMovesDiagonalPawn
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates all diagonal pawn moves
+ */
 function calculateAllMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesDiagonalPawnArray = [];
     const pawnDirection = pieceColor === "light" ? 1 : -1;
@@ -87,6 +134,15 @@ function calculateAllMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor
     return allMovesDiagonalPawnArray;
 }
 
+/**
+ * @function allDiagonalMovesPawn
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateAllMovesDiagonalPawn` and returns all diagonal moves for pawn
+ */
 export function allDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const allMovesDiagonalPawnArray = calculateAllMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
