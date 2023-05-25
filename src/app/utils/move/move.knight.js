@@ -1,3 +1,4 @@
+import { MOVE_DIRECTION } from "./move.const.js";
 import {
     pieceIsSameColor,
     squareHasPiece,
@@ -9,14 +10,14 @@ import {
 function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalKnightMovesArray = [];
 
-    const northTwoWestOne = square - 21;
-    const northTwoEastOne = square - 19;
-    const eastTwoNorthOne = square - 8;
-    const eastTwoSouthOne = square + 12;
-    const southTwoEastOne = square + 21;
-    const southTwoWestOne = square + 19;
-    const westTwoSouthOne = square + 8;
-    const westTwoNorthOne = square - 12;
+    const northTwoWestOne = square + MOVE_DIRECTION.northTwoWestOne;
+    const northTwoEastOne = square + MOVE_DIRECTION.northTwoEastOne;
+    const eastTwoNorthOne = square + MOVE_DIRECTION.eastTwoNorthOne;
+    const eastTwoSouthOne = square + MOVE_DIRECTION.eastTwoSouthOne;
+    const southTwoEastOne = square + MOVE_DIRECTION.southTwoEastOne;
+    const southTwoWestOne = square + MOVE_DIRECTION.southTwoWestOne;
+    const westTwoSouthOne = square + MOVE_DIRECTION.westTwoSouthOne;
+    const westTwoNorthOne = square + MOVE_DIRECTION.westTwoNorthOne;
 
     [
         northTwoWestOne,
@@ -51,14 +52,14 @@ export function legalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
 export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let knightMovesArray = [];
 
-    const northTwoWestOne = square - 21;
-    const northTwoEastOne = square - 19;
-    const eastTwoNorthOne = square - 8;
-    const eastTwoSouthOne = square + 12;
-    const southTwoEastOne = square + 21;
-    const southTwoWestOne = square + 19;
-    const westTwoSouthOne = square + 8;
-    const westTwoNorthOne = square - 12;
+    const northTwoWestOne = square + MOVE_DIRECTION.northTwoWestOne;
+    const northTwoEastOne = square + MOVE_DIRECTION.northTwoEastOne;
+    const eastTwoNorthOne = square + MOVE_DIRECTION.eastTwoNorthOne;
+    const eastTwoSouthOne = square + MOVE_DIRECTION.eastTwoSouthOne;
+    const southTwoEastOne = square + MOVE_DIRECTION.southTwoEastOne;
+    const southTwoWestOne = square + MOVE_DIRECTION.southTwoWestOne;
+    const westTwoSouthOne = square + MOVE_DIRECTION.westTwoSouthOne;
+    const westTwoNorthOne = square + MOVE_DIRECTION.westTwoNorthOne;
 
     [
         northTwoWestOne,

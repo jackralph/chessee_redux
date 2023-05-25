@@ -12,4 +12,14 @@ export const MOVE_DIRECTION = {
     southWest: 9,
     west: -1,
     northWest: -11,
+
+    // knight moves
+    northTwoWestOne: -21,
+    northTwoEastOne: -19,
+    eastTwoNorthOne: -8,
+    eastTwoSouthOne: 12,
+    southTwoEastOne: 21,
+    southTwoWestOne: 19,
+    westTwoSouthOne: 8,
+    westTwoNorthOne: -12,
 }

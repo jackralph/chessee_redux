@@ -57,12 +57,12 @@ export const STARTING_POSITION_PIECE_ARRAY = [
  */
 export const STARTING_POSITION_PIECE_ARRAY_TEST = [
     null, null, null, null, null, null, null, null,
-    null, null, null, null, null, 'p', null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
-    null, null, 'b', 'p', 'k', null, null, null,
-    null, null, 'K', 'P', 'B', null, null, null,
-    null, null, null, null, null, 'P', null, null,
+    null, null, null, null, 'N', null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
 ]
 
