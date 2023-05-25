@@ -14,7 +14,15 @@ import {
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates legal king moves
+ * @description Calculates **legal** `"king"` moves in every regular direction 1 `square`
+ * - `north`
+ * - `northEast`
+ * - `east`
+ * - `southEast`
+ * - `south`
+ * - `southWest`
+ * - `west`
+ * - `northWest`
  */
 function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesKingArray = [];
@@ -59,7 +67,7 @@ function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calls `calculateLegalMovesKing` and returns legal moves for the king
+ * @description Calls `calculateLegalMovesKing` and returns **legal** moves for the king
  */
 export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const legalMovesKingArray = calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
@@ -76,7 +84,15 @@ export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates all king moves
+ * @description Calculates **all** king moves in in every regular direction 1 `square`
+ * - `north`
+ * - `northEast`
+ * - `east`
+ * - `southEast`
+ * - `south`
+ * - `southWest`
+ * - `west`
+ * - `northWest`
  */
 function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesKingArray = [];
@@ -117,7 +133,7 @@ function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calls `calculateAllMovesKing` and returns all moves for the king
+ * @description Calls `calculateAllMovesKing` and returns **all** moves for the king
  */
 export function allMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const allMovesKingArray = calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)

@@ -14,7 +14,9 @@ import {
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates legal diagonal pawn moves
+ * @description Calculates **legal** diagonal `"pawn"` moves in 2 regular directions
+ * - `northEast`
+ * - `northWest`
  */
 function calculateLegalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesDiagonalPawnArray = []
@@ -59,7 +61,8 @@ export function legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates legal straight pawn moves
+ * @description Calculates **legal** straight `"pawn"` moves in 1 regular direction
+ * - `north`
  */
 function calculateLegalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
     const pawnDirection = pieceColor === "light" ? 1 : -1;
@@ -111,7 +114,9 @@ export function legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMo
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates all diagonal pawn moves
+ * @description Calculates **all** diagonal `"pawn"` moves in 2 regular directions
+ * - `northEast`
+ * - `northWest`
  */
 function calculateAllMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesDiagonalPawnArray = [];

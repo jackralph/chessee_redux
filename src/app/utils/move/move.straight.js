@@ -17,7 +17,7 @@ import {
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates legal straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
+ * @description Calculates **legal** straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
  */
 function calculateLegalMovesStraight(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesStraightArray = [];
@@ -44,7 +44,11 @@ function calculateLegalMovesStraight(squareStep, BOARD_OCTAL_ARRAY, boardState, 
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalMovesStraight` to calculate moves in that direction
+ * @description Uses 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalMovesStraight` to calculate **legal** moves in that direction
+ * - `north`
+ * - `east`
+ * - `south`
+ * - `west`
  */
 export function legalMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
@@ -77,7 +81,7 @@ export function legalMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates all straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
+ * @description Calculates **all** straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
  */
 function calculateAllMovesStraight(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesStraightArray = [];
@@ -109,7 +113,11 @@ function calculateAllMovesStraight(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllMovesStraight` to calculate moves in that direction
+ * @description Uses 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllMovesStraight` to calculate **all** moves in that direction
+ * -`north`
+ * - `east`
+ * - `south`
+ * - `west`
  */
 export function allMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves

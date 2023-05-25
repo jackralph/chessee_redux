@@ -14,7 +14,15 @@ import {
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates legal knight moves
+ * @description Calculates **legal** `"knight"` moves in every irregular direction
+ * - `northTwoWestOne`
+ * - `northTwoEastOne`
+ * - `eastTwoNorthOne`
+ * - `eastTwoSouthOne`
+ * - `southTwoEastOne`
+ * - `southTwoWestOne`
+ * - `westTwoSouthOne`
+ * - `westTwoNorthOne`
  */
 function calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesKnightArray = [];
@@ -59,7 +67,7 @@ function calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calls `calculateLegalMovesKnight` and returns legal moves for the knight
+ * @description Calls `calculateLegalMovesKnight` and returns **legal** moves for the `"knight"`
  */
 export function legalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const legalMovesKnightArray = calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
@@ -76,7 +84,15 @@ export function legalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates all knight moves
+ * @description Calculates **all** `"knight"` moves in every irregular direction
+ * - `northTwoWestOne`
+ * - `northTwoEastOne`
+ * - `eastTwoNorthOne`
+ * - `eastTwoSouthOne`
+ * - `southTwoEastOne`
+ * - `southTwoWestOne`
+ * - `westTwoSouthOne`
+ * - `westTwoNorthOne`
  */
 function calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesKnightArray = [];
@@ -116,7 +132,7 @@ function calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calls `calculateAllMovesKnight` and returns legal moves for the knight
+ * @description Calls `calculateAllMovesKnight` and returns **all** moves for the `"knight"`
  */
 export function allMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const allMovesKnightArray = calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
