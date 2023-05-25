@@ -14,7 +14,7 @@ import {
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates legal king moves
+ * @description Calculates legal knight moves
  */
 function calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesKnightArray = [];
@@ -52,6 +52,15 @@ function calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
     return legalMovesKnightArray;
 }
 
+/**
+ * @function legalMovesKnight
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateLegalMovesKnight` and returns legal moves for the knight
+ */
 export function legalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const legalMovesKnightArray = calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
@@ -60,6 +69,15 @@ export function legalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
 
 // all
 
+/**
+ * @function calculateAllMovesKnight
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates all knight moves
+ */
 function calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesKnightArray = [];
 
@@ -91,6 +109,15 @@ function calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
     return allMovesKnightArray;
 }
 
+/**
+ * @function allMovesKnight
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateAllMovesKnight` and returns legal moves for the knight
+ */
 export function allMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const allMovesKnightArray = calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
