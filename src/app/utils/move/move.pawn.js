@@ -1,3 +1,4 @@
+import { MOVE_DIRECTION } from "./move.const.js";
 import {
     pieceIsSameColor,
     squareHasPiece,
@@ -8,10 +9,10 @@ import {
 
 function calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalPawnMovesArray = []
-    const pawnDirection = pieceColor === "light" ? -1 : 1;
+    const pawnDirection = pieceColor === "light" ? 1 : -1;
 
-    const northEast = square + (9 * pawnDirection);
-    const northWest = square + (11 * pawnDirection);
+    const northEast = square + (MOVE_DIRECTION.northEast * pawnDirection);
+    const northWest = square + (MOVE_DIRECTION.northWest * pawnDirection);
 
     [northEast, northWest].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move) && squareHasPiece(boardState, move) && !pieceIsSameColor(boardState, move, pieceColor)) {
@@ -33,10 +34,10 @@ export function legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor
 // legal straight
 
 function calculateLegalStraightPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
-    const pawnDirection = pieceColor === "light" ? -1 : 1;
+    const pawnDirection = pieceColor === "light" ? 1 : -1;
 
-    const northOne = square + (10 * pawnDirection);
-    const northTwo = square + (20 * pawnDirection);
+    const northOne = square + (MOVE_DIRECTION.north * pawnDirection);
+    const northTwo = square + ((MOVE_DIRECTION.north * 2) * pawnDirection);
 
     if (pieceHasMoved) {
         if (validSquare(BOARD_OCTAL_ARRAY, northOne) && !squareHasPiece(boardState, northOne)) {
@@ -67,10 +68,10 @@ export function legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMo
 
 function calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allPawnMovesArray = [];
-    const pawnDirection = pieceColor === "light" ? -1 : 1;
+    const pawnDirection = pieceColor === "light" ? 1 : -1;
 
-    const northEast = square + (9 * pawnDirection);
-    const northWest = square + (11 * pawnDirection);
+    const northEast = square + (MOVE_DIRECTION.northEast * pawnDirection);
+    const northWest = square + (MOVE_DIRECTION.northWest * pawnDirection);
 
     [
         northEast,

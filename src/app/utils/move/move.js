@@ -13,7 +13,7 @@ import { legalStraightMoves, allStraightMoves } from "./move.straight.js"
  * @param {string} pieceName 
  * @param {number} square
  * @returns {number[]} [`square`]
- * @description Calculates legal moves for a `square` if it has a `piece`
+ * @description Calculates **legal** moves for a `square` if it has a `piece`
  */
 export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pieceHasMoved, pieceName, square) {
     switch(pieceName) {
@@ -46,7 +46,7 @@ export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, p
  * @param {string} pieceName 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Calculates all moves for a `square` if it has a `piece`
+ * @description Calculates **all** moves for a `square` if it has a `piece`
  */
 export function calculateAllMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pieceName, square) {
     switch(pieceName) {

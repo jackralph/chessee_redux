@@ -18,7 +18,7 @@ export const BOARD_ALGEBRAIC_ARRAY = [
  * @const BOARD_OCTAL_ARRAY
  * @type {array}
  * @description Array with 64 numbers, each denoting the octal notation of a square
- */
+*/
 export const BOARD_OCTAL_ARRAY = [
     0o0, 0o1, 0o2, 0o3, 0o4, 0o5, 0o6, 0o7,
     10, 11, 12, 13, 14, 15, 16, 17,
@@ -57,12 +57,12 @@ export const STARTING_POSITION_PIECE_ARRAY = [
  */
 export const STARTING_POSITION_PIECE_ARRAY_TEST = [
     null, null, null, null, null, null, null, null,
+    null, null, null, null, null, 'p', null, null,
     null, null, null, null, null, null, null, null,
-    null, null, null, null, null, 'k', null, null,
     null, null, null, null, null, null, null, null,
-    null, null, null, null, null, null, null, null,
-    null, null, 'K', 'P', null, null, null, null,
-    null, null, null, null, null, null, null, null,
+    null, null, 'b', 'p', 'k', null, null, null,
+    null, null, 'K', 'P', 'B', null, null, null,
+    null, null, null, null, null, 'P', null, null,
     null, null, null, null, null, null, null, null,
 ]
 

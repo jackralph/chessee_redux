@@ -1,3 +1,4 @@
+import { MOVE_DIRECTION } from "./move.const.js";
 import {
     isContinualStraightPiece,
     pieceIsKing,
@@ -47,16 +48,16 @@ function calculateLegalStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, 
  */
 export function legalStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
-    const legalStraightNorthMovesArray = calculateLegalStraightMoves(-10, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalStraightNorthMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.north, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "east" moves
-    const legalStraightEastMovesArray = calculateLegalStraightMoves(1, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalStraightEastMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.east, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "south" moves
-    const legalStraightSouthMovesArray = calculateLegalStraightMoves(10, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalStraightSouthMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.south, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "west" moves
-    const legalStraightWestMovesArray = calculateLegalStraightMoves(-1, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalStraightWestMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.west, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     return [
         ...legalStraightNorthMovesArray,
@@ -112,16 +113,16 @@ function calculateAllStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
  */
 export function allStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
-    const allStraightNorthMovesArray = calculateAllStraightMoves(-10, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allStraightNorthMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.north, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "east" moves
-    const allStraightEastMovesArray = calculateAllStraightMoves(1, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allStraightEastMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.east, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "south" moves
-    const allStraightSouthMovesArray = calculateAllStraightMoves(10, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allStraightSouthMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.south, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "west" moves
-    const allStraightWestMovesArray = calculateAllStraightMoves(-1, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allStraightWestMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.west, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     return [
         ...allStraightNorthMovesArray,

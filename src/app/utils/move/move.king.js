@@ -1,3 +1,4 @@
+import { MOVE_DIRECTION } from "./move.const.js";
 import {
     pieceIsSameColor,
     squareHasPiece,
@@ -9,14 +10,14 @@ import {
 function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let legalMovesArray = [];
 
-    const north = square - 10;
-    const northEast = square - 9;
-    const east = square + 1;
-    const southEast = square + 11;
-    const south = square + 10;
-    const southWest = square + 9;
-    const west = square - 1;
-    const northWest = square - 11;
+    const north = square + MOVE_DIRECTION.north;
+    const northEast = square + MOVE_DIRECTION.northEast;
+    const east = square + MOVE_DIRECTION.east;
+    const southEast = square + MOVE_DIRECTION.southEast;
+    const south = square + MOVE_DIRECTION.south;
+    const southWest = square + MOVE_DIRECTION.southWest;
+    const west = square + MOVE_DIRECTION.west;
+    const northWest = square + MOVE_DIRECTION.northWest;
 
     [
         north,
@@ -53,14 +54,14 @@ export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
 function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     let allMovesArray = [];
 
-    const north = square - 10;
-    const northEast = square - 9;
-    const east = square + 1;
-    const southEast = square + 11;
-    const south = square + 10;
-    const southWest = square + 9;
-    const west = square - 1;
-    const northWest = square - 11;
+    const north = square + MOVE_DIRECTION.north;
+    const northEast = square + MOVE_DIRECTION.northEast;
+    const east = square + MOVE_DIRECTION.east;
+    const southEast = square + MOVE_DIRECTION.southEast;
+    const south = square + MOVE_DIRECTION.south;
+    const southWest = square + MOVE_DIRECTION.southWest;
+    const west = square + MOVE_DIRECTION.west;
+    const northWest = square + MOVE_DIRECTION.northWest;
 
     [
         north,

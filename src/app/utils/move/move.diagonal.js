@@ -1,3 +1,4 @@
+import { MOVE_DIRECTION } from "./move.const.js";
 import {
     isContinualDiagonalPiece,
     isForwardMove,
@@ -49,16 +50,16 @@ function calculateLegalDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, 
  */
 export function legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north-east" moves
-    const legalNorthEastDiagonalMovesArray = calculateLegalDiagonalMoves(-9, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalNorthEastDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.northEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
     
     // "south-east" moves
-    const legalSouthEastDiagonalMovesArray = calculateLegalDiagonalMoves(11, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalSouthEastDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.southEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "south-west" moves
-    const legalSouthWestDiagonalMovesArray = calculateLegalDiagonalMoves(9, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalSouthWestDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.southWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "north-west" moves
-    const legalNorthWestDiagonalMovesArray = calculateLegalDiagonalMoves(-11, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalNorthWestDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.northWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     return [
         ...legalNorthEastDiagonalMovesArray,
@@ -123,16 +124,16 @@ function calculateAllDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pi
  */
 export function allDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north-east" moves
-    const allNorthEastDiagonalMovesArray = calculateAllDiagonalMoves(-9, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allNorthEastDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.northEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
     
     // "south-east" moves
-    const allSouthEastDiagonalMovesArray = calculateAllDiagonalMoves(11, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allSouthEastDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.southEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "south-west" moves
-    const allSouthWestDiagonalMovesArray = calculateAllDiagonalMoves(9, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allSouthWestDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.southWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "north-west" moves
-    const allNorthWestDiagonalMovesArray = calculateAllDiagonalMoves(-11, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allNorthWestDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.northWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     return [
         ...allNorthEastDiagonalMovesArray,
