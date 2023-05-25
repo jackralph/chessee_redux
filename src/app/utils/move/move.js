@@ -1,7 +1,7 @@
 import { legalMovesDiagonal, allMovesDiagonal } from './move.diagonal.js'
 import { legalMovesKing, allMovesKing } from "./move.king.js"
 import { legalMovesKnight, allMovesKnight } from './move.knight.js'
-import { legalDiagonalMovesPawn, legalStraightMovesPawn, allDiagonalMovesPawn } from './move.pawn.js'
+import { legalMovesDiagonalPawn, legalMovesStraightPawn, allMovesDiagonalPawn } from './move.pawn.js'
 import { legalMovesStraight, allMovesStraight } from "./move.straight.js"
 
 /**
@@ -24,8 +24,8 @@ export function calculateLegalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, p
         case "knight":
             return legalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
         case "pawn":
-            const legalStraightMovesPawnArray = legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square);
-            const legalDiagonalMovesPawnArray = legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+            const legalStraightMovesPawnArray = legalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square);
+            const legalDiagonalMovesPawnArray = legalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
             return [...legalStraightMovesPawnArray, ...legalDiagonalMovesPawnArray];
         case "queen":
             const legalStraightMovesArray = legalMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
@@ -57,7 +57,7 @@ export function calculateAllMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, pie
         case "knight":
             return allMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
         case "pawn":
-            return allDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+            return allMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
         case "queen":
             const allStraightMovesArray = allMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
             const allDiagonalMovesArray = allMovesDiagonal(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
