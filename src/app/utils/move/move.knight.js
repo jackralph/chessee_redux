@@ -7,8 +7,17 @@ import {
 
 // legal
 
-function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let legalKnightMovesArray = [];
+/**
+ * @function calculateLegalMovesKnight
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates legal king moves
+ */
+function calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let legalMovesKnightArray = [];
 
     const northTwoWestOne = square + MOVE_DIRECTION.northTwoWestOne;
     const northTwoEastOne = square + MOVE_DIRECTION.northTwoEastOne;
@@ -31,26 +40,28 @@ function calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
     ].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             if (!squareHasPiece(boardState, move)) {
-                return legalKnightMovesArray.push(move);
+                return legalMovesKnightArray.push(move);
             } else if (!pieceIsSameColor(boardState, move, pieceColor)) {
-                return legalKnightMovesArray.push(move);
+                return legalMovesKnightArray.push(move);
             }
             return null;
         }
         return null;
     });
 
-    return legalKnightMovesArray;
+    return legalMovesKnightArray;
 }
 
-export function legalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    const legalKnightMovesArray = calculateLegalKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+export function legalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    const legalMovesKnightArray = calculateLegalMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
-    return legalKnightMovesArray;
+    return legalMovesKnightArray;
 }
 
-export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let knightMovesArray = [];
+// all
+
+function calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let allMovesKnightArray = [];
 
     const northTwoWestOne = square + MOVE_DIRECTION.northTwoWestOne;
     const northTwoEastOne = square + MOVE_DIRECTION.northTwoEastOne;
@@ -72,10 +83,16 @@ export function allKnightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
         westTwoNorthOne
     ].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
-            return knightMovesArray.push(move);
+            return allMovesKnightArray.push(move);
         }
         return null;
     });
     
-    return knightMovesArray;
+    return allMovesKnightArray;
+}
+
+export function allMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    const allMovesKnightArray = calculateAllMovesKnight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+
+    return allMovesKnightArray;
 }

@@ -10,7 +10,7 @@ import {
 // legal
 
 /**
- * @function calculateLegalStraightMoves
+ * @function calculateLegalMovesStraight
  * @param {number} squareStep 
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
@@ -19,58 +19,58 @@ import {
  * @returns {number[]} [`square`]
  * @description Calculates legal straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
  */
-function calculateLegalStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let legalStraightMovesArray = [];
+function calculateLegalMovesStraight(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let legalMovesStraightArray = [];
 
     for (let currentSquare = square + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (!squareHasPiece(boardState, currentSquare)) {
-            legalStraightMovesArray.push(currentSquare);
+            legalMovesStraightArray.push(currentSquare);
             continue;
         } else if (!pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-            legalStraightMovesArray.push(currentSquare);
+            legalMovesStraightArray.push(currentSquare);
             break;
         } else {
             break;
         }
     }
 
-    return legalStraightMovesArray;
+    return legalMovesStraightArray;
 }
 
 /**
- * @function legalStraightMoves
+ * @function legalMovesStraight
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalStraightMoves` to calculate moves in that direction
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalMovesStraight` to calculate moves in that direction
  */
-export function legalStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+export function legalMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
-    const legalStraightNorthMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.north, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalMovesStraightNorthArray = calculateLegalMovesStraight(MOVE_DIRECTION.north, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "east" moves
-    const legalStraightEastMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.east, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalMovesStraightEastArray = calculateLegalMovesStraight(MOVE_DIRECTION.east, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "south" moves
-    const legalStraightSouthMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.south, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalMovesStraightSouthArray = calculateLegalMovesStraight(MOVE_DIRECTION.south, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "west" moves
-    const legalStraightWestMovesArray = calculateLegalStraightMoves(MOVE_DIRECTION.west, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalMovesStraightWestArray = calculateLegalMovesStraight(MOVE_DIRECTION.west, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     return [
-        ...legalStraightNorthMovesArray,
-        ...legalStraightEastMovesArray,
-        ...legalStraightSouthMovesArray,
-        ...legalStraightWestMovesArray
+        ...legalMovesStraightNorthArray,
+        ...legalMovesStraightEastArray,
+        ...legalMovesStraightSouthArray,
+        ...legalMovesStraightWestArray
     ];
 }
 
 // all
 
 /**
- * @function calculateAllStraightMoves
+ * @function calculateAllMovesStraight
  * @param {number} squareStep 
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
@@ -79,55 +79,55 @@ export function legalStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
  * @returns {number[]} [`square`]
  * @description Calculates all straight moves for a specific `piece` on a `square` (used by `"rook"` and `"queen"`)
  */
-function calculateAllStraightMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let allStraightMovesArray = [];
+function calculateAllMovesStraight(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let allMovesStraightArray = [];
 
     for (let currentSquare = square + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualStraightPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-                allStraightMovesArray.push(currentSquare);
+                allMovesStraightArray.push(currentSquare);
             } else if (pieceIsKing(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-                allStraightMovesArray.push(currentSquare);
+                allMovesStraightArray.push(currentSquare);
                 break;
             } else {
-                allStraightMovesArray.push(currentSquare);
+                allMovesStraightArray.push(currentSquare);
                 break;
             }
         } else {
-            allStraightMovesArray.push(currentSquare);
+            allMovesStraightArray.push(currentSquare);
             continue;
         }
     }
 
-    return allStraightMovesArray;
+    return allMovesStraightArray;
 }
 
 /**
- * @function allStraightMoves
+ * @function allMovesStraight
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllStraightMoves` to calculate moves in that direction
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllMovesStraight` to calculate moves in that direction
  */
-export function allStraightMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+export function allMovesStraight(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north" moves
-    const allStraightNorthMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.north, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allMovesStraightNorthArray = calculateAllMovesStraight(MOVE_DIRECTION.north, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "east" moves
-    const allStraightEastMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.east, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allMovesStraightEastArray = calculateAllMovesStraight(MOVE_DIRECTION.east, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "south" moves
-    const allStraightSouthMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.south, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allMovesStraightSouthArray = calculateAllMovesStraight(MOVE_DIRECTION.south, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     // "west" moves
-    const allStraightWestMovesArray = calculateAllStraightMoves(MOVE_DIRECTION.west, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allMovesStraightWestArray = calculateAllMovesStraight(MOVE_DIRECTION.west, BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
     return [
-        ...allStraightNorthMovesArray,
-        ...allStraightEastMovesArray,
-        ...allStraightSouthMovesArray,
-        ...allStraightWestMovesArray
+        ...allMovesStraightNorthArray,
+        ...allMovesStraightEastArray,
+        ...allMovesStraightSouthArray,
+        ...allMovesStraightWestArray
     ];
 }

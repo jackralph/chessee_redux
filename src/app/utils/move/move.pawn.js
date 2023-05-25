@@ -7,8 +7,8 @@ import {
 
 // legal diagonal
 
-function calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let legalPawnMovesArray = []
+function calculateLegalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let legalMovesDiagonalPawnArray = []
     const pawnDirection = pieceColor === "light" ? 1 : -1;
 
     const northEast = square + (MOVE_DIRECTION.northEast * pawnDirection);
@@ -16,24 +16,24 @@ function calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceCol
 
     [northEast, northWest].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move) && squareHasPiece(boardState, move) && !pieceIsSameColor(boardState, move, pieceColor)) {
-            legalPawnMovesArray.push(move);
+            legalMovesDiagonalPawnArray.push(move);
         }
 
         return null;
     });
 
-    return legalPawnMovesArray;
+    return legalMovesDiagonalPawnArray;
 }
 
 export function legalDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    const legalDiagonalPawnMoves = calculateLegalDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const legalMovesDiagonalPawnArray = calculateLegalMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
-    return legalDiagonalPawnMoves;
+    return legalMovesDiagonalPawnArray;
 }
 
 // legal straight
 
-function calculateLegalStraightPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
+function calculateLegalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
     const pawnDirection = pieceColor === "light" ? 1 : -1;
 
     const northOne = square + (MOVE_DIRECTION.north * pawnDirection);
@@ -59,15 +59,15 @@ function calculateLegalStraightPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceHas
 
 export function legalStraightMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square) {
     // "north" moves
-    const legalStraightPawnMovesArray = calculateLegalStraightPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square);
+    const legalMovesStraightPawnArray = calculateLegalMovesStraightPawn(BOARD_OCTAL_ARRAY, boardState, pieceHasMoved, pieceColor, square);
 
-    return legalStraightPawnMovesArray;
+    return legalMovesStraightPawnArray;
 }
 
 // all
 
-function calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let allPawnMovesArray = [];
+function calculateAllMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let allMovesDiagonalPawnArray = [];
     const pawnDirection = pieceColor === "light" ? 1 : -1;
 
     const northEast = square + (MOVE_DIRECTION.northEast * pawnDirection);
@@ -78,17 +78,17 @@ function calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor
         northWest
     ].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
-            allPawnMovesArray.push(move);
+            allMovesDiagonalPawnArray.push(move);
         }
 
         return null;
     });
 
-    return allPawnMovesArray;
+    return allMovesDiagonalPawnArray;
 }
 
 export function allDiagonalMovesPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    const allDiagonalPawnMoves = calculateAllDiagonalPawnMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
+    const allMovesDiagonalPawnArray = calculateAllMovesDiagonalPawn(BOARD_OCTAL_ARRAY, boardState, pieceColor, square);
 
-    return allDiagonalPawnMoves;
+    return allMovesDiagonalPawnArray;
 }

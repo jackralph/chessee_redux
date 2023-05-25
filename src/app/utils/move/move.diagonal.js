@@ -12,7 +12,7 @@ import {
 // legal
 
 /**
- * @function calculateLegalDiagonalMoves
+ * @function calculateLegalMovesDiagonal
  * @param {number} squareStep 
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
@@ -21,58 +21,58 @@ import {
  * @returns {number[]} [`square`]
  * @description Calculates legal diagonal moves for a specific `piece` on a `square` (used by `"bishop"` and `"queen"`)
  */
-function calculateLegalDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let legalDiagonalMovesArray = [];
+function calculateLegalMovesDiagonal(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let legalMovesDiagonalArray = [];
 
     for (let currentSquare = square + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         if (!squareHasPiece(boardState, currentSquare)) {
-            legalDiagonalMovesArray.push(currentSquare);
+            legalMovesDiagonalArray.push(currentSquare);
             continue;
         } else if (!pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-            legalDiagonalMovesArray.push(currentSquare);
+            legalMovesDiagonalArray.push(currentSquare);
             break;
         } else {
             break;
         }
     }
 
-    return legalDiagonalMovesArray;
+    return legalMovesDiagonalArray;
 }
 
 /**
- * @function legalDiagonalMoves
+ * @function legalMovesDiagonal
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalDiagonalMoves` to calculate moves in that direction
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateLegalMovesDiagonal` to calculate moves in that direction
  */
-export function legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+export function legalMovesDiagonal(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north-east" moves
-    const legalNorthEastDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.northEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalMovesDiagonalNorthEastArray = calculateLegalMovesDiagonal(MOVE_DIRECTION.northEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
     
     // "south-east" moves
-    const legalSouthEastDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.southEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalMovesDiagonalSouthEastArray = calculateLegalMovesDiagonal(MOVE_DIRECTION.southEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "south-west" moves
-    const legalSouthWestDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.southWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalMovesDiagonalSouthWestArray = calculateLegalMovesDiagonal(MOVE_DIRECTION.southWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "north-west" moves
-    const legalNorthWestDiagonalMovesArray = calculateLegalDiagonalMoves(MOVE_DIRECTION.northWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalMovesDiagonalNorthWestArray = calculateLegalMovesDiagonal(MOVE_DIRECTION.northWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     return [
-        ...legalNorthEastDiagonalMovesArray,
-        ...legalSouthEastDiagonalMovesArray,
-        ...legalSouthWestDiagonalMovesArray,
-        ...legalNorthWestDiagonalMovesArray
+        ...legalMovesDiagonalNorthEastArray,
+        ...legalMovesDiagonalSouthEastArray,
+        ...legalMovesDiagonalSouthWestArray,
+        ...legalMovesDiagonalNorthWestArray
     ];
 }
 
 // all
 
 /**
- * @function calculateAllDiagonalMoves
+ * @function calculateAllMovesDiagonal
  * @param {number} squareStep 
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
@@ -81,64 +81,64 @@ export function legalDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, sq
  * @returns {number[]} [`square`]
  * @description Calculates all diagonal moves for a specific `piece` on a `square` (used by `"bishop"` and `"queen"`)
  */
-function calculateAllDiagonalMoves(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let allDiagonalMovesArray = [];
+function calculateAllMovesDiagonal(squareStep, BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+    let allMovesDiagonalArray = [];
     
     for (let currentSquare = square + squareStep; validSquare(BOARD_OCTAL_ARRAY, currentSquare); currentSquare += squareStep) {
         const nextSquare = currentSquare + squareStep;
         if (squareHasPiece(boardState, currentSquare)) {
             if (isContinualDiagonalPiece(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-                allDiagonalMovesArray.push(currentSquare);
+                allMovesDiagonalArray.push(currentSquare);
             } else if (pieceIsPawn(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-                allDiagonalMovesArray.push(currentSquare);
+                allMovesDiagonalArray.push(currentSquare);
                 if (isForwardMove(currentSquare, nextSquare, pieceColor) && validSquare(BOARD_OCTAL_ARRAY, nextSquare)) {
-                    allDiagonalMovesArray.push(nextSquare);
+                    allMovesDiagonalArray.push(nextSquare);
                     break;
                 } else {
                     break;
                 }
             } else if (pieceIsKing(boardState, currentSquare) && pieceIsSameColor(boardState, currentSquare, pieceColor)) {
-                allDiagonalMovesArray.push(currentSquare)
+                allMovesDiagonalArray.push(currentSquare)
                 break;
             } else {
-                allDiagonalMovesArray.push(currentSquare);
+                allMovesDiagonalArray.push(currentSquare);
                 break;
             }
         } else {
-            allDiagonalMovesArray.push(currentSquare);
+            allMovesDiagonalArray.push(currentSquare);
             continue;
         }
     }
 
-    return allDiagonalMovesArray;
+    return allMovesDiagonalArray;
 }
 
 /**
- * @function allDiagonalMoves
+ * @function allMovesDiagonal
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
  * @param {string} pieceColor 
  * @param {number} square 
  * @returns {number[]} [`square`]
- * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllDiagonalMoves` to calculate moves in that direction
+ * @description Takes 4 directional coordinates (`squareStep`(s)) and passes to `calculateAllMovesDiagonal` to calculate moves in that direction
  */
-export function allDiagonalMoves(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
+export function allMovesDiagonal(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     // "north-east" moves
-    const allNorthEastDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.northEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allMovesDiagonalNorthEastArray = calculateAllMovesDiagonal(MOVE_DIRECTION.northEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
     
     // "south-east" moves
-    const allSouthEastDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.southEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allMovesDiagonalSouthEastArray = calculateAllMovesDiagonal(MOVE_DIRECTION.southEast, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "south-west" moves
-    const allSouthWestDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.southWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allMovesDiagonalSouthWestArray = calculateAllMovesDiagonal(MOVE_DIRECTION.southWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     // "north-west" moves
-    const allNorthWestDiagonalMovesArray = calculateAllDiagonalMoves(MOVE_DIRECTION.northWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allMovesDiagonalNorthWestArray = calculateAllMovesDiagonal(MOVE_DIRECTION.northWest, BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
     return [
-        ...allNorthEastDiagonalMovesArray,
-        ...allSouthEastDiagonalMovesArray,
-        ...allSouthWestDiagonalMovesArray,
-        ...allNorthWestDiagonalMovesArray
+        ...allMovesDiagonalNorthEastArray,
+        ...allMovesDiagonalSouthEastArray,
+        ...allMovesDiagonalSouthWestArray,
+        ...allMovesDiagonalNorthWestArray
     ];
 }

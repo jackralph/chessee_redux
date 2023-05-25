@@ -7,8 +7,17 @@ import {
 
 // legal
 
+/**
+ * @function calculateLegalMovesKing
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates legal king moves
+ */
 function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let legalMovesArray = [];
+    let legalMovesKingArray = [];
 
     const north = square + MOVE_DIRECTION.north;
     const northEast = square + MOVE_DIRECTION.northEast;
@@ -31,7 +40,7 @@ function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
     ].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
             if (!squareHasPiece(boardState, move) || !pieceIsSameColor(boardState, move, pieceColor)) {
-                legalMovesArray.push(move);
+                legalMovesKingArray.push(move);
             }
 
             return null;
@@ -40,19 +49,37 @@ function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
         return null;
     })
 
-    return legalMovesArray;
+    return legalMovesKingArray;
 }
 
+/**
+ * @function legalMovesKing
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateLegalMovesKing` and returns legal moves for the king
+ */
 export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    const legalKingMoves = calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const legalMovesKingArray = calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
-    return legalKingMoves;
+    return legalMovesKingArray;
 }
 
 // all
 
+/**
+ * @function calculateAllMovesKing
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates all king moves
+ */
 function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    let allMovesArray = [];
+    let allMovesKingArray = [];
 
     const north = square + MOVE_DIRECTION.north;
     const northEast = square + MOVE_DIRECTION.northEast;
@@ -74,17 +101,26 @@ function calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square
         northWest
     ].map(function(move) {
         if (validSquare(BOARD_OCTAL_ARRAY, move)) {
-            allMovesArray.push(move);
+            allMovesKingArray.push(move);
         }
 
         return null;
     })
 
-    return allMovesArray;
+    return allMovesKingArray;
 }
 
+/**
+ * @function allMovesKing
+ * @param {number[]} BOARD_OCTAL_ARRAY 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calls `calculateAllMovesKing` and returns all moves for the king
+ */
 export function allMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
-    const allKingMoves = calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const allMovesKingArray = calculateAllMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
 
-    return allKingMoves;
+    return allMovesKingArray;
 }
