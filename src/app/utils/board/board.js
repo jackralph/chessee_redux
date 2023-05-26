@@ -1,5 +1,5 @@
 import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
-import { sideInCheck } from '../move/move.shared.js';
+import { sideInCheck, moveSquareStateFromOriginToTarget, pieceIsPawn, squareHasPiece, pieceIsSameColor } from '../move/move.shared.js';
 import { BOARD_ALGEBRAIC_ARRAY, BOARD_OCTAL_ARRAY, STARTING_POSITION_PIECE_ARRAY, STARTING_POSITION_PIECE_ARRAY_TEST } from "./board.const.js";
 import { placePiece, setPieceColor } from './board.shared.js';
 
@@ -19,7 +19,7 @@ function initialiseBoardState() {
     let boardState = {};
 
     BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
-        const hasPiece = STARTING_POSITION_PIECE_ARRAY[i] !== null;
+        const hasPiece = STARTING_POSITION_PIECE_ARRAY_TEST[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
@@ -27,8 +27,8 @@ function initialiseBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY[i]),
-                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY[i])
+                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY_TEST[i]),
+                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY_TEST[i])
                 },
                 piecesAttackingThisSquare: []
             };
@@ -99,41 +99,7 @@ export function createBoardState() {
 // update
 
 /**
- * @function moveSquareStateFromOriginToTarget
- * @param {object} boardState 
- * @param {number} originSquare 
- * @param {number} targetSquare 
- * @returns {object} boardStateCopy
- * @description Takes the copied `boardState` and:
- * 1. Finds the squareState for the `originSquare` and `targetSquare`
- * 2. Replaces the `originSquareState` with the `targetSquareState` and sets `hasMoved` to `true`
- * 3. "Resets" the `originStateState` to only contain the `algebraicNotation` and `octalNotation`
- * 4. Returns the updated `boardStateCopy`
- */
-function moveSquareStateFromOriginToTarget(boardState, originSquare, targetSquare) {
-    let boardStateCopy = {...boardState};
-
-    const originSquareState = boardStateCopy[originSquare];
-    const targetSquareState = boardStateCopy[targetSquare];
-
-    boardStateCopy[targetSquare] = {
-        ...targetSquareState,
-        piece: {
-            ...originSquareState.piece,
-            hasMoved: true
-        }
-    };
-
-    boardStateCopy[originSquare] = {
-        algebraicNotation: originSquareState.algebraicNotation,
-        octalNotation: originSquareState.octalNotation
-    };
-
-    return boardStateCopy;
-}
-
-/**
- * @function
+ * @function updateLegalMoves
  * @param {object} boardState
  * @returns {object} boardStateCopy
  * @description Takes the copied `boardState` and:
@@ -160,6 +126,47 @@ function updateLegalMoves(boardState) {
                     legalMoves: legalMoves
                 },
             };
+        };
+    };
+
+    return boardStateCopy;
+}
+
+function updateLegalMovesAfterCheck(colorPiecesInCheck, boardState) {
+    let boardStateCopy = {...boardState};
+
+    for (const square in boardStateCopy) {
+        const hasPiece = !!boardStateCopy[square].piece;
+        if (hasPiece) {
+            const piece = boardStateCopy[square].piece
+            const pieceColor = piece.pieceColor;
+            if (pieceColor === colorPiecesInCheck) {
+                const legalMovesForPiece = piece.legalMoves;
+                const filteredLegalMovesForPiece = [];
+                
+                legalMovesForPiece.map(function(move) {
+                    let boardStateSecondCopy = {...boardStateCopy};
+                    const originSquare = Number(square);
+                    const targetSquare = Number(move);
+                    boardStateSecondCopy = moveSquareStateFromOriginToTarget(boardStateSecondCopy, originSquare, targetSquare);
+                    boardStateSecondCopy = updateLegalMoves(boardStateSecondCopy);
+                    boardStateSecondCopy = updateAllMoves(boardStateSecondCopy);
+                    
+                    const colorPiecesInCheck = sideInCheck(boardStateSecondCopy);
+
+                    if (!colorPiecesInCheck) {
+                        filteredLegalMovesForPiece.push(targetSquare);
+                    }
+                })
+    
+                boardStateCopy[square] = {
+                    ...boardStateCopy[square],
+                    piece: {
+                        ...boardStateCopy[square].piece,
+                        legalMoves: filteredLegalMovesForPiece
+                    },
+                };
+            }
         };
     };
 
@@ -208,6 +215,11 @@ function updateAllMoves(boardState) {
     return boardStateCopy;
 }
 
+function updateAllMovesAfterCheck(colorPiecesInCheck, boardState) {
+    console.log("updating all moves after check...")
+    return boardState;
+}
+
 /**
  * @function updateBoardState
  * @param {object} boardState 
@@ -234,7 +246,9 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
     const colorPiecesInCheck = sideInCheck(boardStateCopy);
 
     if (colorPiecesInCheck) {
-        console.log(`filtering moves for the ${colorPiecesInCheck} pieces...`)
+        boardStateCopy = updateLegalMovesAfterCheck(colorPiecesInCheck, boardStateCopy);
+
+        boardStateCopy = updateAllMovesAfterCheck(colorPiecesInCheck, boardStateCopy);
     }
 
     return boardStateCopy;

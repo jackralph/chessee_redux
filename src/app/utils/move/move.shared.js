@@ -39,31 +39,37 @@ export function isForwardMove(currentSquare, nextSquare, pieceColor) {
 }
 
 /**
- * @function sideInCheck
+ * @function moveSquareStateFromOriginToTarget
  * @param {object} boardState 
- * @returns {string} sideInCheck (`"light"` / `"dark"` / `undefined`)
- * @description Loops through `boardState` and:
- * - Finds the `"king"`
- * - Grabs the `square`(s) attacking the `"king"`
- * - Checks if the `square`(s) attacking the `"king"` are the same color, and if they aren't - update `sideInCheck` to `kingColor`
+ * @param {number} originSquare 
+ * @param {number} targetSquare 
+ * @returns {object} boardStateCopy
+ * @description Takes the copied `boardState` and:
+ * 1. Finds the squareState for the `originSquare` and `targetSquare`
+ * 2. Replaces the `originSquareState` with the `targetSquareState` and sets `hasMoved` to `true`
+ * 3. "Resets" the `originStateState` to only contain the `algebraicNotation` and `octalNotation`
+ * 4. Returns the updated `boardStateCopy`
  */
-export function sideInCheck(boardState) {
-    for (const square in boardState) {
-        if (squareHasPiece(boardState, square) && pieceIsKing(boardState, square)) {
-            const squaresAttackingKing = boardState[square].piecesAttackingThisSquare;
-            const kingColor = boardState[square].piece.pieceColor;
-            let sideInCheck = undefined;
-            
-            squaresAttackingKing.map(function(square) {
-                const attackingPieceColor = boardState[square].piece.pieceColor;
-                if (attackingPieceColor !== kingColor) {
-                    sideInCheck = kingColor;
-                };
-            });
+export function moveSquareStateFromOriginToTarget(boardState, originSquare, targetSquare) {
+    let boardStateCopy = {...boardState};
 
-            return sideInCheck;
+    const originSquareState = boardStateCopy[originSquare];
+    const targetSquareState = boardStateCopy[targetSquare];
+
+    boardStateCopy[targetSquare] = {
+        ...targetSquareState,
+        piece: {
+            ...originSquareState.piece,
+            hasMoved: true
         }
-    }
+    };
+
+    boardStateCopy[originSquare] = {
+        algebraicNotation: originSquareState.algebraicNotation,
+        octalNotation: originSquareState.octalNotation
+    };
+
+    return boardStateCopy;
 }
 
 /**
@@ -82,14 +88,14 @@ export function pieceIsKing(boardState, currentSquare) {
  * @param {object} boardState 
  * @param {number} currentSquare 
  * @returns {boolean}
- * @description Checks if `currentSquare` holds the `"king"` `piece`
+ * @description Checks if `currentSquare` holds the `"pawn"` `piece`
  */
 export function pieceIsPawn(boardState, currentSquare) {
     return boardState[currentSquare].piece.pieceName === "pawn";
 }
 
 /**
- * @function pieceIsPawn
+ * @function pieceIsSameColor
  * @param {object} boardState 
  * @param {number} square
  * @param {string} pieceColor
@@ -100,6 +106,34 @@ export function pieceIsSameColor(boardState, square, pieceColor) {
     const targetPieceColor = boardState[square].piece.pieceColor;
     
     return targetPieceColor === pieceColor;
+}
+
+/**
+ * @function sideInCheck
+ * @param {object} boardState 
+ * @returns {string} sideInCheck (`"light"` / `"dark"` / `undefined`)
+ * @description Loops through `boardState` and:
+ * - Finds the `"king"`
+ * - Grabs the `square`(s) attacking the `"king"`
+ * - Checks if the `square`(s) attacking the `"king"` are the same color, and if they aren't - update `sideInCheck` to `kingColor`
+ */
+export function sideInCheck(boardState) {
+    for (const square in boardState) {
+        if (squareHasPiece(boardState, square) && pieceIsKing(boardState, square)) {
+            const squaresAttackingKing = boardState[square].piecesAttackingThisSquare;
+            const kingColor = boardState[square].piece.pieceColor;
+            let sideInCheck = undefined;
+
+            squaresAttackingKing.map(function(squareAttackingKing) {
+                const attackingPieceColor = boardState[squareAttackingKing].piece.pieceColor;
+                if (attackingPieceColor !== kingColor) {
+                    sideInCheck = kingColor;
+                };
+            });
+
+            return sideInCheck;
+        }
+    }
 }
 
 /**
