@@ -1,4 +1,5 @@
 import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
+import { sideInCheck } from '../move/move.shared.js';
 import { BOARD_ALGEBRAIC_ARRAY, BOARD_OCTAL_ARRAY, STARTING_POSITION_PIECE_ARRAY, STARTING_POSITION_PIECE_ARRAY_TEST } from "./board.const.js";
 import { placePiece, setPieceColor } from './board.shared.js';
 
@@ -166,7 +167,7 @@ function updateLegalMoves(boardState) {
 }
 
 /**
- * @function updateSquaresBeingAttackedByPieces
+ * @function updateAllMoves
  * @param {object} boardState
  * @returns {object} boardStateCopy
  * @description Takes the copied `boardState` and:
@@ -174,7 +175,7 @@ function updateLegalMoves(boardState) {
  * 2. Applies the `piecesAttackingThisSquare` to each `square`(s) state
  * 3. Returns the updated `boardStateCopy`
  */
-function updateSquaresBeingAttackedByPieces(boardState) {
+function updateAllMoves(boardState) {
     let boardStateCopy = {...boardState};
     let piecesAttackingThisSquare = {};
 
@@ -217,8 +218,9 @@ function updateSquaresBeingAttackedByPieces(boardState) {
  * 1. Copies the `boardState` for modification
  * 2. Moves the `originSquare` to the `targetSquare` within the `boardState` and resets the `originSquare`
  * 3. Updates `legalMoves` for all squares following the change in state
- * 4. Updates `piecesAttackingThisSquare` for all squares following the change in state
- * 5. Returns the updated `boardStateCopy`
+ * 4. Updates `piecesAttackingThisSquare` for all squares following the change in state via `updateAllMoves`
+ * 5. Identifies if one side is in check and filters **legal** and **all** moves if so
+ * 6. Returns the updated `boardStateCopy`
  */
 export function updateBoardState(boardState, originSquare, targetSquare) {
     let boardStateCopy = {...boardState};
@@ -227,7 +229,13 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
 
     boardStateCopy = updateLegalMoves(boardStateCopy);
 
-    boardStateCopy = updateSquaresBeingAttackedByPieces(boardStateCopy);
+    boardStateCopy = updateAllMoves(boardStateCopy);
+    
+    const colorPiecesInCheck = sideInCheck(boardStateCopy);
+
+    if (colorPiecesInCheck) {
+        console.log(`filtering moves for the ${colorPiecesInCheck} pieces...`)
+    }
 
     return boardStateCopy;
 }

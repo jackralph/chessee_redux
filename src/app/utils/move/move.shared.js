@@ -39,6 +39,34 @@ export function isForwardMove(currentSquare, nextSquare, pieceColor) {
 }
 
 /**
+ * @function sideInCheck
+ * @param {object} boardState 
+ * @returns {string} sideInCheck (`"light"` / `"dark"` / `undefined`)
+ * @description Loops through `boardState` and:
+ * - Finds the `"king"`
+ * - Grabs the `square`(s) attacking the `"king"`
+ * - Checks if the `square`(s) attacking the `"king"` are the same color, and if they aren't - update `sideInCheck` to `kingColor`
+ */
+export function sideInCheck(boardState) {
+    for (const square in boardState) {
+        if (squareHasPiece(boardState, square) && pieceIsKing(boardState, square)) {
+            const squaresAttackingKing = boardState[square].piecesAttackingThisSquare;
+            const kingColor = boardState[square].piece.pieceColor;
+            let sideInCheck = undefined;
+            
+            squaresAttackingKing.map(function(square) {
+                const attackingPieceColor = boardState[square].piece.pieceColor;
+                if (attackingPieceColor !== kingColor) {
+                    sideInCheck = kingColor;
+                };
+            });
+
+            return sideInCheck;
+        }
+    }
+}
+
+/**
  * @function pieceIsKing
  * @param {object} boardState 
  * @param {number} currentSquare 
