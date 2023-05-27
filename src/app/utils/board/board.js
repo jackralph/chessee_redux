@@ -132,6 +132,20 @@ function updateLegalMoves(boardState) {
     return boardStateCopy;
 }
 
+/**
+ * @function updateLegalMovesAfterCheck
+ * @param {string} colorPiecesInCheck (`"light"` / `"dark"`)
+ * @param {object} boardState 
+ * @returns {object} boardStateCopy
+ * @description Takes `colorPiecesInCheck` & `boardState` and:
+ * - Loops through `boardState`
+ * - Detects if `square` has `piece`
+ * - Checks if `pieceColor` is same as `colorPiecesInCheck`
+ * - If so, maps through the **legal** `move`(s) for each `piece`
+ * - Simulates **legal** `move` and detects if `"king"` is still in check
+ * - If `"king"` is not in check after `move`, push `move` to `filteredLegalMovesForPiece`
+ * - Update `boardStateCopy` with new **legal** moves
+ */
 function updateLegalMovesAfterCheck(colorPiecesInCheck, boardState) {
     let boardStateCopy = {...boardState};
 
@@ -215,6 +229,22 @@ function updateAllMoves(boardState) {
     return boardStateCopy;
 }
 
+/**
+ * @function updateAllMovesAfterCheck
+ * @param {string} colorPiecesInCheck (`"light"` / `"dark"`)
+ * @param {object} boardState
+ * @returns {object} boardStateCopy
+ * @description Takes `colorPiecesInCheck` & `boardState` and:
+ * - Loops through `boardState`
+ * - Grabs `piecesAttackingThisSquare` for each `square`
+ * - Loops through `piecesAttackingThisSquare`
+ * - Grabs `piece` attacking `square`
+ * - Checks if `pieceColor` is same as `colorPiecesInCheck`
+ * - Checks if `piece`s **legal** moves contains `pieceAttackingThisSquare`
+ * - If it does not, do not push to the new array
+ * - If it does, push to the new array
+ * - If `piece` is opposite color of `colorPiecesInCheck` push to the new array
+ */
 function updateAllMovesAfterCheck(colorPiecesInCheck, boardState) {
     let boardStateCopy = {...boardState};
 
