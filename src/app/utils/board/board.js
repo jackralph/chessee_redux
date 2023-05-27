@@ -102,7 +102,6 @@ function filterAbandonmentLegalMoves(boardState) {
     const boardStateCopy = {...boardState};
 
     for (let square in boardStateCopy) {
-        console.log(`square: ${square}`)
         const squareNumber = Number(square);
         const hasPiece = !!boardStateCopy[squareNumber].piece;
         let filteredAbandonmentMoves = [];
@@ -141,6 +140,11 @@ function filterAbandonmentLegalMoves(boardState) {
     }
 
     return boardStateCopy;
+}
+
+function filterAbandonmentAllMoves(boardState) {
+    console.log("filtering all abandonment moves...")
+    return boardState;
 }
 
 /**
@@ -352,6 +356,8 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
     }
 
     boardStateCopy = filterAbandonmentLegalMoves(boardStateCopy);
+
+    boardStateCopy = filterAbandonmentAllMoves(boardStateCopy);
 
     return boardStateCopy;
 }
