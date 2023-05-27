@@ -118,11 +118,12 @@ export function pieceIsSameColor(boardState, square, pieceColor) {
  * - Checks if the `square`(s) attacking the `"king"` are the same color, and if they aren't - update `sideInCheck` to `kingColor`
  */
 export function sideInCheck(boardState) {
+    let sideInCheck = undefined;
+
     for (const square in boardState) {
         if (squareHasPiece(boardState, square) && pieceIsKing(boardState, square)) {
             const squaresAttackingKing = boardState[square].piecesAttackingThisSquare;
             const kingColor = boardState[square].piece.pieceColor;
-            let sideInCheck = undefined;
 
             squaresAttackingKing.map(function(squareAttackingKing) {
                 const attackingPieceColor = boardState[squareAttackingKing].piece.pieceColor;
@@ -131,9 +132,10 @@ export function sideInCheck(boardState) {
                 };
             });
 
-            return sideInCheck;
         }
     }
+
+    return sideInCheck;
 }
 
 /**

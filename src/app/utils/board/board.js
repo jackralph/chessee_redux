@@ -108,7 +108,9 @@ function filterAbandonmentLegalMoves(boardState) {
         let filteredAbandonmentMoves = [];
 
         if (hasPiece) {
-            const pieceLegalMoves = boardStateCopy[squareNumber].piece.legalMoves;
+            const piece = boardStateCopy[squareNumber].piece;
+            const pieceColor = piece.pieceColor;
+            const pieceLegalMoves = piece.legalMoves;
 
             if (pieceLegalMoves) {
                 pieceLegalMoves.map(function(move) {
@@ -122,7 +124,7 @@ function filterAbandonmentLegalMoves(boardState) {
                     
                     const colorPiecesInCheck = sideInCheck(boardStateSecondCopy);
                 
-                    if (!colorPiecesInCheck) {
+                    if (!colorPiecesInCheck || colorPiecesInCheck !== pieceColor) {
                         filteredAbandonmentMoves.push(targetSquare);
                     }
                 })
