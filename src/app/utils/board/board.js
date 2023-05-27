@@ -216,8 +216,33 @@ function updateAllMoves(boardState) {
 }
 
 function updateAllMovesAfterCheck(colorPiecesInCheck, boardState) {
-    console.log("updating all moves after check...")
-    return boardState;
+    let boardStateCopy = {...boardState};
+
+    for (let square in boardStateCopy) {
+        square = Number(square);
+        const piecesAttackingThisSquare = boardStateCopy[square].piecesAttackingThisSquare;
+        let filteredPiecesAttackingThisSquare = []
+
+        piecesAttackingThisSquare.map(function(pieceAttackingThisSquare) {
+            const piece = boardState[pieceAttackingThisSquare].piece;
+            const pieceColor = piece.pieceColor;
+            const pieceLegalMoves = piece.legalMoves;
+
+            if (pieceColor === colorPiecesInCheck && pieceLegalMoves.includes(square)) {
+                filteredPiecesAttackingThisSquare.push(pieceAttackingThisSquare);
+            } else if (pieceColor !== colorPiecesInCheck) {
+                filteredPiecesAttackingThisSquare.push(pieceAttackingThisSquare);
+            }
+        })
+
+        boardStateCopy[square] = {
+            ...boardStateCopy[square],
+            piecesAttackingThisSquare: filteredPiecesAttackingThisSquare
+        };
+    }
+
+
+    return boardStateCopy;
 }
 
 /**
