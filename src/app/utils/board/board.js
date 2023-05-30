@@ -143,8 +143,41 @@ function filterAbandonmentLegalMoves(boardState) {
 }
 
 function filterAbandonmentAllMoves(boardState) {
-    console.log("filtering all abandonment moves...")
-    return boardState;
+    let boardStateCopy = {...boardState}
+
+    // for (let square in boardStateCopy) {
+    //     const squareNumber = Number(square);
+    //     const squareState = boardStateCopy[squareNumber];
+    //     const piecesAttackingThisSquare = squareState.piecesAttackingThisSquare;
+    //     let filteredAbandonmentMoves = [];
+
+    //     if (piecesAttackingThisSquare.length) {
+    //         piecesAttackingThisSquare.map(function(pieceSquare) {
+    //             let boardStateSecondCopy = {...boardStateCopy};
+    //             const pieceAttackingThisSquare = boardState[pieceSquare];
+    //             const pieceColor = pieceAttackingThisSquare.piece.pieceColor;
+    //             const originSquare = pieceAttackingThisSquare.octalNotation;
+    //             const targetSquare = squareNumber;
+
+    //             boardStateSecondCopy = moveSquareStateFromOriginToTarget(boardStateSecondCopy, originSquare, targetSquare);
+    //             boardStateSecondCopy = updateLegalMoves(boardStateSecondCopy);
+    //             boardStateSecondCopy = updateAllMoves(boardStateSecondCopy);
+
+    //             const colorPiecesInCheck = sideInCheck(boardStateSecondCopy);
+                
+    //             if (!colorPiecesInCheck || colorPiecesInCheck !== pieceColor) {
+    //                 filteredAbandonmentMoves.push(targetSquare);
+    //             }
+    //         })
+    //     }
+
+    //     boardStateCopy[squareNumber] = {
+    //         ...boardStateCopy[squareNumber],
+    //         piecesAttackingThisSquare: filteredAbandonmentMoves
+    //     }
+    // }
+
+    return boardStateCopy;
 }
 
 /**
