@@ -1,4 +1,35 @@
 /**
+ * 
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @returns {boolean} abandonmentMove
+ * @description Checks if `"king"` is in check by `piece` that is different color than `pieceColor` in the current `boardState`
+ */
+export function isAbandonmentMove(boardState, pieceColor) {
+    let abandonmentMove = false;
+
+    for (const square in boardState) {
+        if (squareHasPiece(boardState, square) && pieceIsKing(boardState, square)) {
+            const kingColor = boardState[square].piece.pieceColor;
+            
+            if (kingColor === pieceColor) {
+                const squaresAttackingKing = boardState[square].piecesAttackingThisSquare;
+
+                squaresAttackingKing.map(function(squareAttackingKing) {
+                    const pieceAttackingKing = boardState[squareAttackingKing].piece;
+
+                    if (pieceAttackingKing.pieceColor !== kingColor) {
+                        abandonmentMove = true;
+                    }
+                })
+            }
+        }
+    }
+
+    return abandonmentMove;
+}
+
+/**
  * @function isContinualDiagonalPiece
  * @param {object} boardState 
  * @param {number} currentSquare 

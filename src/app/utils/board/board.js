@@ -1,5 +1,5 @@
 import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
-import { sideInCheck, moveSquareStateFromOriginToTarget } from '../move/move.shared.js';
+import { sideInCheck, moveSquareStateFromOriginToTarget, isAbandonmentMove } from '../move/move.shared.js';
 import { BOARD_ALGEBRAIC_ARRAY, BOARD_OCTAL_ARRAY, STARTING_POSITION_PIECE_ARRAY, STARTING_POSITION_PIECE_ARRAY_TEST } from "./board.const.js";
 import { placePiece, setPieceColor } from './board.shared.js';
 
@@ -97,6 +97,7 @@ export function createBoardState() {
 }
 
 // update
+
 /**
  * @function filterAbandonmentLegalMoves
  * @param {object} boardState 
@@ -126,9 +127,9 @@ function filterAbandonmentLegalMoves(boardState) {
                     boardStateSecondCopy = updateLegalMoves(boardStateSecondCopy);
                     boardStateSecondCopy = updateAllMoves(boardStateSecondCopy);
                     
-                    const colorPiecesInCheck = sideInCheck(boardStateSecondCopy);
-                
-                    if (!colorPiecesInCheck || colorPiecesInCheck !== pieceColor) {
+                    const abandonmentMove = isAbandonmentMove(boardStateSecondCopy, pieceColor);
+
+                    if (!abandonmentMove) {
                         filteredAbandonmentMoves.push(targetSquare);
                     }
 
@@ -261,9 +262,9 @@ function updateLegalMovesAfterCheck(colorPiecesInCheck, boardState) {
                     boardStateSecondCopy = updateLegalMoves(boardStateSecondCopy);
                     boardStateSecondCopy = updateAllMoves(boardStateSecondCopy);
                     
-                    const colorPiecesInCheck = sideInCheck(boardStateSecondCopy);
+                    const abandonmentMove = isAbandonmentMove(boardStateSecondCopy, pieceColor);
 
-                    if (!colorPiecesInCheck) {
+                    if (!abandonmentMove) {
                         filteredLegalMovesForPiece.push(targetSquare);
                     }
 
@@ -397,6 +398,10 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
 
     boardStateCopy = updateAllMoves(boardStateCopy);
     
+    boardStateCopy = filterAbandonmentLegalMoves(boardStateCopy);
+
+    boardStateCopy = filterAbandonmentAllMoves(boardStateCopy);
+
     const colorPiecesInCheck = sideInCheck(boardStateCopy);
 
     if (colorPiecesInCheck) {
@@ -404,10 +409,6 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
 
         boardStateCopy = updateAllMovesAfterCheck(colorPiecesInCheck, boardStateCopy);
     }
-
-    boardStateCopy = filterAbandonmentLegalMoves(boardStateCopy);
-
-    boardStateCopy = filterAbandonmentAllMoves(boardStateCopy);
 
     return boardStateCopy;
 }
