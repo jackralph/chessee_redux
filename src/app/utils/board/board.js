@@ -19,7 +19,7 @@ function initializeBoardState() {
     let boardState = {};
 
     BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
-        const hasPiece = STARTING_POSITION_PIECE_ARRAY_TEST[i] !== null;
+        const hasPiece = STARTING_POSITION_PIECE_ARRAY[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
@@ -27,8 +27,8 @@ function initializeBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY_TEST[i]),
-                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY_TEST[i])
+                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY[i]),
+                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY[i])
                 },
                 piecesAttackingThisSquare: []
             };
@@ -157,39 +157,41 @@ function filterAbandonmentLegalMoves(boardState) {
  * @description Removes `move`(s) from `piece`(s) **all** moves if they abandon the `"king"`.
  */
 function filterAbandonmentAllMoves(boardState) {
-    let boardStateCopy = {...boardState}
+    const boardStateCopy = {...boardState}
 
-    // for (let square in boardStateCopy) {
-    //     const squareNumber = Number(square);
-    //     const squareState = boardStateCopy[squareNumber];
-    //     const piecesAttackingThisSquare = squareState.piecesAttackingThisSquare;
-    //     let filteredAbandonmentMoves = [];
+    for (let square in boardStateCopy) {
+        const squareNumber = Number(square);
+        const squareState = boardStateCopy[squareNumber];
+        const piecesAttackingThisSquare = squareState.piecesAttackingThisSquare;
+        let filteredAbandonmentMoves = [];
 
-    //     if (piecesAttackingThisSquare.length) {
-    //         piecesAttackingThisSquare.map(function(pieceSquare) {
-    //             let boardStateSecondCopy = {...boardStateCopy};
-    //             const pieceAttackingThisSquare = boardState[pieceSquare];
-    //             const pieceColor = pieceAttackingThisSquare.piece.pieceColor;
-    //             const originSquare = pieceAttackingThisSquare.octalNotation;
-    //             const targetSquare = squareNumber;
+        if (piecesAttackingThisSquare.length) {
+            piecesAttackingThisSquare.map(function(pieceSquare) {
+                let boardStateSecondCopy = {...boardStateCopy};
+                const pieceAttackingThisSquare = boardState[pieceSquare];
+                const pieceColor = pieceAttackingThisSquare.piece.pieceColor;
+                const originSquare = pieceAttackingThisSquare.octalNotation;
+                const targetSquare = squareNumber;
 
-    //             boardStateSecondCopy = moveSquareStateFromOriginToTarget(boardStateSecondCopy, originSquare, targetSquare);
-    //             boardStateSecondCopy = updateLegalMoves(boardStateSecondCopy);
-    //             boardStateSecondCopy = updateAllMoves(boardStateSecondCopy);
+                boardStateSecondCopy = moveSquareStateFromOriginToTarget(boardStateSecondCopy, originSquare, targetSquare);
+                boardStateSecondCopy = updateLegalMoves(boardStateSecondCopy);
+                boardStateSecondCopy = updateAllMoves(boardStateSecondCopy);
 
-    //             const colorPiecesInCheck = sideInCheck(boardStateSecondCopy);
-                
-    //             if (!colorPiecesInCheck || colorPiecesInCheck !== pieceColor) {
-    //                 filteredAbandonmentMoves.push(targetSquare);
-    //             }
-    //         })
-    //     }
+                const abandonmentMove = isAbandonmentMove(boardStateSecondCopy, pieceColor);
 
-    //     boardStateCopy[squareNumber] = {
-    //         ...boardStateCopy[squareNumber],
-    //         piecesAttackingThisSquare: filteredAbandonmentMoves
-    //     }
-    // }
+                if (!abandonmentMove) {
+                    filteredAbandonmentMoves.push(originSquare);
+                }
+
+                return undefined;
+            })
+        }
+
+        boardStateCopy[squareNumber] = {
+            ...boardStateCopy[squareNumber],
+            piecesAttackingThisSquare: filteredAbandonmentMoves
+        }
+    }
 
     return boardStateCopy;
 }

@@ -68,7 +68,6 @@ export function Board() {
             setHighlightedSquare(null);
             setHighlightedSquareLegalMoves([]);
         }
-        console.groupEnd();
     };
 
     return (
