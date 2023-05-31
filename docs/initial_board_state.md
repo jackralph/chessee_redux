@@ -1,19 +1,18 @@
-# Board State
-
-## Create Board State
+# Create Board State
 
 When the `boardState` is initialized, the `createBoardState()` function is called. Currently, the only "starting position" is the standard starting position in chess. This has the potential to be customizable, for instance users who may want to start with a particular board position or a Chess960 starting position - however for now, the standard start is the only option.
 
-### `createBoardState()`
+## `createBoardState()`
 
-This function does two things:
+The following steps are taken to achieve this, and requires knowledge of the project terms, outlined in the [glossary](glossary.md):
 
 1. initializes the `boardState` via `initializeBoardState()`
+
 2. calculates the moves each `piece` in the `boardState` can make, subcategories of these moves can be defined as:
     - **legal** moves (which translate to a `piece`(s) `legalMoves`) - calculated via `calculateLegalMoves()`
     - **all** moves (which translate to a `square`(s) `piecesAttackingThisSquare`) - calculated via `calculateAllMoves()`
 
-_Note: there is currently no requirement to calculate "checking" or "abandonment" `move`(s) at this point as there are none in the initial `boardState` in a standard position._
+_Note: there is currently no requirement to calculate "checking" or "abandonment" move(s) at this point as there are none in the initial `boardState` in a standard position._
 
 Here's an example of a `square` if it has a `piece`:
 

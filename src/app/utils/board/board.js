@@ -8,12 +8,7 @@ import { placePiece, setPieceColor } from './board.shared.js';
 /**
  * @function initializeBoardState
  * @returns {object} boardState
- * @description
- * 1. Maps through the `BOARD_OCTAL_ARRAY`
- * 2. Detects whether the `octalSquare` has a piece
- * 3. Sets the `algebraicNotation`, `octalNotation` & `piecesAttackingThisSquare` for `square`(s) with no `piece`
- * 4. Sets the values from **3.** + `piece` for `square`(s) with a `piece`
- * 5. Returns the `boardState`
+ * @description Initializes the `boardState`
  */
 function initializeBoardState() {
     let boardState = {};
@@ -48,13 +43,7 @@ function initializeBoardState() {
  * 
  * @param {object} boardState 
  * @returns {object} boardStateCopy
- * @description Takes the `boardState` and:
- * 1. Loops through each `square` and finds ones that have a `piece`
- * 2. Calculates `legalMoves` for each `piece`
- * 3. Calculates `allMoves` for each `piece`
- * 4. Pushes the `legalMoves` onto the `square`(s) `piece` object
- * 5. Calculates the `piecesAttackingThisSquare` for each `square`(s)
- * 6. Returns the updated `boardStateCopy`
+ * @description Takes the `boardState` and calculates the move(s) for each `piece`
  */
 function calculateMovesForInitialBoardState(boardState) {
     let boardStateCopy = {...boardState};
@@ -84,10 +73,7 @@ function calculateMovesForInitialBoardState(boardState) {
 /**
  * @function createBoardState
  * @returns {object} boardState
- * @description
- * 1. Initializes the `boardState`
- * 2. Calculates the moves for the `square`(s) in the `boardState` and applies them to the `boardState`
- * 3. Returns the updated `boardState`
+ * @description Calls functions to create the `boardState`
  */
 export function createBoardState() {
     let boardState = initializeBoardState();
@@ -102,7 +88,7 @@ export function createBoardState() {
  * @function filterAbandonmentLegalMoves
  * @param {object} boardState 
  * @returns {object} boardStateCopy
- * @description Removes `move`(s) from `piece`(s) **legal** moves if they abandon the `"king"`.
+ * @description Removes move(s) from `piece`(s) **legal** moves if they abandon the `"king"`
  */
 function filterAbandonmentLegalMoves(boardState) {
     const boardStateCopy = {...boardState};
@@ -154,7 +140,7 @@ function filterAbandonmentLegalMoves(boardState) {
  * @function filterAbandonmentAllMoves
  * @param {object} boardState 
  * @returns {object} boardStateCopy
- * @description Removes `move`(s) from `piece`(s) **all** moves if they abandon the `"king"`.
+ * @description Removes move(s) from `piece`(s) **all** moves if they abandon the `"king"`
  */
 function filterAbandonmentAllMoves(boardState) {
     const boardStateCopy = {...boardState}
@@ -200,9 +186,7 @@ function filterAbandonmentAllMoves(boardState) {
  * @function updateLegalMoves
  * @param {object} boardState
  * @returns {object} boardStateCopy
- * @description Takes the copied `boardState` and:
- * 1. calculates the `legalMoves` for each `square` with a `piece` and applies these to the `square`(s) state
- * 2. Returns the updated `boardStateCopy`
+ * @description Takes a copied `boardState` and updates **legal** move(s) for each `piece`
  */
 function updateLegalMoves(boardState) {
     let boardStateCopy = {...boardState};
@@ -235,14 +219,7 @@ function updateLegalMoves(boardState) {
  * @param {string} colorPiecesInCheck (`"light"` / `"dark"`)
  * @param {object} boardState 
  * @returns {object} boardStateCopy
- * @description Takes `colorPiecesInCheck` & `boardState` and:
- * - Loops through `boardState`
- * - Detects if `square` has `piece`
- * - Checks if `pieceColor` is same as `colorPiecesInCheck`
- * - If so, maps through the **legal** `move`(s) for each `piece`
- * - Simulates **legal** `move` and detects if `"king"` is still in check
- * - If `"king"` is not in check after `move`, push `move` to `filteredLegalMovesForPiece`
- * - Update `boardStateCopy` with new **legal** moves
+ * @description Takes a copied `boardState` and updates **legal** move(s) for each `piece` after a check
  */
 function updateLegalMovesAfterCheck(colorPiecesInCheck, boardState) {
     let boardStateCopy = {...boardState};
@@ -291,10 +268,7 @@ function updateLegalMovesAfterCheck(colorPiecesInCheck, boardState) {
  * @function updateAllMoves
  * @param {object} boardState
  * @returns {object} boardStateCopy
- * @description Takes the copied `boardState` and:
- * 1. Maps through the `BOARD_OCTAL_ARRAY`, initializes an empty array for each square and adds it to the `piecesAttackingThisSquare` object
- * 2. Applies the `piecesAttackingThisSquare` to each `square`(s) state
- * 3. Returns the updated `boardStateCopy`
+ * @description Takes a copied `boardState` and updates `piecesAttackingThisSquare` for each `square`
  */
 function updateAllMoves(boardState) {
     let boardStateCopy = {...boardState};
@@ -334,16 +308,7 @@ function updateAllMoves(boardState) {
  * @param {string} colorPiecesInCheck (`"light"` / `"dark"`)
  * @param {object} boardState
  * @returns {object} boardStateCopy
- * @description Takes `colorPiecesInCheck` & `boardState` and:
- * - Loops through `boardState`
- * - Grabs `piecesAttackingThisSquare` for each `square`
- * - Loops through `piecesAttackingThisSquare`
- * - Grabs `piece` attacking `square`
- * - Checks if `pieceColor` is same as `colorPiecesInCheck`
- * - Checks if `piece`s **legal** moves contains `pieceAttackingThisSquare`
- * - If it does not, do not push to the new array
- * - If it does, push to the new array
- * - If `piece` is opposite color of `colorPiecesInCheck` push to the new array
+ * @description Takes a copied `boardState` and updates `piecesAttackingThisSquare` for each `square` after a check
  */
 function updateAllMovesAfterCheck(colorPiecesInCheck, boardState) {
     let boardStateCopy = {...boardState};
@@ -383,13 +348,7 @@ function updateAllMovesAfterCheck(colorPiecesInCheck, boardState) {
  * @param {number} originSquare 
  * @param {number} targetSquare 
  * @returns {object} boardStateCopy
- * @description Takes the current `boardState`, the `originSquare` & `targetSquare`, and:
- * 1. Copies the `boardState` for modification
- * 2. Moves the `originSquare` to the `targetSquare` within the `boardState` and resets the `originSquare`
- * 3. Updates `legalMoves` for all squares following the change in state
- * 4. Updates `piecesAttackingThisSquare` for all squares following the change in state via `updateAllMoves`
- * 5. Identifies if one side is in check and filters **legal** and **all** moves if so
- * 6. Returns the updated `boardStateCopy`
+ * @description Takes the current `boardState`, updates it with the new move, then calculates **all** and **legal** moves
  */
 export function updateBoardState(boardState, originSquare, targetSquare) {
     let boardStateCopy = {...boardState};

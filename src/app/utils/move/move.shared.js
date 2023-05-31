@@ -75,11 +75,7 @@ export function isForwardMove(currentSquare, nextSquare, pieceColor) {
  * @param {number} originSquare 
  * @param {number} targetSquare 
  * @returns {object} boardStateCopy
- * @description Takes the copied `boardState` and:
- * 1. Finds the squareState for the `originSquare` and `targetSquare`
- * 2. Replaces the `originSquareState` with the `targetSquareState` and sets `hasMoved` to `true`
- * 3. "Resets" the `originStateState` to only contain the `algebraicNotation` and `octalNotation`
- * 4. Returns the updated `boardStateCopy`
+ * @description Replaces the `targetSquare` state with the `originSquare` state, the `originSquare` state is then "reverted" back to it's normal `piece`-less state
  */
 export function moveSquareStateFromOriginToTarget(boardState, originSquare, targetSquare) {
     let boardStateCopy = {...boardState};
@@ -143,10 +139,7 @@ export function pieceIsSameColor(boardState, square, pieceColor) {
  * @function sideInCheck
  * @param {object} boardState 
  * @returns {string} sideInCheck (`"light"` / `"dark"` / `undefined`)
- * @description Loops through `boardState` and:
- * - Finds the `"king"`
- * - Grabs the `square`(s) attacking the `"king"`
- * - Checks if the `square`(s) attacking the `"king"` are the same color, and if they aren't - update `sideInCheck` to `kingColor`
+ * @description Looks for a `"king"` in check
  */
 export function sideInCheck(boardState) {
     let sideInCheck = undefined;
