@@ -1,5 +1,5 @@
-import { calculateMovesForInitialBoardState, createBoardState, initializeBoardState } from './board.js';
-import { initializeTestBoardState, initializeTestBoardStateWithMovesCalculated } from '../../../test/data/board_state.js'
+import { calculateMovesForInitialBoardState, createBoardState, initializeBoardState } from '../../app/utils/board/board.js';
+import { initializeTestBoardState, initializeTestBoardStateWithMovesCalculated } from '../data/board_state.js'
 
 describe("board.js", function() {
     describe("calculateMovesForInitialBoardState()", function() {

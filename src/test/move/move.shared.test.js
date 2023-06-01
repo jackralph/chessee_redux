@@ -1,4 +1,4 @@
-import { isAbandonmentMove } from "./move.shared";
+import { isAbandonmentMove } from "../../app/utils/move/move.shared";
 
 describe("move.shared.js", function() {
     describe("isAbandonmentMove()", function() {
