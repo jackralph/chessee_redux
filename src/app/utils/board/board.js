@@ -10,7 +10,7 @@ import { placePiece, setPieceColor } from './board.shared.js';
  * @returns {object} boardState
  * @description Initializes the `boardState`
  */
-function initializeBoardState() {
+export function initializeBoardState() {
     let boardState = {};
 
     BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
@@ -45,7 +45,7 @@ function initializeBoardState() {
  * @returns {object} boardStateCopy
  * @description Takes the `boardState` and calculates the move(s) for each `piece`
  */
-function calculateMovesForInitialBoardState(boardState) {
+export function calculateMovesForInitialBoardState(boardState) {
     let boardStateCopy = {...boardState};
 
     for (const square in boardStateCopy) {

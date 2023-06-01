@@ -1,6 +1,6 @@
 import { isAbandonmentMove } from "./move.shared";
 
-describe("move.shared.test.js", function() {
+describe("move.shared.js", function() {
     describe("isAbandonmentMove()", function() {
         test("can detect none-abandoning moves", function() {
             const boardState = {
