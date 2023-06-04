@@ -8,6 +8,66 @@ import {
 // legal
 
 /**
+ * @function calculateCastlingMovesKing
+ * @param {object} boardState 
+ * @param {string} pieceColor 
+ * @param {number} square 
+ * @returns {number[]} [`square`]
+ * @description Calculates castling moves for `"king"`
+ */
+function calculateCastlingMovesKing(boardState, pieceColor, square) {
+    let castlingMoves = [];
+    const kingHasMoved = boardState[square].piece.hasMoved;
+    const castlingSquares = {
+        light: {
+            king: {
+                east: 76,
+                west: 72
+            },
+            rook: {
+                east: 77,
+                west: 70
+            }
+        },
+        dark: {
+            king: {
+                east: 6,
+                west: 2
+            },
+            rook: {
+                east: 7,
+                west: 0
+            }
+        }
+    }
+
+    if (!kingHasMoved) {
+        const rookEastSquare = castlingSquares[pieceColor].rook.east;
+        const rookWestSquare = castlingSquares[pieceColor].rook.west;
+        const canCastleEast = (
+            squareHasPiece(boardState, rookEastSquare)
+            && boardState[rookEastSquare].piece.pieceName === "rook"
+            && !boardState[rookEastSquare].piece.hasMoved
+        );
+        const canCastleWest = (
+            squareHasPiece(boardState, rookWestSquare)
+            && boardState[rookWestSquare].piece.pieceName === "rook"
+            && !boardState[rookWestSquare].piece.hasMoved
+        );
+
+        if (canCastleEast) {
+            castlingMoves.push(castlingSquares[pieceColor].king.east);
+        }
+
+        if (canCastleWest) {
+            castlingMoves.push(castlingSquares[pieceColor].king.west);
+        }
+    }
+
+    return castlingMoves;
+}
+
+/**
  * @function calculateLegalMovesKing
  * @param {number[]} BOARD_OCTAL_ARRAY 
  * @param {object} boardState 
@@ -71,8 +131,9 @@ function calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, squa
  */
 export function legalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square) {
     const legalMovesKingArray = calculateLegalMovesKing(BOARD_OCTAL_ARRAY, boardState, pieceColor, square)
+    const castlingMovesKing = calculateCastlingMovesKing(boardState, pieceColor, square);
 
-    return legalMovesKingArray;
+    return [...legalMovesKingArray, ...castlingMovesKing];
 }
 
 // all

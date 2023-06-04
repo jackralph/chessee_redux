@@ -1,4 +1,70 @@
 /**
+ * @function castle
+ * @param {object} boardState 
+ * @param {number} originSquare 
+ * @param {object} originSquareState 
+ * @param {number} targetSquare 
+ * @param {object} targetSquareState 
+ * @returns {object} boardStateCopy
+ * @description Performs castling move
+ */
+function castle(boardState, originSquare, originSquareState, targetSquare, targetSquareState) {
+    let boardStateCopy = {...boardState};
+
+    const correspondingRookMove = {
+        2: {
+            rookOriginSquare: 0,
+            rookTargetSquare: 3
+        },
+        6: {
+            rookOriginSquare: 7,
+            rookTargetSquare: 5
+        },
+        72: {
+            rookOriginSquare: 70,
+            rookTargetSquare: 73
+        },
+        76: {
+            rookOriginSquare: 77,
+            rookTargetSquare: 75
+        },
+    }
+
+    boardStateCopy[targetSquare] = {
+        ...targetSquareState,
+        piece: {
+            ...originSquareState.piece,
+            hasMoved: true
+        }
+    };
+
+    boardStateCopy[originSquare] = {
+        algebraicNotation: originSquareState.algebraicNotation,
+        octalNotation: originSquareState.octalNotation
+    };
+
+    const rookTargetSquare = correspondingRookMove[targetSquare].rookTargetSquare;
+    const rookTargetSquareState = boardStateCopy[rookTargetSquare];
+    const rookOriginSquare = correspondingRookMove[targetSquare].rookOriginSquare;
+    const rookOriginSquareState = boardStateCopy[rookOriginSquare];
+
+    boardStateCopy[rookTargetSquare] = {
+        ...rookTargetSquareState,
+        piece: {
+            ...rookOriginSquareState.piece,
+            hasMoved: true
+        }
+    };
+
+    boardStateCopy[rookOriginSquare] = {
+        algebraicNotation: rookOriginSquareState.algebraicNotation,
+        octalNotation: rookOriginSquareState.octalNotation
+    };
+
+    return boardStateCopy;
+}
+
+/**
  * 
  * @param {object} boardState 
  * @param {string} pieceColor 
@@ -70,6 +136,35 @@ export function isForwardMove(currentSquare, nextSquare, pieceColor) {
 }
 
 /**
+ * @function move
+ * @param {object} boardState 
+ * @param {number} originSquare 
+ * @param {object} originSquareState 
+ * @param {number} targetSquare 
+ * @param {object} targetSquareState 
+ * @returns {object} boardStateCopy
+ * @description Performs regular move
+ */
+function move(boardState, originSquare, originSquareState, targetSquare, targetSquareState) {
+    let boardStateCopy = {...boardState};
+
+    boardStateCopy[targetSquare] = {
+    ...targetSquareState,
+        piece: {
+            ...originSquareState.piece,
+            hasMoved: true
+        }
+    };
+
+    boardStateCopy[originSquare] = {
+        algebraicNotation: originSquareState.algebraicNotation,
+        octalNotation: originSquareState.octalNotation
+    };
+
+    return boardStateCopy;
+}
+
+/**
  * @function moveSquareStateFromOriginToTarget
  * @param {object} boardState 
  * @param {number} originSquare 
@@ -82,19 +177,18 @@ export function moveSquareStateFromOriginToTarget(boardState, originSquare, targ
 
     const originSquareState = boardStateCopy[originSquare];
     const targetSquareState = boardStateCopy[targetSquare];
+    
+    if (pieceIsKing(boardStateCopy, originSquare)) {
+        const castlingMoveDifference = [2, -2];
 
-    boardStateCopy[targetSquare] = {
-        ...targetSquareState,
-        piece: {
-            ...originSquareState.piece,
-            hasMoved: true
+        if (castlingMoveDifference.includes(originSquare - targetSquare)) {
+            boardStateCopy = castle(boardStateCopy, originSquare, originSquareState, targetSquare, targetSquareState);
+        } else {
+            boardStateCopy = move(boardStateCopy, originSquare, originSquareState, targetSquare, targetSquareState)
         }
-    };
-
-    boardStateCopy[originSquare] = {
-        algebraicNotation: originSquareState.algebraicNotation,
-        octalNotation: originSquareState.octalNotation
-    };
+    } else {
+        boardStateCopy = move(boardStateCopy, originSquare, originSquareState, targetSquare, targetSquareState)
+    }
 
     return boardStateCopy;
 }
