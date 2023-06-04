@@ -1,4 +1,4 @@
-import { MOVE_DIRECTION } from "./move.const.js";
+import { CASTLING_SQUARES, MOVE_DIRECTION } from "./move.const.js";
 import {
     pieceIsSameColor,
     squareHasPiece,
@@ -18,28 +18,7 @@ import {
 function calculateCastlingMovesKing(boardState, pieceColor, square) {
     let castlingMoves = [];
     const kingHasMoved = boardState[square].piece.hasMoved;
-    const castlingSquares = {
-        light: {
-            king: {
-                east: 76,
-                west: 72
-            },
-            rook: {
-                east: 77,
-                west: 70
-            }
-        },
-        dark: {
-            king: {
-                east: 6,
-                west: 2
-            },
-            rook: {
-                east: 7,
-                west: 0
-            }
-        }
-    }
+    const castlingSquares = CASTLING_SQUARES;
 
     if (!kingHasMoved) {
         const rookEastSquare = castlingSquares[pieceColor].rook.east;

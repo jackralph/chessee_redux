@@ -1,5 +1,6 @@
+import { CASTLING_BLOCKING_SQUARES, CASTLING_SQUARES } from '../move/move.const.js';
 import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
-import { sideInCheck, moveSquareStateFromOriginToTarget, isAbandonmentMove } from '../move/move.shared.js';
+import { sideInCheck, moveSquareStateFromOriginToTarget, isAbandonmentMove, pieceIsKing } from '../move/move.shared.js';
 import { BOARD_ALGEBRAIC_ARRAY, BOARD_OCTAL_ARRAY, STARTING_POSITION_PIECE_ARRAY, STARTING_POSITION_PIECE_ARRAY_TEST } from "./board.const.js";
 import { placePiece, setPieceColor } from './board.shared.js';
 
@@ -14,7 +15,7 @@ export function initializeBoardState() {
     let boardState = {};
 
     BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
-        const hasPiece = STARTING_POSITION_PIECE_ARRAY_TEST[i] !== null;
+        const hasPiece = STARTING_POSITION_PIECE_ARRAY[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
@@ -22,8 +23,8 @@ export function initializeBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY_TEST[i]),
-                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY_TEST[i])
+                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY[i]),
+                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY[i])
                 },
                 piecesAttackingThisSquare: []
             };
@@ -177,6 +178,81 @@ function filterAbandonmentAllMoves(boardState) {
             ...boardStateCopy[squareNumber],
             piecesAttackingThisSquare: filteredAbandonmentMoves
         }
+    }
+
+    return boardStateCopy;
+}
+
+/**
+ * @function filterLegalCastlingMoves
+ * @param {object} boardState 
+ * @param {string} sideInCheck 
+ * @returns {object} boardStateCopy
+ * @description Filters move(s) according to the rule "no castling through check"
+ */
+function filterLegalCastlingMoves(boardState, sideInCheck) {
+    let boardStateCopy = {...boardState};
+
+    for (let square in boardStateCopy) {
+        const squareNumber = Number(square);
+        const hasPiece = !!boardStateCopy[squareNumber].piece;
+
+        if (hasPiece && pieceIsKing(boardStateCopy, squareNumber)) {
+            const castlingSquares = CASTLING_SQUARES;
+            const king = boardStateCopy[squareNumber].piece;
+            const kingColor = king.pieceColor;
+            const kingLegalMoves = king.legalMoves;
+            let filteredCastlingMoves = [...kingLegalMoves];
+
+            if (sideInCheck === kingColor) {
+                for (const castlingDirection in castlingSquares[kingColor].king) {
+                    const castlingSquare = castlingSquares[kingColor].king[castlingDirection];
+                    filteredCastlingMoves = filteredCastlingMoves.filter(function(move) { return move !== castlingSquare })
+                }
+
+                boardStateCopy[squareNumber] = {
+                    ...boardStateCopy[squareNumber],
+                    piece: {
+                        ...boardStateCopy[squareNumber].piece,
+                        legalMoves: filteredCastlingMoves
+                    },
+                };
+            } else {
+                const castlingBlockingSquares = CASTLING_BLOCKING_SQUARES;
+                const king = boardStateCopy[squareNumber].piece;
+                const kingColor = king.pieceColor;
+                const kingLegalMoves = king.legalMoves;
+                let filteredCastlingMoves = [...kingLegalMoves];
+
+                for (const castlingDirection in castlingBlockingSquares[kingColor]) {
+                    let canCastleInThisDirection = true;
+                    castlingBlockingSquares[kingColor][castlingDirection].map(function(castleBlockingSquare) {
+                        const piecesAttackingCastlingSquare = boardStateCopy[castleBlockingSquare].piecesAttackingThisSquare;
+                        
+                        piecesAttackingCastlingSquare.map(function(pieceAttackingCastlingSquare) {
+                            const pieceAttackingCastleBlockingSquare = boardState[pieceAttackingCastlingSquare].piece;
+                            const pieceColor = pieceAttackingCastleBlockingSquare.pieceColor;
+                            if (pieceColor !== kingColor) {
+                                canCastleInThisDirection = false;
+                            }
+                        })
+                    })
+
+                    if (!canCastleInThisDirection) {
+                        const castlingSquare = castlingSquares[kingColor].king[castlingDirection];
+                        filteredCastlingMoves = filteredCastlingMoves.filter(function(move) { return move !== castlingSquare; })
+                    }
+                }
+
+                boardStateCopy[squareNumber] = {
+                    ...boardStateCopy[squareNumber],
+                    piece: {
+                        ...boardStateCopy[squareNumber].piece,
+                        legalMoves: filteredCastlingMoves
+                    },
+                };
+            }
+        };
     }
 
     return boardStateCopy;
@@ -370,6 +446,8 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
 
         boardStateCopy = updateAllMovesAfterCheck(colorPiecesInCheck, boardStateCopy);
     }
+
+    boardStateCopy = filterLegalCastlingMoves(boardStateCopy, colorPiecesInCheck);
 
     return boardStateCopy;
 }
