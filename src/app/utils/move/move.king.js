@@ -1,3 +1,4 @@
+import { CASTLING_PATH_SQUARES } from "./move.const.js";
 import { CASTLING_SQUARES, MOVE_DIRECTION } from "./move.const.js";
 import {
     pieceIsSameColor,
@@ -19,19 +20,37 @@ function calculateCastlingMovesKing(boardState, pieceColor, square) {
     let castlingMoves = [];
     const kingHasMoved = boardState[square].piece.hasMoved;
     const castlingSquares = CASTLING_SQUARES;
+    const castlingBlockingSquares = CASTLING_PATH_SQUARES;
 
     if (!kingHasMoved) {
         const rookEastSquare = castlingSquares[pieceColor].rook.east;
         const rookWestSquare = castlingSquares[pieceColor].rook.west;
+        let piecesBlockingCastlingEast = [];
+        let piecesBlockingCastlingWest = [];
+
+        castlingBlockingSquares[pieceColor].east.map(function(square) {
+            piecesBlockingCastlingEast.push(!squareHasPiece(boardState, square));
+        });
+
+        castlingBlockingSquares[pieceColor].west.map(function(square) {
+            piecesBlockingCastlingWest.push(!squareHasPiece(boardState, square));
+        });
+
+        const eastCastlingIsClear = !piecesBlockingCastlingEast.includes(false);
+        const westCastlingIsClear = !piecesBlockingCastlingWest.includes(false);
+
         const canCastleEast = (
             squareHasPiece(boardState, rookEastSquare)
             && boardState[rookEastSquare].piece.pieceName === "rook"
             && !boardState[rookEastSquare].piece.hasMoved
+            && eastCastlingIsClear
         );
+
         const canCastleWest = (
             squareHasPiece(boardState, rookWestSquare)
             && boardState[rookWestSquare].piece.pieceName === "rook"
             && !boardState[rookWestSquare].piece.hasMoved
+            && westCastlingIsClear
         );
 
         if (canCastleEast) {

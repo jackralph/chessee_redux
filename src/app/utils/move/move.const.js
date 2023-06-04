@@ -88,3 +88,20 @@ export const CASTLING_BLOCKING_SQUARES = {
         west: [2, 3]
     }
 }
+
+
+/**
+ * @const CASTLING_PATH_SQUARES
+ * @type {object}
+ * @description Reference for path for castling `square`(s)
+ */
+export const CASTLING_PATH_SQUARES = {
+    light: {
+        east: [75, 76],
+        west: [71, 72, 73]
+    },
+    dark: {
+        east: [5, 6],
+        west: [1, 2, 3]
+    }
+}
