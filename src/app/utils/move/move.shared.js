@@ -1,3 +1,5 @@
+import { MOVE_DIRECTION } from "./move.const";
+
 /**
  * @function castle
  * @param {object} boardState 
@@ -62,6 +64,43 @@ function castle(boardState, originSquare, originSquareState, targetSquare, targe
     };
 
     return boardStateCopy;
+}
+
+/**
+ * @param {object} boardState
+ * @returns {boolean} enPassantPossible
+ */
+export function checkForEnPassant(boardState, originSquare, targetSquare) {
+    const originSquareState = boardState[originSquare];
+    const targetSquareState = boardState[targetSquare];
+    const pieceJustMoved = targetSquareState.piece;
+    const adjacentSquares = [
+        boardState[targetSquare - 1],
+        boardState[targetSquare + 1]
+    ];
+
+    let enPassantMoves = [];
+
+    adjacentSquares.map(function(square) {
+        const colorPieceJustMoved = pieceJustMoved.pieceColor;
+        if (
+            squareHasPiece(boardState, square.octalNotation)
+            && pieceIsPawn(boardState, square.octalNotation)
+            && !pieceIsSameColor(boardState, square.octalNotation, colorPieceJustMoved)
+        ) {
+            const pawnDirection = square.piece.pieceColor === "light" ? 1 : -1;
+            const moveDirection = targetSquareState.octalNotation - square.octalNotation;
+            const destinationSquare = (square.octalNotation + moveDirection) + (MOVE_DIRECTION.north * pawnDirection);
+
+            enPassantMoves.push({originSquare: square.octalNotation, targetSquare: destinationSquare})
+        }
+    });
+
+    enPassantMoves.map(function(move) {
+        console.log("adding en passant moves...");
+    })
+
+    return boardState;
 }
 
 /**

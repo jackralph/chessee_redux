@@ -1,6 +1,6 @@
 import { CASTLING_BLOCKING_SQUARES, CASTLING_SQUARES } from '../move/move.const.js';
 import { calculateLegalMoves, calculateAllMoves } from '../move/move.js';
-import { sideInCheck, moveSquareStateFromOriginToTarget, isAbandonmentMove, pieceIsKing } from '../move/move.shared.js';
+import { checkForEnPassant, sideInCheck, moveSquareStateFromOriginToTarget, isAbandonmentMove, pieceIsKing } from '../move/move.shared.js';
 import { BOARD_ALGEBRAIC_ARRAY, BOARD_OCTAL_ARRAY, STARTING_POSITION_PIECE_ARRAY, STARTING_POSITION_PIECE_ARRAY_TEST } from "./board.const.js";
 import { placePiece, setPieceColor } from './board.shared.js';
 
@@ -434,6 +434,12 @@ export function updateBoardState(boardState, originSquare, targetSquare) {
     boardStateCopy = updateLegalMoves(boardStateCopy);
 
     boardStateCopy = updateAllMoves(boardStateCopy);
+
+    const enPassantPossible = checkForEnPassant(boardStateCopy, originSquare, targetSquare);
+
+    if (enPassantPossible.isPossible) {
+        
+    }
     
     boardStateCopy = filterAbandonmentLegalMoves(boardStateCopy);
 
