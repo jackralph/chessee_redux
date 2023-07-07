@@ -56,14 +56,14 @@ export const STARTING_POSITION_PIECE_ARRAY = [
  * @description **TEST ONLY** Array containing test setup of pieces
  */
 export const STARTING_POSITION_PIECE_ARRAY_TEST = [
-    'r' ,null, null, null, 'k', null, null, 'r',
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
     null, null, null, null, null, null, null, null,
+    null, null, null, null, 'p', null, null, null,
     null, null, null, null, null, null, null, null,
+    null, null, null, 'P', null, null, null, null,
     null, null, null, null, null, null, null, null,
-    'R', null, null, null, 'K', null, null, 'R'
 ]
 
 /**

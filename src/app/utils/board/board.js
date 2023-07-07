@@ -15,7 +15,7 @@ export function initializeBoardState() {
     let boardState = {};
 
     BOARD_OCTAL_ARRAY.map(function(octalSquare, i) {
-        const hasPiece = STARTING_POSITION_PIECE_ARRAY[i] !== null;
+        const hasPiece = STARTING_POSITION_PIECE_ARRAY_TEST[i] !== null;
         if (hasPiece) {
             return boardState[octalSquare] = {
                 algebraicNotation: BOARD_ALGEBRAIC_ARRAY[i],
@@ -23,8 +23,8 @@ export function initializeBoardState() {
                 piece: {
                     hasMoved: false,
                     legalMoves: [],
-                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY[i]),
-                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY[i])
+                    pieceColor: setPieceColor(STARTING_POSITION_PIECE_ARRAY_TEST[i]),
+                    pieceName: placePiece(STARTING_POSITION_PIECE_ARRAY_TEST[i])
                 },
                 piecesAttackingThisSquare: []
             };
